@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?> 
+<package> 
+  <metadata> 
+    <id>PS-Get</id> 
+    <version>0.1.0.0</version> 
+    <authors>Andrew Nurse</authors>
+    <description>NuGet-based system for deploying PowerShell Modules</description> 
+    <language>en-US</language>
+    <licenseUrl>http://www.apache.org/licenses/LICENSE-2.0</licenseUrl>
+    <projectUrl>http://www.bitbucket.org/anurse/psget/</projectUrl>
+  </metadata> 
+</package>
