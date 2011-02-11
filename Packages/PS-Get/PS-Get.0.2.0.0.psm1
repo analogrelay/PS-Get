@@ -1,7 +1,7 @@
-$script:PackageRoot = $args[0]
+$PsGetInstallRoot = (Convert-Path $PSScriptRoot\..)
 
 function Install-PSPackage($Id = $(throw 'Id is required'), $Version = $null, $Source = "https://go.microsoft.com/fwlink/?LinkID=206669") {
-		pushd $script:PackageRoot
+		pushd $PsGetInstallRoot
 		$versionArg = ""
 		if($Version -ne $null) {
 			$versionArg = "-v $Version"
@@ -15,5 +15,3 @@ function Get-PSPackage($Search = "", $Source = "https://go.microsoft.com/fwlink/
 		& "$PSScriptRoot\NuGet.exe" list -s $Source
 }
 Export-ModuleMember -Function Get-PSPackage
-
-$env:PSModulePath = "$($env:PSModulePath);$($script:PackageRoot)\packages"
