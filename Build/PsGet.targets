@@ -6,6 +6,7 @@
 			Package;
 			AfterBuild;
 		</BuildDependsOn>
+		<IntermediatePath>$(MSBuildThisFileDirectory)\..\Obj\$(MSBuildProjectName)</IntermediatePath>
 		<_FullOutput>$([System.IO.Path]::GetFullPath('$(OutputDir)'))</_FullOutput>
 	</PropertyGroup>
 	<Target Name="Build" DependsOnTargets="$(BuildDependsOn)">
@@ -13,8 +14,11 @@
 	<Target Name="BeforeBuild" />
 	<Target Name="AfterBuild" />
 	<Target Name="Package">
+		<RemoveDir Directories="$(IntermediatePath)" Condition="Exists('$(IntermediatePath)')" />
+		<MakeDir Directories="$(IntermediatePath)" />
+		<Copy SourceFiles="@(Content)" DestinationFolder="$(IntermediatePath)" />
 		<MakeDir Directories="$(_FullOutput)" Condition="!Exists('$(_FullOutput)')" />
-		<Exec Command="&quot;$(MSBuildThisFileDirectory)\NuGet.exe&quot; pack @(Spec->'%(FullPath)') -b @(Spec->'%(RootDir)%(Directory)') -o $(_FullOutput)" />
+		<Exec Command="&quot;$(MSBuildThisFileDirectory)\NuGet.exe&quot; pack &quot;@(Spec->'$(IntermediatePath)\%(Filename)%(Extension)')&quot; -b &quot;$(IntermediatePath)&quot; -o &quot;$(_FullOutput)&quot;" />
 	</Target>
 	
 	<PropertyGroup>
@@ -33,6 +37,7 @@
 			<_Del Include="$(_FullOutput)\$(MSBuildProjectName)*.nupkg" />
 		</ItemGroup>
 		<Delete Files="@(_Del)" />
+		<RemoveDir Directories="$(IntermediatePath)" />
 	</Target>
 	
 	<Target Name="Rebuild" DependsOnTargets="Clean;Build" />
