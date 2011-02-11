@@ -16,4 +16,24 @@
 		<MakeDir Directories="$(_FullOutput)" Condition="!Exists('$(_FullOutput)')" />
 		<Exec Command="&quot;$(MSBuildThisFileDirectory)\NuGet.exe&quot; pack @(Spec->'%(FullPath)') -b @(Spec->'%(RootDir)%(Directory)') -o $(_FullOutput)" />
 	</Target>
+	
+	<PropertyGroup>
+		<CleanDependsOn>
+			BeforeClean;
+			CleanPackage;
+			AfterClean;
+		</CleanDependsOn>
+	</PropertyGroup>
+	<Target Name="Clean" DependsOnTargets="$(CleanDependsOn)">
+	</Target>
+	<Target Name="BeforeClean" />
+	<Target Name="AfterClean" />
+	<Target Name="CleanPackage">
+		<ItemGroup>
+			<_Del Include="$(_FullOutput)\$(MSBuildProjectName)*.nupkg" />
+		</ItemGroup>
+		<Delete Files="@(_Del)" />
+	</Target>
+	
+	<Target Name="Rebuild" DependsOnTargets="Clean;Build" />
 </Project>

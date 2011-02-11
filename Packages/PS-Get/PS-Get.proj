@@ -4,7 +4,7 @@
 		<Spec Include="PS-Get.nuspec" />
 	</ItemGroup>
 	<PropertyGroup>
-		<OutputDir>..\..\Bin</OutputDir>
+		<OutputDir>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)\..\..\Bin'))</OutputDir>
 	</PropertyGroup>
-	<Import Project="..\..\Build\PsGet.targets" />
+	<Import Project="$(MSBuildThisFileDirectory)\..\..\Build\PsGet.targets" />
 </Project>

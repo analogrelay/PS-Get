@@ -8,10 +8,19 @@
 		<Content Include="PsGetBoot\**" />
 	</ItemGroup>
 	<Target Name="Build">
+		<MSBuild Projects="..\Packages\PS-Get\PS-Get.proj" />
 		<RemoveDir Directories="$(IntermediatePath)" Condition="Exists('$(IntermediatePath)')" />
-		<MakeDir Directories="$(IntermediatePath)" />
+		<MakeDir Directories="$(IntermediatePath);$(IntermediatePath)\Modules" />
 		<Copy SourceFiles="@(Content)" DestinationFolder="$(IntermediatePath)" />
-		<!-- TODO: Install PS-Get into bootstrapper -->
-		<!-- TODO: Build Bootstrapper NuPkg -->
+		<Exec Command="$([System.IO.Path]::GetFullPath('..\Build\NuGet.exe')) install PS-Get -s $([System.IO.Path]::GetFullPath('$(OutputPath)'))" 
+		      WorkingDirectory="$(IntermediatePath)\Modules" />
+		<Exec Command="$([System.IO.Path]::GetFullPath('..\Build\NuGet.exe')) pack $(IntermediatePath)\PsGetBoot.nuspec -b $(IntermediatePath) -o $(OutputPath)" />
+	</Target>
+	<Target Name="Clean">
+		<ItemGroup>
+			<_Del Include="$(OutputPath)\PsGetBoot*.nupkg" />
+		</ItemGroup>
+		<RemoveDir Directories="$(IntermediatePath)" />
+		<Delete Files="@(_Del)" />
 	</Target>
 </Project>
