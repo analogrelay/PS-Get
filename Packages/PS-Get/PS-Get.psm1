@@ -6,12 +6,12 @@ function Install-PSPackage($Id = $(throw 'Id is required'), $Version = $null, $S
 		if($Version -ne $null) {
 			$versionArg = "-v $Version"
 		}
-		& "$PSScriptRoot\NuGet.exe" install -s $Source $Id $versionArg
+		& "$PSScriptRoot\NuGet.exe" install -x -s $Source $Id $versionArg
 		popd
 }
 Export-ModuleMember -Function Install-PSPackage
 
-function Get-PSPackage($Search = "", $Source = "https://go.microsoft.com/fwlink/?LinkID=206669") {
+function Get-PSPackage($Source = "https://go.microsoft.com/fwlink/?LinkID=206669") {
 		& "$PSScriptRoot\NuGet.exe" list -s $Source
 }
 Export-ModuleMember -Function Get-PSPackage

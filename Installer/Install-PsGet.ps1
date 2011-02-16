@@ -1,5 +1,5 @@
 param(
-	[Parameter(Mandatory=$false)][string]$NuGetSource = "http://anur.se/nugetexe",
+	[Parameter(Mandatory=$false)][string]$NuGetSource = "http://blog.andrewnurse.net/NuGet.exe",
 	[Parameter(Mandatory=$false)][string]$PsGetSource = "https://go.microsoft.com/fwlink/?LinkID=206669"
 )
 
@@ -32,12 +32,9 @@ if(Test-Path $temp\NuGet.exe) {
 Write-Host "Downloading NuGet.exe Command Line Tool..."
 $wc = New-Object System.Net.WebClient
 $wc.DownloadFile($NuGetSource, "$(Convert-Path $temp)\NuGet.exe");
-Write-Host "Updating to latest version of NuGet.exe"
-& $temp\NuGet.exe update
-del $temp\NuGet.exe.old
 
-Write-Host "Using NuGet.exe to install PsGetBoot package"
-& $temp\NuGet.exe install PS-Get -s $PsGetSource
+Write-Host "Using NuGet.exe to install PS-Get module to $installPath"
+& $temp\NuGet.exe install PS-Get -s $PsGetSource -x
 
 Write-Host "Deleting Temporary version of NuGet.exe..."
 del $temp\NuGet.exe
