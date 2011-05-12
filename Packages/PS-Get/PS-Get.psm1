@@ -14,4 +14,5 @@ Export-ModuleMember -Function Install-PSPackage
 function Get-PSPackage($Source = "https://go.microsoft.com/fwlink/?LinkID=206669") {
 		& "$PSScriptRoot\NuGet.exe" list -s $Source
 }
+#Foo
 Export-ModuleMember -Function Get-PSPackage
