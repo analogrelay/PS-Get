@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="6249001c-f1d6-46a9-bebd-55937232eb3f" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>true</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings>
+      <CollectionMapping TypeName="System.Collections.Generic.List`1" Category="List" />
+    </CollectionMappings>
+    <GenerateSerializableTypes>true</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <UseSerializerForFaults>true</UseSerializerForFaults>
+    <ReferenceAllAssemblies>true</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="net.pipe://localhost/PsGetHelper/mex" Protocol="mex" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="helper.wsdl" MetadataType="Wsdl" ID="de9636fc-e190-4041-bf70-058d80ff6354" SourceId="1" SourceUrl="net.pipe://localhost/PsGetHelper/mex" />
+    <MetadataFile FileName="service.wsdl" MetadataType="Wsdl" ID="95c65b59-4654-4044-bfbb-f7f9665c47be" SourceId="1" SourceUrl="net.pipe://localhost/PsGetHelper/mex" />
+    <MetadataFile FileName="helper.xsd" MetadataType="Schema" ID="b598cc4a-147c-4e9b-a8d1-7224555c2b51" SourceId="1" SourceUrl="net.pipe://localhost/PsGetHelper/mex" />
+    <MetadataFile FileName="service.xsd" MetadataType="Schema" ID="6a9e79eb-a65d-459f-b283-1a9a50117241" SourceId="1" SourceUrl="net.pipe://localhost/PsGetHelper/mex" />
+    <MetadataFile FileName="System.xsd" MetadataType="Schema" ID="7d326452-5dc4-4703-adac-669571a8503e" SourceId="1" SourceUrl="net.pipe://localhost/PsGetHelper/mex" />
+    <MetadataFile FileName="PsGet.Helper.Serializables.xsd" MetadataType="Schema" ID="242ea394-48b4-4cf9-8a07-2c8a95ba8ad9" SourceId="1" SourceUrl="net.pipe://localhost/PsGetHelper/mex" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>
