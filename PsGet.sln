@@ -15,6 +15,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Helper", "Source\Helper\Hel
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PS-Get", "Source\Packages\PS-Get\PS-Get.csproj", "{2D953EDF-41DD-4A08-BA6F-B64E7E918819}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Installer", "Source\Installer\Installer.csproj", "{4743F192-8003-4890-9C86-635781FEDB02}"
+	ProjectSection(ProjectDependencies) = postProject
+		{2D953EDF-41DD-4A08-BA6F-B64E7E918819} = {2D953EDF-41DD-4A08-BA6F-B64E7E918819}
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -45,6 +50,16 @@ Global
 		{2D953EDF-41DD-4A08-BA6F-B64E7E918819}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{2D953EDF-41DD-4A08-BA6F-B64E7E918819}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{2D953EDF-41DD-4A08-BA6F-B64E7E918819}.Release|x86.ActiveCfg = Release|Any CPU
+		{4743F192-8003-4890-9C86-635781FEDB02}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{4743F192-8003-4890-9C86-635781FEDB02}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
+		{4743F192-8003-4890-9C86-635781FEDB02}.Debug|Mixed Platforms.Build.0 = Debug|x86
+		{4743F192-8003-4890-9C86-635781FEDB02}.Debug|x86.ActiveCfg = Debug|x86
+		{4743F192-8003-4890-9C86-635781FEDB02}.Debug|x86.Build.0 = Debug|x86
+		{4743F192-8003-4890-9C86-635781FEDB02}.Release|Any CPU.ActiveCfg = Release|x86
+		{4743F192-8003-4890-9C86-635781FEDB02}.Release|Mixed Platforms.ActiveCfg = Release|x86
+		{4743F192-8003-4890-9C86-635781FEDB02}.Release|Mixed Platforms.Build.0 = Release|x86
+		{4743F192-8003-4890-9C86-635781FEDB02}.Release|x86.ActiveCfg = Release|x86
+		{4743F192-8003-4890-9C86-635781FEDB02}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -52,6 +67,7 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{74FFBAFE-F424-4889-9E97-38A2FF91A770} = {57A2B902-3432-45E6-B15B-E5E38E412B82}
 		{F5815118-6F6D-47BC-A108-A3BC155E0A1C} = {57A2B902-3432-45E6-B15B-E5E38E412B82}
+		{4743F192-8003-4890-9C86-635781FEDB02} = {57A2B902-3432-45E6-B15B-E5E38E412B82}
 		{2D953EDF-41DD-4A08-BA6F-B64E7E918819} = {74FFBAFE-F424-4889-9E97-38A2FF91A770}
 	EndGlobalSection
 EndGlobal

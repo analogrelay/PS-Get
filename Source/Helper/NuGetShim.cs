@@ -27,7 +27,7 @@ namespace PsGet.Helper {
 
             using (Operation op = Operation.Start(Client)) {
                 IPackageRepository repo = OpenRepository(source);
-                PackageManager manager = new PackageManager(repo, destination);
+                PackageManager manager = CreatePackageManager(destination, repo);
                 repo.OnProgressAvailable((args) => {
                     TraceSend("REPORT", "{1} {2}%", args.Operation, args.PercentComplete);
                     op.ReportProgress(new ProgressRecord(
@@ -61,6 +61,10 @@ namespace PsGet.Helper {
                                                        .First());
             }
             return localList.ToList();
+        }
+
+        private static PackageManager CreatePackageManager(string destination, IPackageRepository repo) {
+            return new PackageManager(repo, new DefaultPackagePathResolver(destination, useSideBySidePaths: false), new PhysicalFileSystem(destination));
         }
 
         private static IPackageRepository OpenRepository(string source) {

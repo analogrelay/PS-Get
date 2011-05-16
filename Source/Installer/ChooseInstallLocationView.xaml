@@ -1,0 +1,23 @@
+﻿<Page
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:PsGet_Installer_Models="clr-namespace:PsGet.Installer.Models" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d"
+	x:Class="PsGet.Installer.ChooseInstallLocationView"
+	x:Name="Window"
+	Title="Choose Installation Location" Height="{DynamicResource WindowHeight}" Width="{DynamicResource WindowWidth}">
+
+    <Page.Resources>
+		<PsGet_Installer_Models:ChooseInstallLocationViewModel x:Key="ChooseInstallLocationViewModelDataSource" d:IsDataSource="True"/>
+		<DataTemplate x:Key="StringTemplate">
+			<StackPanel>
+				<TextBlock Text="{Binding Mode=OneWay}"/>
+			</StackPanel>
+		</DataTemplate>
+    </Page.Resources>
+
+	<StackPanel x:Name="LayoutRoot" DataContext="{Binding Source={StaticResource ChooseInstallLocationViewModelDataSource}}">
+		<TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="Please select an installation location from your PsModulePath entries:" VerticalAlignment="Top" Margin="8,8,0,0" FontSize="16"/>
+		<ComboBox Margin="8,8,8,0" ItemTemplate="{DynamicResource StringTemplate}" ItemsSource="{Binding InstallPaths}" SelectedItem="{Binding SelectedPath}"/>
+		<Button Content="Install" Margin="8,8,8,0" FontSize="16" FontFamily="Segoe UI" HorizontalAlignment="Right" Padding="10,2" VerticalContentAlignment="Center" Command="{Binding NextCommand}"/>
+	</StackPanel>
+</Page>
