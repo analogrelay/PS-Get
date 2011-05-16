@@ -5,7 +5,7 @@
     <EnableDataBinding>true</EnableDataBinding>
     <ExcludedTypes />
     <ImportXmlTypes>false</ImportXmlTypes>
-    <GenerateInternalTypes>true</GenerateInternalTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
     <GenerateMessageContracts>false</GenerateMessageContracts>
     <NamespaceMappings />
     <CollectionMappings>
@@ -29,6 +29,7 @@
     <MetadataFile FileName="service.xsd" MetadataType="Schema" ID="6a9e79eb-a65d-459f-b283-1a9a50117241" SourceId="1" SourceUrl="net.pipe://localhost/PsGetHelper/mex" />
     <MetadataFile FileName="System.xsd" MetadataType="Schema" ID="7d326452-5dc4-4703-adac-669571a8503e" SourceId="1" SourceUrl="net.pipe://localhost/PsGetHelper/mex" />
     <MetadataFile FileName="PsGet.Helper.Serializables.xsd" MetadataType="Schema" ID="242ea394-48b4-4cf9-8a07-2c8a95ba8ad9" SourceId="1" SourceUrl="net.pipe://localhost/PsGetHelper/mex" />
+    <MetadataFile FileName="Arrays.xsd" MetadataType="Schema" ID="1dcb650c-e816-4fac-8914-97ad8021eba5" SourceId="1" SourceUrl="net.pipe://localhost/PsGetHelper/mex" />
   </Metadata>
   <Extensions>
     <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />

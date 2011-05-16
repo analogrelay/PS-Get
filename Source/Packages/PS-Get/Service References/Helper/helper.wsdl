@@ -6,13 +6,23 @@
       <xsd:import namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
       <xsd:import namespace="http://schemas.datacontract.org/2004/07/System" />
       <xsd:import namespace="http://schemas.datacontract.org/2004/07/PsGet.Helper.Serializables" />
+      <xsd:import namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
     </xsd:schema>
   </wsdl:types>
   <wsdl:message name="INuGetShim_Install_InputMessage">
     <wsdl:part name="parameters" element="tns:Install" />
   </wsdl:message>
+  <wsdl:message name="INuGetShim_GetPackages_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetPackages" />
+  </wsdl:message>
+  <wsdl:message name="INuGetShim_GetPackages_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetPackagesResponse" />
+  </wsdl:message>
   <wsdl:message name="INuGetShim_Shutdown_InputMessage">
     <wsdl:part name="parameters" element="tns:Shutdown" />
+  </wsdl:message>
+  <wsdl:message name="INuGetShim_Shutdown_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ShutdownResponse" />
   </wsdl:message>
   <wsdl:message name="INuGetShim_ReportProgress_OutputCallbackMessage">
     <wsdl:part name="parameters" element="tns:ReportProgress" />
@@ -24,8 +34,13 @@
     <wsdl:operation name="Install">
       <wsdl:input wsaw:Action="http://ns.psget.org/helper/INuGetShim/Install" message="tns:INuGetShim_Install_InputMessage" />
     </wsdl:operation>
+    <wsdl:operation name="GetPackages">
+      <wsdl:input wsaw:Action="http://ns.psget.org/helper/INuGetShim/GetPackages" message="tns:INuGetShim_GetPackages_InputMessage" />
+      <wsdl:output wsaw:Action="http://ns.psget.org/helper/INuGetShim/GetPackagesResponse" message="tns:INuGetShim_GetPackages_OutputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="Shutdown">
       <wsdl:input wsaw:Action="http://ns.psget.org/helper/INuGetShim/Shutdown" message="tns:INuGetShim_Shutdown_InputMessage" />
+      <wsdl:output wsaw:Action="http://ns.psget.org/helper/INuGetShim/ShutdownResponse" message="tns:INuGetShim_Shutdown_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="ReportProgress">
       <wsdl:output wsaw:Action="http://ns.psget.org/helper/INuGetShim/ReportProgress" message="tns:INuGetShim_ReportProgress_OutputCallbackMessage" />

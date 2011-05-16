@@ -6,52 +6,46 @@ using System.Management.Automation.Runspaces;
 using System.Threading;
 
 namespace PsGet.Communications {
-    class ShimManager {
-        private const int ExpireTime = 500;
+    public class ShimManager {
+        private const int ExpireTime = 30 /*min*/ * 60 /* sec */ * 1000 /* ms */;
 
         private static string _helperLocation = null;
         public static string HelperLocation {
             get {
-                if(_helperLocation == null) {
+                if (_helperLocation == null) {
                     _helperLocation = new Settings(PsGetModule.Current).HelperPath;
                 }
                 return _helperLocation;
             }
         }
 
+        private static Semaphore _startSemaphore;
         public static readonly ShimManager Global = new ShimManager();
+
+        public string PipeName { get; private set; }
 
         private Timer _timer;
         private int _refCount = 0;
-        private string _pipeName;
         private bool _managed;
         private Process _shimProcess;
         private object _lock = new object();
 
-        private PSHost Host {
-            get {
-                if (Runspace.DefaultRunspace != null) {
-                    return Runspace.DefaultRunspace.SessionStateProxy.PSVariable.GetValue("Host") as PSHost;
-                }
-                return null;
-            }
-        }
-
         private ShimManager() {
             // Setup global shim manager
-            _pipeName = String.Format("{0}{1}", Process.GetCurrentProcess().ProcessName, Process.GetCurrentProcess().Id);
+            PipeName = String.Format("{0}{1}", Process.GetCurrentProcess().ProcessName, Process.GetCurrentProcess().Id);
             _managed = true;
             _timer = new Timer(_ => ProcessExpired(), null, Timeout.Infinite, Timeout.Infinite);
+            _startSemaphore = new Semaphore(0, 1, String.Format("psget.{0}", PipeName));
+            
+            AppDomain.CurrentDomain.ProcessExit += (_, __) => {
+                StopShimProcess();
+            };
         }
 
         public ShimManager(string pipeName) {
             // Setup shim manager for non-owned shim
-            _pipeName = pipeName;
+            PipeName = pipeName;
             _managed = false;
-        }
-
-        private string FindHelper() {
-            throw new NotImplementedException();
         }
 
         public NuGetShim Open(PSCmdlet owner) {
@@ -60,19 +54,23 @@ namespace PsGet.Communications {
                     StartShimProcess();
                 }
 
-                // Add a reference and shut down the timer
+                // Add a reference
                 _refCount++;
-                _timer.Change(Timeout.Infinite, Timeout.Infinite);
+                Trace.WriteLine(String.Format("SHIM Acquire - {0} references are open", _refCount));
             }
             // Return the shim
-            return new NuGetShim(_pipeName, this, owner);
+            return new NuGetShim(PipeName, this, owner);
         }
 
         public void Release() {
             lock (_lock) {
-                if (--_refCount == 0) {
+                if (--_refCount == 0 && _timer != null) {
+                    Trace.WriteLine(String.Format("SHIM Final Release - Timer: {0}ms", ExpireTime));
                     // Start the timer to shut down the process
                     _timer.Change(ExpireTime, Timeout.Infinite);
+                }
+                else {
+                    Trace.WriteLine(String.Format("SHIM Release - {0} references remain", _refCount));
                 }
             }
         }
@@ -80,10 +78,11 @@ namespace PsGet.Communications {
         private void ProcessExpired() {
             if (_managed) {
                 lock (_lock) {
-                    _timer.Change(Timeout.Infinite, Timeout.Infinite);
-
+                    Trace.WriteLine("SHIM Expired");
                     // Verify there's still no shim clients
                     if (_refCount == 0) {
+                        Trace.WriteLine("SHIM Unused, Terminating");
+                        _timer.Change(Timeout.Infinite, Timeout.Infinite);
                         StopShimProcess();
                     }
                 }
@@ -93,16 +92,29 @@ namespace PsGet.Communications {
         private void StartShimProcess() {
             ProcessStartInfo psi = new ProcessStartInfo() {
                 FileName = HelperLocation,
-                Arguments = _pipeName,
+                Arguments = PipeName,
                 UseShellExecute = false,
                 CreateNoWindow = true
             };
+
+            // Now start the shim
             _shimProcess = Process.Start(psi);
+            Trace.WriteLine(String.Format("SHIM Starting, PID:{0}", _shimProcess.Id));
+            
+            // Wait for the shim to release the semaphore
+            _startSemaphore.WaitOne();
+
+            Trace.WriteLine("SHIM Started, Semaphore Released");
+            _timer.Change(Timeout.Infinite, Timeout.Infinite);
         }
 
         private void StopShimProcess() {
-            using (NuGetShim shim = new NuGetShim(_pipeName, this)) {
+            using (NuGetShim shim = new NuGetShim(PipeName)) {
+                Trace.WriteLine("SHIM Shutdown");
                 shim.Shutdown();
+
+                // Release the semaphore to reset everything
+                _startSemaphore.Release();
             }
         }
     }

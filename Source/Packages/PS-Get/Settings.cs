@@ -2,7 +2,7 @@
 using System.Management.Automation;
 
 namespace PsGet {
-    class Settings {
+    public class Settings {
         private PSModuleInfo _module;
 
         public Settings(PSModuleInfo module) {
@@ -11,13 +11,13 @@ namespace PsGet {
 
         public string HelperPath {
             get {
-                return Path.Combine(_module.Path, "PsGetHelper.exe");
+                return Path.Combine(_module.ModuleBase, "PsGetHelper.exe");
             }
         }
 
         public string InstallationRoot {
             get {
-                return Path.GetFullPath(Path.Combine(_module.Path, ".."));
+                return Path.GetFullPath(Path.Combine(_module.ModuleBase, ".."));
             }
         }
 

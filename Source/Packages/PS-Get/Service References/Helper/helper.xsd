@@ -12,7 +12,28 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
+  <xs:element name="GetPackages">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="source" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="filter" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="allVersions" type="xs:boolean" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetPackagesResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/PsGet.Helper.Serializables" minOccurs="0" name="GetPackagesResult" nillable="true" type="q2:ArrayOfPackage" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
   <xs:element name="Shutdown">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ShutdownResponse">
     <xs:complexType>
       <xs:sequence />
     </xs:complexType>
@@ -20,7 +41,7 @@
   <xs:element name="ReportProgress">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/PsGet.Helper.Serializables" minOccurs="0" name="record" nillable="true" type="q2:ProgressRecord" />
+        <xs:element xmlns:q3="http://schemas.datacontract.org/2004/07/PsGet.Helper.Serializables" minOccurs="0" name="record" nillable="true" type="q3:ProgressRecord" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>

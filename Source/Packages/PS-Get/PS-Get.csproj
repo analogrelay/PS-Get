@@ -18,7 +18,7 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>..\..\Bin\</OutputPath>
+    <OutputPath>..\..\..\Bin\Debug</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -26,14 +26,21 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
+    <OutputPath>..\..\..\Bin\Release</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
     <None Include="app.config" />
-    <None Include="Helper\PsGetHelper.exe.config" />
+    <Content Include="Helper\PsGetHelper.exe.config" />
+    <Content Include="NuGetTypes.format.ps1xml" />
+    <None Include="Service References\Helper\Arrays.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\Helper\PsGet.Helper.Package.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
     <None Include="Service References\Helper\PsGet.Helper.Serializables.xsd">
       <SubType>Designer</SubType>
     </None>
@@ -62,6 +69,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Cmdlets\GetPSPackageCommand.cs" />
     <Compile Include="Cmdlets\InstallPSPackageCommand.cs" />
     <Compile Include="Cmdlets\PsGetCmdlet.cs" />
     <Compile Include="Command.cs" />
@@ -103,7 +111,13 @@
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildThisFileDirectory)\..\..\..\Build\PsGet.SnapIn.targets" />
-  <PropertyGroup>
-    <PreBuildEvent>copy $(ProjectDir)\..\..\Helper\bin\$(ConfigurationName)\*.* $(ProjectDir)\Helper\</PreBuildEvent>
-  </PropertyGroup>
+  <Target Name="BeforeBuild">
+    <ItemGroup>
+      <Helper Include="$(MSBuildThisFileDirectory)\..\..\..\Bin\$(Configuration)\NuGet.Core.dll" />
+      <Helper Include="$(MSBuildThisFileDirectory)\..\..\..\Bin\$(Configuration)\PsGetHelper.exe" />
+      <Helper Include="$(MSBuildThisFileDirectory)\..\..\..\Bin\$(Configuration)\PsGetHelper.pdb" />
+      <Helper Include="$(MSBuildThisFileDirectory)\..\..\..\Bin\$(Configuration)\PsGetHelper.exe.config" />
+    </ItemGroup>
+    <Copy SourceFiles="@(Helper)" DestinationFolder="$(MSBuildThisFileDirectory)\Helper" />
+  </Target>
 </Project>

@@ -15,9 +15,759 @@ namespace PsGet.Helper {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="Package", Namespace="http://schemas.datacontract.org/2004/07/PsGet.Helper.Serializables")]
+    [System.SerializableAttribute()]
+    public partial class Package : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Collections.Generic.List<PsGet.Helper.PackageAssemblyReference> AssemblyReferencesField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Collections.Generic.List<string> AuthorsField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Collections.Generic.List<PsGet.Helper.PackageDependency> DependenciesField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string DescriptionField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int DownloadCountField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Collections.Generic.List<PsGet.Helper.FrameworkAssemblyReference> FrameworkAssembliesField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Uri IconUrlField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string IdField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string LanguageField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Uri LicenseUrlField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Collections.Generic.List<string> OwnersField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Uri ProjectUrlField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private double RatingField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int RatingsCountField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Uri ReportAbuseUrlField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool RequireLicenseAcceptanceField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string SummaryField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string TagsField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string TitleField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Version VersionField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Collections.Generic.List<PsGet.Helper.PackageAssemblyReference> AssemblyReferences {
+            get {
+                return this.AssemblyReferencesField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.AssemblyReferencesField, value) != true)) {
+                    this.AssemblyReferencesField = value;
+                    this.RaisePropertyChanged("AssemblyReferences");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Collections.Generic.List<string> Authors {
+            get {
+                return this.AuthorsField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.AuthorsField, value) != true)) {
+                    this.AuthorsField = value;
+                    this.RaisePropertyChanged("Authors");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Collections.Generic.List<PsGet.Helper.PackageDependency> Dependencies {
+            get {
+                return this.DependenciesField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.DependenciesField, value) != true)) {
+                    this.DependenciesField = value;
+                    this.RaisePropertyChanged("Dependencies");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Description {
+            get {
+                return this.DescriptionField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.DescriptionField, value) != true)) {
+                    this.DescriptionField = value;
+                    this.RaisePropertyChanged("Description");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int DownloadCount {
+            get {
+                return this.DownloadCountField;
+            }
+            set {
+                if ((this.DownloadCountField.Equals(value) != true)) {
+                    this.DownloadCountField = value;
+                    this.RaisePropertyChanged("DownloadCount");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Collections.Generic.List<PsGet.Helper.FrameworkAssemblyReference> FrameworkAssemblies {
+            get {
+                return this.FrameworkAssembliesField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.FrameworkAssembliesField, value) != true)) {
+                    this.FrameworkAssembliesField = value;
+                    this.RaisePropertyChanged("FrameworkAssemblies");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Uri IconUrl {
+            get {
+                return this.IconUrlField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.IconUrlField, value) != true)) {
+                    this.IconUrlField = value;
+                    this.RaisePropertyChanged("IconUrl");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Id {
+            get {
+                return this.IdField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.IdField, value) != true)) {
+                    this.IdField = value;
+                    this.RaisePropertyChanged("Id");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Language {
+            get {
+                return this.LanguageField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.LanguageField, value) != true)) {
+                    this.LanguageField = value;
+                    this.RaisePropertyChanged("Language");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Uri LicenseUrl {
+            get {
+                return this.LicenseUrlField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.LicenseUrlField, value) != true)) {
+                    this.LicenseUrlField = value;
+                    this.RaisePropertyChanged("LicenseUrl");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Collections.Generic.List<string> Owners {
+            get {
+                return this.OwnersField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.OwnersField, value) != true)) {
+                    this.OwnersField = value;
+                    this.RaisePropertyChanged("Owners");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Uri ProjectUrl {
+            get {
+                return this.ProjectUrlField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.ProjectUrlField, value) != true)) {
+                    this.ProjectUrlField = value;
+                    this.RaisePropertyChanged("ProjectUrl");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public double Rating {
+            get {
+                return this.RatingField;
+            }
+            set {
+                if ((this.RatingField.Equals(value) != true)) {
+                    this.RatingField = value;
+                    this.RaisePropertyChanged("Rating");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int RatingsCount {
+            get {
+                return this.RatingsCountField;
+            }
+            set {
+                if ((this.RatingsCountField.Equals(value) != true)) {
+                    this.RatingsCountField = value;
+                    this.RaisePropertyChanged("RatingsCount");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Uri ReportAbuseUrl {
+            get {
+                return this.ReportAbuseUrlField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.ReportAbuseUrlField, value) != true)) {
+                    this.ReportAbuseUrlField = value;
+                    this.RaisePropertyChanged("ReportAbuseUrl");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool RequireLicenseAcceptance {
+            get {
+                return this.RequireLicenseAcceptanceField;
+            }
+            set {
+                if ((this.RequireLicenseAcceptanceField.Equals(value) != true)) {
+                    this.RequireLicenseAcceptanceField = value;
+                    this.RaisePropertyChanged("RequireLicenseAcceptance");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Summary {
+            get {
+                return this.SummaryField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.SummaryField, value) != true)) {
+                    this.SummaryField = value;
+                    this.RaisePropertyChanged("Summary");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Tags {
+            get {
+                return this.TagsField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.TagsField, value) != true)) {
+                    this.TagsField = value;
+                    this.RaisePropertyChanged("Tags");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Title {
+            get {
+                return this.TitleField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.TitleField, value) != true)) {
+                    this.TitleField = value;
+                    this.RaisePropertyChanged("Title");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Version Version {
+            get {
+                return this.VersionField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.VersionField, value) != true)) {
+                    this.VersionField = value;
+                    this.RaisePropertyChanged("Version");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="PackageAssemblyReference", Namespace="http://schemas.datacontract.org/2004/07/PsGet.Helper.Serializables")]
+    [System.SerializableAttribute()]
+    public partial class PackageAssemblyReference : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string NameField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string PathField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Collections.Generic.List<PsGet.Helper.FrameworkName> SupportedFrameworksField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private PsGet.Helper.FrameworkName TargetFrameworkField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Name {
+            get {
+                return this.NameField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.NameField, value) != true)) {
+                    this.NameField = value;
+                    this.RaisePropertyChanged("Name");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Path {
+            get {
+                return this.PathField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.PathField, value) != true)) {
+                    this.PathField = value;
+                    this.RaisePropertyChanged("Path");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Collections.Generic.List<PsGet.Helper.FrameworkName> SupportedFrameworks {
+            get {
+                return this.SupportedFrameworksField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.SupportedFrameworksField, value) != true)) {
+                    this.SupportedFrameworksField = value;
+                    this.RaisePropertyChanged("SupportedFrameworks");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public PsGet.Helper.FrameworkName TargetFramework {
+            get {
+                return this.TargetFrameworkField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.TargetFrameworkField, value) != true)) {
+                    this.TargetFrameworkField = value;
+                    this.RaisePropertyChanged("TargetFramework");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="PackageDependency", Namespace="http://schemas.datacontract.org/2004/07/PsGet.Helper.Serializables")]
+    [System.SerializableAttribute()]
+    public partial class PackageDependency : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string IdField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private PsGet.Helper.VersionSpec VersionSpecField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Id {
+            get {
+                return this.IdField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.IdField, value) != true)) {
+                    this.IdField = value;
+                    this.RaisePropertyChanged("Id");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public PsGet.Helper.VersionSpec VersionSpec {
+            get {
+                return this.VersionSpecField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.VersionSpecField, value) != true)) {
+                    this.VersionSpecField = value;
+                    this.RaisePropertyChanged("VersionSpec");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="FrameworkAssemblyReference", Namespace="http://schemas.datacontract.org/2004/07/PsGet.Helper.Serializables")]
+    [System.SerializableAttribute()]
+    public partial class FrameworkAssemblyReference : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string AssemblyNameField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Collections.Generic.List<PsGet.Helper.FrameworkName> SupportedFrameworksField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string AssemblyName {
+            get {
+                return this.AssemblyNameField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.AssemblyNameField, value) != true)) {
+                    this.AssemblyNameField = value;
+                    this.RaisePropertyChanged("AssemblyName");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Collections.Generic.List<PsGet.Helper.FrameworkName> SupportedFrameworks {
+            get {
+                return this.SupportedFrameworksField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.SupportedFrameworksField, value) != true)) {
+                    this.SupportedFrameworksField = value;
+                    this.RaisePropertyChanged("SupportedFrameworks");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="FrameworkName", Namespace="http://schemas.datacontract.org/2004/07/PsGet.Helper.Serializables")]
+    [System.SerializableAttribute()]
+    public partial class FrameworkName : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string FullNameField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string IdentifierField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string ProfileField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Version VersionField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string FullName {
+            get {
+                return this.FullNameField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.FullNameField, value) != true)) {
+                    this.FullNameField = value;
+                    this.RaisePropertyChanged("FullName");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Identifier {
+            get {
+                return this.IdentifierField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.IdentifierField, value) != true)) {
+                    this.IdentifierField = value;
+                    this.RaisePropertyChanged("Identifier");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Profile {
+            get {
+                return this.ProfileField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.ProfileField, value) != true)) {
+                    this.ProfileField = value;
+                    this.RaisePropertyChanged("Profile");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Version Version {
+            get {
+                return this.VersionField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.VersionField, value) != true)) {
+                    this.VersionField = value;
+                    this.RaisePropertyChanged("Version");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="VersionSpec", Namespace="http://schemas.datacontract.org/2004/07/PsGet.Helper.Serializables")]
+    [System.SerializableAttribute()]
+    public partial class VersionSpec : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool IsMaxInclusiveField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool IsMinInclusiveField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Version MaxVersionField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Version MinVersionField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool IsMaxInclusive {
+            get {
+                return this.IsMaxInclusiveField;
+            }
+            set {
+                if ((this.IsMaxInclusiveField.Equals(value) != true)) {
+                    this.IsMaxInclusiveField = value;
+                    this.RaisePropertyChanged("IsMaxInclusive");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool IsMinInclusive {
+            get {
+                return this.IsMinInclusiveField;
+            }
+            set {
+                if ((this.IsMinInclusiveField.Equals(value) != true)) {
+                    this.IsMinInclusiveField = value;
+                    this.RaisePropertyChanged("IsMinInclusive");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Version MaxVersion {
+            get {
+                return this.MaxVersionField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.MaxVersionField, value) != true)) {
+                    this.MaxVersionField = value;
+                    this.RaisePropertyChanged("MaxVersion");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Version MinVersion {
+            get {
+                return this.MinVersionField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.MinVersionField, value) != true)) {
+                    this.MinVersionField = value;
+                    this.RaisePropertyChanged("MinVersion");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
     [System.Runtime.Serialization.DataContractAttribute(Name="ProgressRecord", Namespace="http://schemas.datacontract.org/2004/07/PsGet.Helper.Serializables")]
     [System.SerializableAttribute()]
-    internal partial class ProgressRecord : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+    public partial class ProgressRecord : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
         
         [System.NonSerializedAttribute()]
         private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
@@ -57,7 +807,7 @@ namespace PsGet.Helper {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        internal string Activity {
+        public string Activity {
             get {
                 return this.ActivityField;
             }
@@ -70,7 +820,7 @@ namespace PsGet.Helper {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        internal int ActivityId {
+        public int ActivityId {
             get {
                 return this.ActivityIdField;
             }
@@ -83,7 +833,7 @@ namespace PsGet.Helper {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        internal string CurrentOperation {
+        public string CurrentOperation {
             get {
                 return this.CurrentOperationField;
             }
@@ -96,7 +846,7 @@ namespace PsGet.Helper {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        internal int ParentActivityId {
+        public int ParentActivityId {
             get {
                 return this.ParentActivityIdField;
             }
@@ -109,7 +859,7 @@ namespace PsGet.Helper {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        internal int PercentComplete {
+        public int PercentComplete {
             get {
                 return this.PercentCompleteField;
             }
@@ -122,7 +872,7 @@ namespace PsGet.Helper {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        internal PsGet.Helper.ProgressRecordType RecordType {
+        public PsGet.Helper.ProgressRecordType RecordType {
             get {
                 return this.RecordTypeField;
             }
@@ -135,7 +885,7 @@ namespace PsGet.Helper {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        internal int SecondsRemaining {
+        public int SecondsRemaining {
             get {
                 return this.SecondsRemainingField;
             }
@@ -148,7 +898,7 @@ namespace PsGet.Helper {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        internal string StatusDescription {
+        public string StatusDescription {
             get {
                 return this.StatusDescriptionField;
             }
@@ -172,7 +922,7 @@ namespace PsGet.Helper {
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
     [System.Runtime.Serialization.DataContractAttribute(Name="ProgressRecordType", Namespace="http://schemas.datacontract.org/2004/07/PsGet.Helper.Serializables")]
-    internal enum ProgressRecordType : int {
+    public enum ProgressRecordType : int {
         
         [System.Runtime.Serialization.EnumMemberAttribute()]
         Processing = 0,
@@ -183,17 +933,20 @@ namespace PsGet.Helper {
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     [System.ServiceModel.ServiceContractAttribute(Namespace="http://ns.psget.org/helper", ConfigurationName="Helper.INuGetShim", CallbackContract=typeof(PsGet.Helper.INuGetShimCallback))]
-    internal interface INuGetShim {
+    public interface INuGetShim {
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://ns.psget.org/helper/INuGetShim/Install")]
         void Install(string id, System.Version version, string source, string destination);
         
-        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://ns.psget.org/helper/INuGetShim/Shutdown")]
+        [System.ServiceModel.OperationContractAttribute(Action="http://ns.psget.org/helper/INuGetShim/GetPackages", ReplyAction="http://ns.psget.org/helper/INuGetShim/GetPackagesResponse")]
+        System.Collections.Generic.List<PsGet.Helper.Package> GetPackages(string source, string filter, bool allVersions);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://ns.psget.org/helper/INuGetShim/Shutdown", ReplyAction="http://ns.psget.org/helper/INuGetShim/ShutdownResponse")]
         void Shutdown();
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    internal interface INuGetShimCallback {
+    public interface INuGetShimCallback {
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://ns.psget.org/helper/INuGetShim/ReportProgress")]
         void ReportProgress(PsGet.Helper.ProgressRecord record);
@@ -203,12 +956,12 @@ namespace PsGet.Helper {
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    internal interface INuGetShimChannel : PsGet.Helper.INuGetShim, System.ServiceModel.IClientChannel {
+    public interface INuGetShimChannel : PsGet.Helper.INuGetShim, System.ServiceModel.IClientChannel {
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    internal partial class NuGetShimClient : System.ServiceModel.DuplexClientBase<PsGet.Helper.INuGetShim>, PsGet.Helper.INuGetShim {
+    public partial class NuGetShimClient : System.ServiceModel.DuplexClientBase<PsGet.Helper.INuGetShim>, PsGet.Helper.INuGetShim {
         
         public NuGetShimClient(System.ServiceModel.InstanceContext callbackInstance) : 
                 base(callbackInstance) {
@@ -232,6 +985,10 @@ namespace PsGet.Helper {
         
         public void Install(string id, System.Version version, string source, string destination) {
             base.Channel.Install(id, version, source, destination);
+        }
+        
+        public System.Collections.Generic.List<PsGet.Helper.Package> GetPackages(string source, string filter, bool allVersions) {
+            return base.Channel.GetPackages(source, filter, allVersions);
         }
         
         public void Shutdown() {

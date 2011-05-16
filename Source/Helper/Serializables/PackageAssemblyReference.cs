@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Runtime.Versioning;
 using System.Runtime.Serialization;
 
 namespace PsGet.Helper.Serializables {
@@ -10,10 +9,10 @@ namespace PsGet.Helper.Serializables {
     public class PackageAssemblyReference {
         public PackageAssemblyReference() { }
         public PackageAssemblyReference(NuGet.IPackageAssemblyReference @ref) {
-            SupportedFrameworks = @ref.SupportedFrameworks.ToList();
+            SupportedFrameworks = @ref.SupportedFrameworks.Select(fn => new FrameworkName(fn)).ToArray();
             Path = @ref.Path;
             Name = @ref.Name;
-            TargetFramework = @ref.TargetFramework;
+            TargetFramework = new FrameworkName(@ref.TargetFramework);
         }
 
         [DataMember]

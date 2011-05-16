@@ -7,7 +7,7 @@ using PsGet.Converters;
 using Psh = System.Management.Automation;
 
 namespace PsGet.Communications {
-    abstract class HelperClientBase : INuGetShimCallback {
+    public abstract class HelperClientBase : INuGetShimCallback {
         public abstract void Completed();
         public abstract void ReportProgress(Psh.ProgressRecord record);
 
