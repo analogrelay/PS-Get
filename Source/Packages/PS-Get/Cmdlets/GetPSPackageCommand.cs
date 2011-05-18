@@ -24,9 +24,7 @@ namespace PsGet.Cmdlets {
         }
 
         protected override void InvokeService() {
-            WriteDebug(String.Format("Invoking GetPackages(\"{0}\", \"{1}\")", Id, Source));
             WriteObject(Client.GetPackages(Source, String.IsNullOrEmpty(Id) ? null : Id, AllVersions.IsPresent), enumerateCollection: true);
-            WriteDebug("Successfully Executed");
         }
     }
 }

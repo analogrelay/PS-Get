@@ -70,7 +70,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="..\CommonAssemblyInfo.cs">
+    <Compile Include="..\..\Build\CommonAssemblyInfo.cs">
       <Link>Properties\CommonAssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="App.xaml.cs">
@@ -99,28 +99,10 @@
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Resources.resx</DependentUpon>
-    </Compile>
-    <Compile Include="Properties\Settings.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Settings.settings</DependentUpon>
-      <DesignTimeSharedInput>True</DesignTimeSharedInput>
-    </Compile>
-    <EmbeddedResource Include="Properties\Resources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
     <None Include="app.config" />
     <None Include="packages.config" />
-    <None Include="Packages\PS-Get.0.8.0.0.nupkg" />
-    <None Include="Properties\Settings.settings">
-      <Generator>SettingsSingleFileGenerator</Generator>
-      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
-    </None>
     <AppDesigner Include="Properties\" />
+    <None Include="Packages\PS-Get.nupkg" />
   </ItemGroup>
   <ItemGroup>
     <Page Include="ChooseInstallLocationView.xaml">
@@ -140,11 +122,13 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <Target Name="BeforeBuild">
+  <Import Project="$(MSBuildThisFileDirectory)\..\..\Build\PsGet.Common.targets" />
+  <Target Name="EmbedAssembliesAndPackages" BeforeTargets="Build">
     <ItemGroup>
       <EmbeddedResource Include="%(Reference.HintPath)" Condition="'%(Reference.Embed)' == 'true'" />
-      <Packages Include="..\..\Bin\$(Configuration)\PS-Get.*.nupkg" />
+      <Packages Include="..\..\Bin\$(Configuration)\PS-Get.nupkg" />
     </ItemGroup>
     <Copy SourceFiles="@(Packages)" DestinationFolder="Packages" />
   </Target>

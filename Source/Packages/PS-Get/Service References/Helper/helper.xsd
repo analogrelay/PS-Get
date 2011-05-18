@@ -2,11 +2,32 @@
 <xs:schema xmlns:tns="http://ns.psget.org/helper" elementFormDefault="qualified" targetNamespace="http://ns.psget.org/helper" xmlns:xs="http://www.w3.org/2001/XMLSchema">
   <xs:import namespace="http://schemas.datacontract.org/2004/07/System" />
   <xs:import namespace="http://schemas.datacontract.org/2004/07/PsGet.Helper.Serializables" />
+  <xs:import namespace="http://schemas.datacontract.org/2004/07/System.ServiceModel" />
   <xs:element name="Install">
     <xs:complexType>
       <xs:sequence>
         <xs:element minOccurs="0" name="id" nillable="true" type="xs:string" />
         <xs:element xmlns:q1="http://schemas.datacontract.org/2004/07/System" minOccurs="0" name="version" nillable="true" type="q1:Version" />
+        <xs:element minOccurs="0" name="source" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="destination" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Update">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="id" nillable="true" type="xs:string" />
+        <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/System" minOccurs="0" name="version" nillable="true" type="q2:Version" />
+        <xs:element minOccurs="0" name="updateDependencies" type="xs:boolean" />
+        <xs:element minOccurs="0" name="source" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="destination" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Remove">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="id" nillable="true" type="xs:string" />
         <xs:element minOccurs="0" name="source" nillable="true" type="xs:string" />
         <xs:element minOccurs="0" name="destination" nillable="true" type="xs:string" />
       </xs:sequence>
@@ -24,7 +45,7 @@
   <xs:element name="GetPackagesResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/PsGet.Helper.Serializables" minOccurs="0" name="GetPackagesResult" nillable="true" type="q2:ArrayOfPackage" />
+        <xs:element xmlns:q3="http://schemas.datacontract.org/2004/07/PsGet.Helper.Serializables" minOccurs="0" name="GetPackagesResult" nillable="true" type="q3:ArrayOfPackage" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -41,7 +62,14 @@
   <xs:element name="ReportProgress">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q3="http://schemas.datacontract.org/2004/07/PsGet.Helper.Serializables" minOccurs="0" name="record" nillable="true" type="q3:ProgressRecord" />
+        <xs:element xmlns:q4="http://schemas.datacontract.org/2004/07/PsGet.Helper.Serializables" minOccurs="0" name="record" nillable="true" type="q4:ProgressRecord" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ReportError">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q5="http://schemas.datacontract.org/2004/07/System.ServiceModel" minOccurs="0" name="ex" nillable="true" type="q5:FaultException" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>

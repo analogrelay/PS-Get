@@ -18,49 +18,77 @@ namespace PsGet.Helper {
             }
         }
 
-        private int SessionId {
-            get { return SessionManager.GetSessionId(); }
+        public void Install(string id, Version version, string source, string destination) {
+            Thread.CurrentThread.Name = String.Format("WCF Session {0}", SessionManager.GetSessionId());
+            TraceUtil.TraceRecv("INSTALL", "{0} (v{1})", id, version);
+
+            RunProgressOperation(destination, source, (op, repo, manager) => {
+                op.TryBindToProgressReporter(repo, String.Format("Installing {0}", id));
+                manager.InstallPackage(id, version);
+            });
+            TraceUtil.TraceSend("INSTALL", "Complete");
         }
 
-        public void Install(string id, Version version, string source, string destination) {
-            TraceRecv("INSTALL", "{0} (v{1}) from {2} to {3}", id, version, source, destination);
+        public void Update(string id, Version version, bool updateDependencies, string source, string destination) {
+            Thread.CurrentThread.Name = String.Format("WCF Session {0}", SessionManager.GetSessionId());
+            TraceUtil.TraceRecv("UPDATE", "{0} (v{1})", id, version);
 
-            using (Operation op = Operation.Start(Client)) {
-                IPackageRepository repo = OpenRepository(source);
-                PackageManager manager = CreatePackageManager(destination, repo);
-                repo.OnProgressAvailable((args) => {
-                    TraceSend("REPORT", "{1} {2}%", args.Operation, args.PercentComplete);
-                    op.ReportProgress(new ProgressRecord(
-                        String.Format("Installing {0} {1}", id, version),
-                        "Installing") {
-                            CurrentOperation = args.Operation,
-                            PercentComplete = args.PercentComplete,
-                            RecordType = ProgressRecordType.Processing
-                        });
-                });
-                manager.InstallPackage(id, version);
-            }
+            RunProgressOperation(destination, source, (op, repo, manager) => {
+                op.TryBindToProgressReporter(repo, String.Format("Updating {0}", id));
 
-            TraceSend("INSTALL", "Complete");
+                IPackage installed = manager.LocalRepository.FindPackage(id);
+                if (installed != null && installed.Version != version) {
+                    manager.UninstallPackage(installed);
+                }
+                if (installed == null || installed.Version != version) {
+                    manager.InstallPackage(id, version);
+                }
+            });
+
+            TraceUtil.TraceSend("UPDATE", "Complete");
+        }
+
+        public void Remove(string id, string source, string destination) {
+            Thread.CurrentThread.Name = String.Format("WCF Session {0}", SessionManager.GetSessionId());
+            TraceUtil.TraceRecv("REMOVE", "{0}", id);
+
+            RunProgressOperation(destination, source, (op, repo, manager) => {
+                op.TryBindToProgressReporter(repo, String.Format("Removing {0}", id));
+                manager.UninstallPackage(id);
+            });
         }
 
         public ICollection<Package> GetPackages(string source, string filter, bool allPackages) {
-            TraceRecv("QUERY", "\'{0}\' from {1}", filter, source);
+            Thread.CurrentThread.Name = String.Format("WCF Session {0}", SessionManager.GetSessionId());
+            TraceUtil.TraceRecv("QUERY", "\'{0}\' from {1}", filter, source);
 
             IPackageRepository repo = OpenRepository(source);
             var query = repo.GetPackages()
                             .Where(p => p.Tags.Contains(" psget "));
-            if(!String.IsNullOrEmpty(filter)) {
+            if (!String.IsNullOrEmpty(filter)) {
                 query = query.Where(p => p.Id.Contains(filter));
             }
             IEnumerable<Package> localList = query.ToList().Select(p => new Package(p));
-            if(!allPackages) {
+            if (!allPackages) {
                 // Filter out the max version
                 localList = localList.GroupBy(p => p.Id)
                                      .Select(grp => grp.OrderByDescending(p => p.Version)
                                                        .First());
             }
             return localList.ToList();
+        }
+
+        private void RunProgressOperation(string destination, string source, Action<Operation, IPackageRepository, PackageManager> action) {
+            using (Operation op = Operation.Start(Client)) {
+                try {
+                    IPackageRepository repo = OpenRepository(source);
+                    PackageManager manager = CreatePackageManager(destination, repo);
+                    action(op, repo, manager);
+                }
+                catch (Exception ex) {
+                    op.ReportError(new FaultException(new FaultReason(ex.Message), new FaultCode(ex.GetType().Name)));
+                }
+            }
         }
 
         private static PackageManager CreatePackageManager(string destination, IPackageRepository repo) {
@@ -71,29 +99,6 @@ namespace PsGet.Helper {
             PackageSource src = new PackageSource(source);
             IPackageRepository repo = PackageRepositoryFactory.Default.CreateRepository(src);
             return repo;
-        }
-
-        public void Shutdown() {
-            Trace.WriteLine(String.Format("[{0}] <- SHUTDOWN",
-                                          SessionManager.GetSessionId()));
-            _shutdown.Set();
-        }
-
-        internal static void WaitForShutdown(ServiceHost host) {
-            _shutdown.WaitOne();
-            host.Close();
-        }
-
-        private void TraceSend(string command, string message, params object[] args) {
-            TraceCmd("->", command, message, args);
-        }
-
-        private void TraceRecv(string command, string message, params object[] args) {
-            TraceCmd("<-", command, message, args);
-        }
-
-        private void TraceCmd(string direction, string command, string message, params object[] args) {
-            Trace.WriteLine(String.Format("[{0}] {1} {2}: {3}", SessionId, direction, command, String.Format(message, args)));
         }
     }
 }

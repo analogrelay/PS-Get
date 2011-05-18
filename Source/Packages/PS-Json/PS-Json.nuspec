@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8"?> 
+<package> 
+  <metadata> 
+    <id>PS-Json</id> 
+    <version>0.5.10517.1630</version> 
+    <authors>Andrew Nurse</authors>
+    <description>JSON Library for PowerShell</description> 
+    <language>en-US</language>
+    <licenseUrl>http://www.apache.org/licenses/LICENSE-2.0</licenseUrl>
+    <projectUrl>http://www.bitbucket.org/anurse/psget/</projectUrl>
+  </metadata> 
+</package>

@@ -7,10 +7,17 @@
       <xsd:import namespace="http://schemas.datacontract.org/2004/07/System" />
       <xsd:import namespace="http://schemas.datacontract.org/2004/07/PsGet.Helper.Serializables" />
       <xsd:import namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+      <xsd:import namespace="http://schemas.datacontract.org/2004/07/System.ServiceModel" />
     </xsd:schema>
   </wsdl:types>
   <wsdl:message name="INuGetShim_Install_InputMessage">
     <wsdl:part name="parameters" element="tns:Install" />
+  </wsdl:message>
+  <wsdl:message name="INuGetShim_Update_InputMessage">
+    <wsdl:part name="parameters" element="tns:Update" />
+  </wsdl:message>
+  <wsdl:message name="INuGetShim_Remove_InputMessage">
+    <wsdl:part name="parameters" element="tns:Remove" />
   </wsdl:message>
   <wsdl:message name="INuGetShim_GetPackages_InputMessage">
     <wsdl:part name="parameters" element="tns:GetPackages" />
@@ -27,12 +34,21 @@
   <wsdl:message name="INuGetShim_ReportProgress_OutputCallbackMessage">
     <wsdl:part name="parameters" element="tns:ReportProgress" />
   </wsdl:message>
+  <wsdl:message name="INuGetShim_ReportError_OutputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:ReportError" />
+  </wsdl:message>
   <wsdl:message name="INuGetShim_Completed_OutputCallbackMessage">
     <wsdl:part name="parameters" element="tns:Completed" />
   </wsdl:message>
   <wsdl:portType name="INuGetShim">
     <wsdl:operation name="Install">
       <wsdl:input wsaw:Action="http://ns.psget.org/helper/INuGetShim/Install" message="tns:INuGetShim_Install_InputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="Update">
+      <wsdl:input wsaw:Action="http://ns.psget.org/helper/INuGetShim/Update" message="tns:INuGetShim_Update_InputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="Remove">
+      <wsdl:input wsaw:Action="http://ns.psget.org/helper/INuGetShim/Remove" message="tns:INuGetShim_Remove_InputMessage" />
     </wsdl:operation>
     <wsdl:operation name="GetPackages">
       <wsdl:input wsaw:Action="http://ns.psget.org/helper/INuGetShim/GetPackages" message="tns:INuGetShim_GetPackages_InputMessage" />
@@ -44,6 +60,9 @@
     </wsdl:operation>
     <wsdl:operation name="ReportProgress">
       <wsdl:output wsaw:Action="http://ns.psget.org/helper/INuGetShim/ReportProgress" message="tns:INuGetShim_ReportProgress_OutputCallbackMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ReportError">
+      <wsdl:output wsaw:Action="http://ns.psget.org/helper/INuGetShim/ReportError" message="tns:INuGetShim_ReportError_OutputCallbackMessage" />
     </wsdl:operation>
     <wsdl:operation name="Completed">
       <wsdl:output wsaw:Action="http://ns.psget.org/helper/INuGetShim/Completed" message="tns:INuGetShim_Completed_OutputCallbackMessage" />

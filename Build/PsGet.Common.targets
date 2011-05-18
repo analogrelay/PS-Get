@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <Import Project="$(MSBuildThisFileDirectory)\Release.props" />
+    
+    <PropertyGroup>
+        <MSBuildCommunityTasksPath>$(MSBuildThisFileDirectory)\MSBuildCommunityTasks</MSBuildCommunityTasksPath>
+    </PropertyGroup>
+
+    <Import Project="$(MSBuildCommunityTasksPath)\MSBuild.Community.Tasks.Targets" />
+    
+    <Target Name="RegexReplace" BeforeTargets="Build">
+        <ItemGroup>
+            <RegexReplace Include="$(MSBuildProjectDirectory)\**\*.psd1;$(MSBuildProjectDirectory)\**\*.nuspec">
+                <Expression>\d+\.\d+\.\d+\.\d+</Expression>
+                <Replacement>$(FullVersion)</Replacement>
+            </RegexReplace>
+            <RegexReplace Include="$(MSBuildThisFileDirectory)\CommonAssemblyInfo.cs">
+                <Expression>\[assembly: AssemblyVersion\("\d+\.\d+\.\d+\.\d+"\)\]
+\[assembly: AssemblyFileVersion\("\d+\.\d+\.\d+\.\d+"\)\]</Expression>
+                <Replacement>[assembly: AssemblyVersion("$(Version).0.0")]
+[assembly: AssemblyFileVersion("$(FullVersion)")]</Replacement>
+            </RegexReplace>
+        </ItemGroup>
+        <FileUpdate Files="@(RegexReplace)" Regex="%(Expression)" ReplacementText="%(Replacement)" />
+    </Target>
+</Project>

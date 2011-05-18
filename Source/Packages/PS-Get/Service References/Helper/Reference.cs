@@ -938,6 +938,12 @@ namespace PsGet.Helper {
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://ns.psget.org/helper/INuGetShim/Install")]
         void Install(string id, System.Version version, string source, string destination);
         
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://ns.psget.org/helper/INuGetShim/Update")]
+        void Update(string id, System.Version version, bool updateDependencies, string source, string destination);
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://ns.psget.org/helper/INuGetShim/Remove")]
+        void Remove(string id, string source, string destination);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://ns.psget.org/helper/INuGetShim/GetPackages", ReplyAction="http://ns.psget.org/helper/INuGetShim/GetPackagesResponse")]
         System.Collections.Generic.List<PsGet.Helper.Package> GetPackages(string source, string filter, bool allVersions);
         
@@ -950,6 +956,9 @@ namespace PsGet.Helper {
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://ns.psget.org/helper/INuGetShim/ReportProgress")]
         void ReportProgress(PsGet.Helper.ProgressRecord record);
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://ns.psget.org/helper/INuGetShim/ReportError")]
+        void ReportError(System.ServiceModel.FaultException ex);
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://ns.psget.org/helper/INuGetShim/Completed")]
         void Completed();
@@ -985,6 +994,14 @@ namespace PsGet.Helper {
         
         public void Install(string id, System.Version version, string source, string destination) {
             base.Channel.Install(id, version, source, destination);
+        }
+        
+        public void Update(string id, System.Version version, bool updateDependencies, string source, string destination) {
+            base.Channel.Update(id, version, updateDependencies, source, destination);
+        }
+        
+        public void Remove(string id, string source, string destination) {
+            base.Channel.Remove(id, source, destination);
         }
         
         public System.Collections.Generic.List<PsGet.Helper.Package> GetPackages(string source, string filter, bool allVersions) {

@@ -16,7 +16,7 @@ namespace PsGet.Cmdlets {
 #endif
 
         protected ShimManager Shim { get; set; }
-        protected NuGetShim Client { get; set; }
+        protected NuGetProxy Client { get; set; }
         protected Settings Settings { get; set; }
 
         protected sealed override void BeginProcessing() {

@@ -45,6 +45,18 @@
         <soap12:body use="literal" />
       </wsdl:input>
     </wsdl:operation>
+    <wsdl:operation name="Update">
+      <soap12:operation soapAction="http://ns.psget.org/helper/INuGetShim/Update" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+    </wsdl:operation>
+    <wsdl:operation name="Remove">
+      <soap12:operation soapAction="http://ns.psget.org/helper/INuGetShim/Remove" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+    </wsdl:operation>
     <wsdl:operation name="GetPackages">
       <soap12:operation soapAction="http://ns.psget.org/helper/INuGetShim/GetPackages" style="document" />
       <wsdl:input>
@@ -69,6 +81,12 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="ReportError">
+      <soap12:operation soapAction="http://ns.psget.org/helper/INuGetShim/ReportError" style="document" />
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="Completed">
       <soap12:operation soapAction="http://ns.psget.org/helper/INuGetShim/Completed" style="document" />
       <wsdl:output>
@@ -82,7 +100,7 @@
       <wsa10:EndpointReference>
         <wsa10:Address>net.pipe://localhost/PsGetHelper/Dev</wsa10:Address>
         <Identity xmlns="http://schemas.xmlsoap.org/ws/2006/02/addressingidentity">
-          <Upn>REDMOND\anurse</Upn>
+          <Upn>anurse@redmond.corp.microsoft.com</Upn>
         </Identity>
       </wsa10:EndpointReference>
     </wsdl:port>

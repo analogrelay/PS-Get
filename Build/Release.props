@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <PropertyGroup>
+        <Version>0.5</Version>
+        <VersionStartYear>2011</VersionStartYear>
+        
+        <!-- Build numbers are YMMdd.HHmm - Where "Y" is the Year of the Version, so if v1 started in 2011, 2011 is 1, 2012 is 2, etc.-->
+        <BuildNumber>$([MSBuild]::Add(1, $([MSBuild]::Subtract($([System.DateTime]::Now.Year), $(VersionStartYear)))))$([System.DateTime]::Now.ToString("MMdd.HHmm"))</BuildNumber>
+        
+        <FullVersion>$(Version).$(BuildNumber)</FullVersion>
+    </PropertyGroup>
+</Project>

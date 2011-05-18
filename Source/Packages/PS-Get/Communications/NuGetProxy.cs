@@ -11,7 +11,7 @@ using System.Diagnostics;
 
 namespace PsGet.Communications {
     [CallbackBehavior(IncludeExceptionDetailInFaults=true)]
-    public class NuGetShim : HelperClientBase, IDisposable {
+    public class NuGetProxy : HelperClientBase, IDisposable {
         public static readonly TimeSpan OpenTimeout = TimeSpan.FromSeconds(1);
 
         private EventQueue _queue = null;
@@ -19,12 +19,11 @@ namespace PsGet.Communications {
         private ShimManager _shimManager;
         private string _pipeName;
         private NuGetShimClient _client;
-        private AutoResetEvent _operationCompleted = new AutoResetEvent(false);
-
-        internal NuGetShim(string pipeName) : this(pipeName, null, null) {
+        
+        internal NuGetProxy(string pipeName) : this(pipeName, null, null) {
         }
 
-        internal NuGetShim(string pipeName, ShimManager shimManager, PSCmdlet owner) {
+        internal NuGetProxy(string pipeName, ShimManager shimManager, PSCmdlet owner) {
             _pipeName = pipeName;
             _shimManager = shimManager;
             _owner = owner;
@@ -40,9 +39,26 @@ namespace PsGet.Communications {
 
         public void Install(string id, Version version, string source, string destination) {
             EnsureClient();
-            _queue = new EventQueue();
-            _client.Install(id, version, source, destination);
-            _queue.Run();
+            using (_queue = new EventQueue()) {
+                _client.Install(id, version, source, destination);
+                _queue.Run();
+            }
+        }
+        
+        public void Update(string id, Version version, bool updateDependencies, string source, string destination) {
+            EnsureClient();
+            using (_queue = new EventQueue()) {
+                _client.Update(id, version, updateDependencies, source, destination);
+                _queue.Run();
+            }
+        }
+
+        public void Remove(string id, string source, string destination) {
+            EnsureClient();
+            using (_queue = new EventQueue()) {
+                _client.Remove(id, source, destination);
+                _queue.Run();
+            }
         }
 
         public ICollection<Package> GetPackages(string source, string filter, bool allVersions) {
@@ -71,8 +87,13 @@ namespace PsGet.Communications {
                 if (_owner != null) {
                     _owner.WriteProgress(record);
                 }
-                if (record.RecordType == Psh.ProgressRecordType.Completed) {
-                    _operationCompleted.Set();
+            });
+        }
+
+        public override void ReportError(FaultException ex) {
+            _queue.Enqueue(() => {
+                if (_owner != null) {
+                    _owner.WriteError(new ErrorRecord(ex, "PsGet.Error", ErrorCategory.InvalidOperation, null));
                 }
             });
         }

@@ -22,7 +22,7 @@ namespace PsGet.Helper {
 
             string hostUri = String.Format("net.pipe://localhost/PsGetHelper/{0}", args[0]);
             string metadataUri = "net.pipe://localhost/PsGetHelper/mex";
-            Semaphore startSem = new Semaphore(0, 1, String.Format("psget.{0}", args[0]));
+            Semaphore shimSem = new Semaphore(0, 1, String.Format("psget.{0}", args[0]));
             
             ServiceHost host = new ServiceHost(typeof(NuGetShim));
             if (metadata) {
@@ -34,7 +34,7 @@ namespace PsGet.Helper {
             host.AddServiceEndpoint(typeof(INuGetShim), new NetNamedPipeBinding(), hostUri);
             
             host.Open();
-            startSem.Release();
+            shimSem.Release();
 
             Trace.WriteLine("HELPER Released Mutex");
             if (metadata) {
@@ -46,7 +46,12 @@ namespace PsGet.Helper {
                 Console.ReadLine();
             } else {
                 Trace.WriteLine("HELPER Waiting For Shutdown from Client");
-                NuGetShim.WaitForShutdown(host);
+                try {
+                    shimSem.WaitOne();
+                }
+                catch (ObjectDisposedException) {
+                    // The semaphore was disposed, so what :).
+                }
             }
         }
     }

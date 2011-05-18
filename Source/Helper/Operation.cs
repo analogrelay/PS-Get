@@ -5,6 +5,8 @@ using System.Text;
 using PsGet.Helper.Serializables;
 using System.Diagnostics;
 using System.Threading;
+using NuGet;
+using System.ServiceModel;
 
 namespace PsGet.Helper {
     public class Operation : IDisposable {
@@ -22,9 +24,26 @@ namespace PsGet.Helper {
             return new Operation(client, Interlocked.Increment(ref _nextActivityId));
         }
 
+        public void TryBindToProgressReporter(IPackageRepository repo, string activity) {
+            repo.OnProgressAvailable((args) => {
+                TraceUtil.TraceSend("REPORT", "{0} {1}%", args.Operation, args.PercentComplete);
+                ReportProgress(new ProgressRecord(
+                    activity,
+                    args.Operation) {
+                        CurrentOperation = args.Operation,
+                        PercentComplete = args.PercentComplete,
+                        RecordType = ProgressRecordType.Processing
+                    });
+            });
+        }
+
         public void ReportProgress(ProgressRecord record) {
             record.ActivityId = _activityId;
             _client.ReportProgress(record);
+        }
+
+        public void ReportError(FaultException ex) {
+            _client.ReportError(ex);
         }
 
         public void Dispose() {

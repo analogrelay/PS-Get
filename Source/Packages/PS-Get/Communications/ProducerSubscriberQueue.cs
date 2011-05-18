@@ -12,6 +12,10 @@ namespace PsGet.Communications {
         private ManualResetEvent _evt = new ManualResetEvent(false);
         private object _lock = new object();
 
+        ~ProducerSubscriberQueue() {
+            Dispose(false);
+        }
+
         public void Enqueue(T item) {
             lock (_lock) {
                 EnsureActive();
@@ -48,8 +52,14 @@ namespace PsGet.Communications {
         }
 
         public void Dispose() {
-            _sem.Close();
-            _evt.Close();
+            Dispose(true);
+        }
+
+        protected virtual void Dispose(bool disposing) {
+            if (disposing) {
+                _sem.Close();
+                _evt.Close();
+            }
         }
     }
 }

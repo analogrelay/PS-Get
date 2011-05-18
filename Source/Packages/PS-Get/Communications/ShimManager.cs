@@ -19,7 +19,7 @@ namespace PsGet.Communications {
             }
         }
 
-        private static Semaphore _startSemaphore;
+        private static Semaphore _shimSemaphore;
         public static readonly ShimManager Global = new ShimManager();
 
         public string PipeName { get; private set; }
@@ -35,8 +35,8 @@ namespace PsGet.Communications {
             PipeName = String.Format("{0}{1}", Process.GetCurrentProcess().ProcessName, Process.GetCurrentProcess().Id);
             _managed = true;
             _timer = new Timer(_ => ProcessExpired(), null, Timeout.Infinite, Timeout.Infinite);
-            _startSemaphore = new Semaphore(0, 1, String.Format("psget.{0}", PipeName));
-            
+            _shimSemaphore = new Semaphore(0, 1, String.Format("psget.{0}", PipeName));
+
             AppDomain.CurrentDomain.ProcessExit += (_, __) => {
                 StopShimProcess();
             };
@@ -48,9 +48,9 @@ namespace PsGet.Communications {
             _managed = false;
         }
 
-        public NuGetShim Open(PSCmdlet owner) {
+        public NuGetProxy Open(PSCmdlet owner) {
             lock (_lock) {
-                if (_managed && _shimProcess == null) {
+                if (_managed && (_shimProcess == null || _shimProcess.HasExited)) {
                     StartShimProcess();
                 }
 
@@ -59,7 +59,7 @@ namespace PsGet.Communications {
                 Trace.WriteLine(String.Format("SHIM Acquire - {0} references are open", _refCount));
             }
             // Return the shim
-            return new NuGetShim(PipeName, this, owner);
+            return new NuGetProxy(PipeName, this, owner);
         }
 
         public void Release() {
@@ -100,22 +100,21 @@ namespace PsGet.Communications {
             // Now start the shim
             _shimProcess = Process.Start(psi);
             Trace.WriteLine(String.Format("SHIM Starting, PID:{0}", _shimProcess.Id));
-            
+
             // Wait for the shim to release the semaphore
-            _startSemaphore.WaitOne();
+            _shimSemaphore.WaitOne();
 
             Trace.WriteLine("SHIM Started, Semaphore Released");
             _timer.Change(Timeout.Infinite, Timeout.Infinite);
         }
 
         private void StopShimProcess() {
-            using (NuGetShim shim = new NuGetShim(PipeName)) {
-                Trace.WriteLine("SHIM Shutdown");
-                shim.Shutdown();
-
-                // Release the semaphore to reset everything
-                _startSemaphore.Release();
-            }
+            // Release the semaphore to shut down the shim
+            _shimSemaphore.Release();
+            Trace.WriteLine("SHIM Shutdown Signaled");
+            
+            _shimProcess.WaitForExit();
+            Trace.WriteLine("SHIM Shutdown Complete");
         }
     }
 }

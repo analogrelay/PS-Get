@@ -32,9 +32,7 @@ namespace PsGet.Cmdlets {
         }
 
         protected override void InvokeService() {
-            WriteDebug(String.Format("Invoking Install(\"{0}\", \"{1}\", \"{2}\", \"{3}\")", Id, Version, Source, Destination));
             Client.Install(Id, Version, Source, Destination);
-            WriteDebug("Successfully Executed");
         }
     }
 }

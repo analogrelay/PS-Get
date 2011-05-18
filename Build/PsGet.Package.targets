@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <Import Project="$(MSBuildThisFileDirectory)\PsGet.Common.targets" />
+
+    <ItemGroup>
+        <AvailableItemName Include="Spec" />
+    </ItemGroup>
+    
+    <PropertyGroup>
+        <PackageIntermediatePath>$(IntermediateOutputPath.TrimEnd('\'))\Package</PackageIntermediatePath>
+        <_OutputPackage>$(MSBuildProjectDirectory)\$(OutDir)\$(MSBuildProjectName).nupkg</_OutputPackage>
+    </PropertyGroup>
+    
+    <Target Name="Package" Inputs="@(Package);@(Spec)" Outputs="$(_OutputPackage)" AfterTargets="$(PackageAfterTargets)">
+        <RemoveDir Directories="$(PackageIntermediatePath)" Condition="Exists('$(PackageIntermediatePath)')" />
+		<MakeDir Directories="$(PackageIntermediatePath)" />
+		<Copy SourceFiles="@(Package);@(Spec)" DestinationFolder="$(PackageIntermediatePath)" />
+		<Exec Command="&quot;$(MSBuildThisFileDirectory)\NuGet.exe&quot; pack &quot;@(Spec->'$(PackageIntermediatePath)\%(Filename)%(Extension)')&quot; -b &quot;$(PackageIntermediatePath)&quot; -o &quot;$(PackageIntermediatePath)&quot;" />
+
+        <ItemGroup>
+            <_IntPackage Include="$(PackageIntermediatePath)\*.nupkg" />
+        </ItemGroup>
+        <Copy SourceFiles="@(_IntPackage)" DestinationFiles="$(_OutputPackage)" />
+	</Target>
+
+    <Target Name="PackageClean" AfterTargets="$(PackageCleanAfterTargets)">
+        <Delete Files="$(_OutputPackage)" />
+		<RemoveDir Directories="$(PackageIntermediatePath)" />
+	</Target>
+</Project>
