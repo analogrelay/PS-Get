@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+	<ItemGroup>
+		<Build Include="PsGet.sln">
+			<Properties>Configuration=Debug</Properties>
+		</Build>
+		<Build Include="PsGet.sln">
+			<Properties>Configuration=Release</Properties>
+		</Build>
+	</ItemGroup>
+	<Target Name="Build">
+		<Exec Command="hg clean --all" IgnoreExitCode="true" WorkingDirectory="$(MSBuildThisFileDirectory)" />
+		<RemoveDir Directories="$(MSBuildThisFileDirectory)\Bin" Condition="Exists('$(MSBuildThisFileDirectory)\Bin')" />
+		<MSBuild Projects="@(Build)" BuildInParallel="true" />
+	</Target>
+</Project>

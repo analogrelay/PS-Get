@@ -38,7 +38,7 @@ namespace PsGet.Cmdlets {
             }
 #endif
 
-            Trace.WriteLine(String.Format("PSGET Using Pipe: {0}", PipeName));
+            Trace.WriteLine(String.Format("PSGET Using Pipe: {0}", Shim.PipeName));
 
             // Open the client
             Client = Shim.Open(this);
