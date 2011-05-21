@@ -2,7 +2,7 @@
 <package> 
   <metadata> 
     <id>PS-Json</id> 
-    <version>0.5.10520.0848</version> 
+    <version>0.5.10520.1717</version> 
     <authors>Andrew Nurse</authors>
     <description>JSON Library for PowerShell</description> 
     <language>en-US</language>

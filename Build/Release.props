@@ -4,9 +4,9 @@
         <Version>0.5</Version>
         <VersionStartYear>2011</VersionStartYear>
         
-        <!-- Build numbers are YMMdd.HHmm - Where "Y" is the Year of the Version, so if v1 started in 2011, 2011 is 1, 2012 is 2, etc.-->
-        <BuildNumber>$([MSBuild]::Add(1, $([MSBuild]::Subtract($([System.DateTime]::Now.Year), $(VersionStartYear)))))$([System.DateTime]::Now.ToString("MMdd.HHmm"))</BuildNumber>
-        
-        <FullVersion>$(Version).$(BuildNumber)</FullVersion>
+        <!-- Build Dates are YMMdd - Where "Y" is the Year of the Version, which is CurrentYear - VersionStartYear + 1 -->
+        <BuildDate>$([MSBuild]::Add(1, $([MSBuild]::Subtract($([System.DateTime]::Now.Year), $(VersionStartYear)))))$([System.DateTime]::Now.ToString("MMdd"))</BuildDate>
+        <BuildNumber Condition="'$(BuildNumber)' == ''">0</BuildNumber>
+        <FullVersion>$(Version).$(BuildDate).$(BuildNumber)</FullVersion>
     </PropertyGroup>
 </Project>
