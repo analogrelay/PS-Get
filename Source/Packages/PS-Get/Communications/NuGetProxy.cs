@@ -37,15 +37,15 @@ namespace PsGet.Communications {
             }
         }
 
-        public void Install(string id, Version version, string source, string destination) {
+        public virtual void Install(string id, Version version, string source, string destination) {
             EnsureClient();
             using (_queue = new EventQueue()) {
                 _client.Install(id, version, source, destination);
                 _queue.Run();
             }
         }
-        
-        public void Update(string id, Version version, bool updateDependencies, string source, string destination) {
+
+        public virtual void Update(string id, Version version, bool updateDependencies, string source, string destination) {
             EnsureClient();
             using (_queue = new EventQueue()) {
                 _client.Update(id, version, updateDependencies, source, destination);
@@ -53,7 +53,7 @@ namespace PsGet.Communications {
             }
         }
 
-        public void Remove(string id, string source, string destination) {
+        public virtual void Remove(string id, string source, string destination) {
             EnsureClient();
             using (_queue = new EventQueue()) {
                 _client.Remove(id, source, destination);
@@ -61,12 +61,12 @@ namespace PsGet.Communications {
             }
         }
 
-        public void Pack(PackageSpec spec, string destination) {
+        public virtual void Pack(PackageSpec spec, string destination) {
             EnsureClient();
             _client.Pack(spec, destination);
         }
 
-        public ICollection<Package> GetPackages(string source, string filter, bool allVersions) {
+        public virtual ICollection<Package> GetPackages(string source, string filter, bool allVersions) {
             EnsureClient();
             return _client.GetPackages(source, filter, allVersions);
         }
