@@ -13,6 +13,13 @@
     </xs:complexContent>
   </xs:complexType>
   <xs:element name="CommunicationException" nillable="true" type="tns:CommunicationException" />
+  <xs:complexType name="FaultException.FaultReasonData">
+    <xs:sequence>
+      <xs:element name="text" nillable="true" type="xs:string" />
+      <xs:element name="xmlLang" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="FaultException.FaultReasonData" nillable="true" type="tns:FaultException.FaultReasonData" />
   <xs:complexType name="ArrayOfFaultException.FaultCodeData">
     <xs:sequence>
       <xs:element minOccurs="0" maxOccurs="unbounded" name="FaultException.FaultCodeData" nillable="true" type="tns:FaultException.FaultCodeData" />
@@ -26,13 +33,6 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="FaultException.FaultCodeData" nillable="true" type="tns:FaultException.FaultCodeData" />
-  <xs:complexType name="FaultException.FaultReasonData">
-    <xs:sequence>
-      <xs:element name="text" nillable="true" type="xs:string" />
-      <xs:element name="xmlLang" nillable="true" type="xs:string" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="FaultException.FaultReasonData" nillable="true" type="tns:FaultException.FaultReasonData" />
   <xs:complexType name="ArrayOfFaultException.FaultReasonData">
     <xs:sequence>
       <xs:element minOccurs="0" maxOccurs="unbounded" name="FaultException.FaultReasonData" nillable="true" type="tns:FaultException.FaultReasonData" />

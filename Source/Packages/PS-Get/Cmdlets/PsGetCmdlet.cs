@@ -43,8 +43,15 @@ namespace PsGet.Cmdlets {
             // Open the client
             Client = Shim.Open(this);
 
+            // Call Additional Preparation
+            BasePrepare();
+
             // Call Begin Processing
             BeginProcessingCore();
+        }
+
+        protected virtual void BasePrepare() {
+
         }
 
         protected virtual void BeginProcessingCore() {

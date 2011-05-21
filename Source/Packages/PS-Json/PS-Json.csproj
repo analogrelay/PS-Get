@@ -55,7 +55,9 @@
     <Compile Include="PSJsonTypeConverter.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Spec Include="PS-Json.nuspec" />
+    <Spec Include="PS-Json.nuspec">
+      <SubType>Designer</SubType>
+    </Spec>
   </ItemGroup>
   <ItemGroup>
     <Content Include="PS-Json.psd1" />

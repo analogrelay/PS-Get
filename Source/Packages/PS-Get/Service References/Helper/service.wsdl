@@ -57,8 +57,8 @@
         <soap12:body use="literal" />
       </wsdl:input>
     </wsdl:operation>
-    <wsdl:operation name="GetPackages">
-      <soap12:operation soapAction="http://ns.psget.org/helper/INuGetShim/GetPackages" style="document" />
+    <wsdl:operation name="Pack">
+      <soap12:operation soapAction="http://ns.psget.org/helper/INuGetShim/Pack" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
@@ -66,8 +66,8 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="Shutdown">
-      <soap12:operation soapAction="http://ns.psget.org/helper/INuGetShim/Shutdown" style="document" />
+    <wsdl:operation name="GetPackages">
+      <soap12:operation soapAction="http://ns.psget.org/helper/INuGetShim/GetPackages" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
@@ -100,7 +100,7 @@
       <wsa10:EndpointReference>
         <wsa10:Address>net.pipe://localhost/PsGetHelper/Dev</wsa10:Address>
         <Identity xmlns="http://schemas.xmlsoap.org/ws/2006/02/addressingidentity">
-          <Upn>anurse@redmond.corp.microsoft.com</Upn>
+          <Upn>REDMOND\anurse</Upn>
         </Identity>
       </wsa10:EndpointReference>
     </wsdl:port>

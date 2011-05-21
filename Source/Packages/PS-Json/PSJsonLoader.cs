@@ -10,8 +10,11 @@ using System.Reflection;
 namespace PsJson {
     public static class PSJsonLoader {
         public static PSObject ConvertToPSObject(JObject jobj) {
+            // I want to be able to make the JObject a base class
+            // But that causes an error about duplicate "Value" members :(
             PSObject obj = new PSObject();
 
+            // Copy JSON properties to PSObject members
             foreach (JProperty prop in jobj.Properties()) {
                 object value = ConvertValue(prop.Value);
                 if (value != null) {
@@ -31,14 +34,15 @@ namespace PsJson {
         }
 
         private static JToken ConvertValue(PSPropertyInfo member) {
-            Type valueType = member.Value.GetType();
+            object value = member.Value;
+            Type valueType = value.GetType();
             if (valueType == typeof(String) || valueType.IsValueType || valueType == typeof(DBNull) || valueType.IsEnum) {
-                return new JValue((string)member.Value);
+                return new JValue((string)value);
             }
             else if (valueType == typeof(PSObject)) {
-                return ConvertToJObject((PSObject)member.Value);
+                return ConvertToJObject((PSObject)value);
             }
-            return new JObject(member.Value);
+            return new JObject(value);
         }
 
         private static object ConvertValue(JToken token) {

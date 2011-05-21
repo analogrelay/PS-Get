@@ -11,7 +11,7 @@ namespace PsGet {
 
         public string HelperPath {
             get {
-                return Path.Combine(_module.ModuleBase, "PsGetHelper.exe");
+                return Path.Combine(_module.ModuleBase, "PsGet.Helper.exe");
             }
         }
 

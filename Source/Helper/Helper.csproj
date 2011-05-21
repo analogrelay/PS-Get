@@ -9,7 +9,7 @@
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>PsGet.Helper</RootNamespace>
-    <AssemblyName>PsGetHelper</AssemblyName>
+    <AssemblyName>PsGet.Helper</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <TargetFrameworkProfile>
     </TargetFrameworkProfile>
@@ -41,6 +41,9 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Management.Automation, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\References\System.Management.Automation.dll</HintPath>
+    </Reference>
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.ServiceModel" />
     <Reference Include="System.Xml.Linq" />
@@ -53,9 +56,11 @@
     <Compile Include="..\..\Build\CommonAssemblyInfo.cs">
       <Link>Properties\CommonAssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="EnumerableMixin.cs" />
     <Compile Include="INuGetShim.cs" />
     <Compile Include="Operation.cs" />
     <Compile Include="NuGetShim.cs" />
+    <Compile Include="ConversionsMixin.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="ProgressProviderMixin.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -64,6 +69,7 @@
     <Compile Include="Serializables\Package.cs" />
     <Compile Include="Serializables\PackageAssemblyReference.cs" />
     <Compile Include="Serializables\PackageDependency.cs" />
+    <Compile Include="Serializables\PackageSpec.cs" />
     <Compile Include="Serializables\ProgressRecord.cs" />
     <Compile Include="Serializables\VersionSpec.cs" />
     <Compile Include="SessionManager.cs" />

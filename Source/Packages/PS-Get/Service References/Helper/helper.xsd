@@ -33,6 +33,19 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
+  <xs:element name="Pack">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q3="http://schemas.datacontract.org/2004/07/PsGet.Helper.Serializables" minOccurs="0" name="spec" nillable="true" type="q3:PackageSpec" />
+        <xs:element minOccurs="0" name="destination" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="PackResponse">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
   <xs:element name="GetPackages">
     <xs:complexType>
       <xs:sequence>
@@ -45,31 +58,21 @@
   <xs:element name="GetPackagesResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q3="http://schemas.datacontract.org/2004/07/PsGet.Helper.Serializables" minOccurs="0" name="GetPackagesResult" nillable="true" type="q3:ArrayOfPackage" />
+        <xs:element xmlns:q4="http://schemas.datacontract.org/2004/07/PsGet.Helper.Serializables" minOccurs="0" name="GetPackagesResult" nillable="true" type="q4:ArrayOfPackage" />
       </xs:sequence>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="Shutdown">
-    <xs:complexType>
-      <xs:sequence />
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="ShutdownResponse">
-    <xs:complexType>
-      <xs:sequence />
     </xs:complexType>
   </xs:element>
   <xs:element name="ReportProgress">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q4="http://schemas.datacontract.org/2004/07/PsGet.Helper.Serializables" minOccurs="0" name="record" nillable="true" type="q4:ProgressRecord" />
+        <xs:element xmlns:q5="http://schemas.datacontract.org/2004/07/PsGet.Helper.Serializables" minOccurs="0" name="record" nillable="true" type="q5:ProgressRecord" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="ReportError">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q5="http://schemas.datacontract.org/2004/07/System.ServiceModel" minOccurs="0" name="ex" nillable="true" type="q5:FaultException" />
+        <xs:element xmlns:q6="http://schemas.datacontract.org/2004/07/System.ServiceModel" minOccurs="0" name="ex" nillable="true" type="q6:FaultException" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>

@@ -102,7 +102,7 @@
     <None Include="app.config" />
     <None Include="packages.config" />
     <AppDesigner Include="Properties\" />
-    <None Include="Packages\PS-Get.nupkg" />
+    <EmbeddedResource Include="Packages\PS-Get.nupkg" />
   </ItemGroup>
   <ItemGroup>
     <Page Include="ChooseInstallLocationView.xaml">

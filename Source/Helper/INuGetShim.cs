@@ -16,6 +16,9 @@ namespace PsGet.Helper {
         void Remove(string id, string source, string destination);
 
         [OperationContract]
+        void Pack(PackageSpec spec, string destination);
+
+        [OperationContract]
         ICollection<Package> GetPackages(string source, string filter, bool allVersions);
     }
 

@@ -61,14 +61,14 @@ namespace PsGet.Communications {
             }
         }
 
+        public void Pack(PackageSpec spec, string destination) {
+            EnsureClient();
+            _client.Pack(spec, destination);
+        }
+
         public ICollection<Package> GetPackages(string source, string filter, bool allVersions) {
             EnsureClient();
             return _client.GetPackages(source, filter, allVersions);
-        }
-
-        public void Shutdown() {
-            EnsureClient();
-            _client.Shutdown();
         }
 
         private void EnsureClient() {

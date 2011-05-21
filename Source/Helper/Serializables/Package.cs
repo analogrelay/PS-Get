@@ -7,7 +7,13 @@ using System.Runtime.Serialization;
 namespace PsGet.Helper.Serializables {
     [DataContract]
     public class Package {
-        public Package() { }
+        public Package() {
+            AssemblyReferences = new List<PackageAssemblyReference>();
+            Authors = new List<string>();
+            Dependencies = new List<PackageDependency>();
+            FrameworkAssemblies = new List<FrameworkAssemblyReference>();
+            Owners = new List<string>();
+        }
         
         public Package(NuGet.IPackage pkg) {
             AssemblyReferences = pkg.AssemblyReferences.Select(p => new PackageAssemblyReference(p)).ToList();

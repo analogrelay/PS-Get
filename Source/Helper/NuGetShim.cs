@@ -6,6 +6,7 @@ using System.Threading;
 using NuGet;
 using PsGet.Helper.Serializables;
 using System.Collections.Generic;
+using System.IO;
 
 namespace PsGet.Helper {
     [ServiceBehavior(IncludeExceptionDetailInFaults = true, ConcurrencyMode = ConcurrencyMode.Reentrant)]
@@ -78,10 +79,19 @@ namespace PsGet.Helper {
             return localList.ToList();
         }
 
+        public void Pack(PackageSpec package, string destination) {
+            PackageBuilder builder = package.ToNuGet();
+
+            using (FileStream strm = File.Open(destination, FileMode.Create, FileAccess.ReadWrite, FileShare.None)) {
+                builder.Save(strm);
+            }
+        }
+
         private void RunProgressOperation(string destination, string source, Action<Operation, IPackageRepository, PackageManager> action) {
             using (Operation op = Operation.Start(Client)) {
                 try {
                     IPackageRepository repo = OpenRepository(source);
+                 
                     PackageManager manager = CreatePackageManager(destination, repo);
                     action(op, repo, manager);
                 }
