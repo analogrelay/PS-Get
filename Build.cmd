@@ -1,1 +1,1 @@
-msbuild Build/FullBuild.msbuild /m %**
+msbuild FullBuild.msbuild /m %**
