@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Types>
+  <Type>
+    <Name>Microsoft.TeamFoundation.Client.TfsTeamProjectCollection</Name>
+    <Members>
+      <ScriptProperty>
+        <Name>VersionControl</Name>
+        <GetScriptBlock>
+          [System.Reflection.Assembly]::LoadWithPartialName("Microsoft.TeamFoundation.VersionControl.Client") | Out-Null
+          $this.GetService([Microsoft.TeamFoundation.VersionControl.Client.VersionControlServer])
+        </GetScriptBlock>
+      </ScriptProperty>
+      <ScriptProperty>
+        <Name>WorkItems</Name>
+        <GetScriptBlock>
+          [System.Reflection.Assembly]::LoadWithPartialName("Microsoft.TeamFoundation.WorkItemTracking.Client") | Out-Null
+          $this.GetService([Microsoft.TeamFoundation.WorkItemTracking.Client.WorkItemStore])
+        </GetScriptBlock>
+      </ScriptProperty>
+    </Members>
+  </Type>
+</Types>
