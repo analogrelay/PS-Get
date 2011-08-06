@@ -6,12 +6,12 @@ using System.Windows;
 
 namespace PsGet.Installer.Models {
     public class ChooseInstallLocationViewModel : INotifyPropertyChanged {
-        private ObservableCollection<string> _installPaths;
-        private string _selectedPath;
+        private ObservableCollection<InstallPath> _installPaths;
+        private InstallPath _selectedPath;
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        public ObservableCollection<string> InstallPaths {
+        public ObservableCollection<InstallPath> InstallPaths {
             get { return _installPaths; }
             set {
                 if (_installPaths != value) {
@@ -21,13 +21,13 @@ namespace PsGet.Installer.Models {
             }
         }
 
-        public string SelectedPath {
+        public InstallPath SelectedPath {
             get { return _selectedPath; }
             set {
                 if (_selectedPath != value) {
                     _selectedPath = value;
                     NotifyPropertyChanged("SelectedPath");
-                    NextCommand.CommandCanExecute = !String.IsNullOrEmpty(_selectedPath);
+                    NextCommand.CommandCanExecute = _selectedPath != null;
                 }
             }
         }
@@ -36,22 +36,22 @@ namespace PsGet.Installer.Models {
 
         public ChooseInstallLocationViewModel() {
             if (DesignerProperties.GetIsInDesignMode(new DependencyObject())) {
-                InstallPaths = new ObservableCollection<string>(new [] {
-                    @"C:\Foo\Bar",
-                    @"D:\Bar",
-                    @"E:\Baz"
+                InstallPaths = new ObservableCollection<InstallPath>(new[] {
+                    new InstallPath(@"C:\SystemDir", isSystemPathIn64BitOs: true),
+                    new InstallPath(@"D:\Bar", isSystemPathIn64BitOs: false),
+                    new InstallPath(@"E:\Baz", isSystemPathIn64BitOs: false)
                 });
             }
             else {
-                InstallPaths = new ObservableCollection<string>(
+                InstallPaths = new ObservableCollection<InstallPath>(
                     App.Current.Shell
                                .AddScript("$env:PsModulePath.Split(';')")
                                .Invoke()
-                               .Select(o => o.ToString()));
+                               .Select(o => new InstallPath(o.ToString())));
             }
 
             NextCommand = new DelegateCommand(_ => {
-                App.Current.NavigationService.Navigate(new Uri("/InstallingView.xaml", UriKind.RelativeOrAbsolute), SelectedPath);
+                App.Current.NavigationService.Navigate(new Uri("/InstallingView.xaml", UriKind.RelativeOrAbsolute), SelectedPath.Path);
             }, canExecute: false);
         }
 
