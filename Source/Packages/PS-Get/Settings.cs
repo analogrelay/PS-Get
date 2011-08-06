@@ -23,7 +23,7 @@ namespace PsGet {
 
         public string DefaultSource {
             get {
-                return "https://go.microsoft.com/fwlink/?LinkID=206669";
+                return "http://packages.psget.org";
             }
         }
     }
