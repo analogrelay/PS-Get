@@ -79,8 +79,6 @@
     <Compile Include="Cmdlets\GetPSPackageCommand.cs" />
     <Compile Include="Cmdlets\InstallPSPackageCommand.cs" />
     <Compile Include="Cmdlets\PsGetCmdlet.cs" />
-    <Compile Include="Command.cs" />
-    <Compile Include="CommandParser.cs" />
     <Compile Include="Communications\EventQueue.cs" />
     <Compile Include="Converters\ProgressRecordConverter.cs" />
     <Compile Include="Communications\HelperClientBase.cs" />

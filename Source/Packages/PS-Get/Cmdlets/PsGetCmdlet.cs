@@ -22,7 +22,7 @@ namespace PsGet.Cmdlets {
         protected sealed override void BeginProcessing() {
             base.BeginProcessing();
 
-            Settings = new Settings(MyInvocation.MyCommand.Module);
+            Settings = new Settings(MyInvocation.MyCommand.Module.ModuleBase);
             
             // Initialize Current Module if necessary
             Interlocked.CompareExchange(ref PsGetModule.Current, MyInvocation.MyCommand.Module, null);

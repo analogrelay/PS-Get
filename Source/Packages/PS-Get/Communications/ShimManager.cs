@@ -13,7 +13,7 @@ namespace PsGet.Communications {
         public static string HelperLocation {
             get {
                 if (_helperLocation == null) {
-                    _helperLocation = new Settings(PsGetModule.Current).HelperPath;
+                    _helperLocation = new Settings(PsGetModule.Current.ModuleBase).HelperPath;
                 }
                 return _helperLocation;
             }

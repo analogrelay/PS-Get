@@ -3,21 +3,21 @@ using System.Management.Automation;
 
 namespace PsGet {
     public class Settings {
-        private PSModuleInfo _module;
+        private string _moduleBase;
 
-        public Settings(PSModuleInfo module) {
-            _module = module;
+        public Settings(string moduleBase) {
+            _moduleBase = moduleBase;
         }
 
         public string HelperPath {
             get {
-                return Path.Combine(_module.ModuleBase, "PsGet.Helper.exe");
+                return Path.Combine(_moduleBase, "PsGet.Helper.exe");
             }
         }
 
         public string InstallationRoot {
             get {
-                return Path.GetFullPath(Path.Combine(_module.ModuleBase, ".."));
+                return Path.GetFullPath(Path.Combine(_moduleBase, ".."));
             }
         }
 

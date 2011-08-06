@@ -12,7 +12,7 @@
 ModuleToProcess = 'PsGet.dll'
 
 # Version number of this module.
-ModuleVersion = '0.5.10520.1717'
+ModuleVersion = '0.5.10520.0'
 
 # ID used to uniquely identify this module
 GUID = '240c4a97-3e92-4be6-9166-77f41c491068'
