@@ -11,39 +11,43 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using PsGet.Installer.Models;
 
-namespace PsGet.Installer
-{
+namespace PsGet.Installer {
     /// <summary>
     /// Interaction logic for ChooseInstallLocationView.xaml
     /// </summary>
-    public partial class ChooseInstallLocationView : Page
-    {
-        public ChooseInstallLocationView()
-        {
+    public partial class ChooseInstallLocationView : Page {
+        public ChooseInstallLocationView() {
             this.InitializeComponent();
-
         }
 
-        private void comboBox_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
-        {
-            if (dockPanel != null) {
-                InstallPath selected = comboBox.SelectedValue as InstallPath;
-                if (selected != null) {
-                    if (selected.IsSystemPathIn64BitOs) {
-                        VisualStateManager.GoToElementState(LayoutRoot,
-                                                     "Visible",
-                                                     useTransitions: true);
-                    }
-                    else {
-                        VisualStateManager.GoToElementState(LayoutRoot,
-                                                     "Invisible",
-                                                     useTransitions: true);
-                    }
+        private void comboBox_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e) {
+            InstallPath selected = comboBox.SelectedValue as InstallPath;
+            if (selected != null) {
+                if (warningPanel != null) {
+                    VisualStateManager.GoToElementState(
+                        warningPanel,
+                        selected.IsSystemPathIn64BitOs ? WarningVisible.Name : WarningInvisible.Name,
+                        useTransitions: true);
                 }
-                else {
-                    VisualStateManager.GoToElementState(LayoutRoot,
-                                                 "Invisible",
-                                                 useTransitions: true);
+                if (elevatePanel != null) {
+                    VisualStateManager.GoToElementState(
+                        elevatePanel,
+                        selected.RequiresElevation ? ElevateVisible.Name : ElevateInvisible.Name,
+                        useTransitions: true);
+                }
+            }
+            else {
+                if (warningPanel != null) {
+                    VisualStateManager.GoToElementState(
+                        warningPanel,
+                        WarningInvisible.Name,
+                        useTransitions: true);
+                }
+                if (warningPanel != null) {
+                    VisualStateManager.GoToElementState(
+                        elevatePanel,
+                        ElevateInvisible.Name,
+                        useTransitions: true);
                 }
             }
         }

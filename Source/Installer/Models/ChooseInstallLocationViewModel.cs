@@ -3,6 +3,8 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Windows;
+using System.Diagnostics;
+using System.Reflection;
 
 namespace PsGet.Installer.Models {
     public class ChooseInstallLocationViewModel : INotifyPropertyChanged {
@@ -37,9 +39,9 @@ namespace PsGet.Installer.Models {
         public ChooseInstallLocationViewModel() {
             if (DesignerProperties.GetIsInDesignMode(new DependencyObject())) {
                 InstallPaths = new ObservableCollection<InstallPath>(new[] {
-                    new InstallPath(@"C:\SystemDir", isSystemPathIn64BitOs: true),
-                    new InstallPath(@"D:\Bar", isSystemPathIn64BitOs: false),
-                    new InstallPath(@"E:\Baz", isSystemPathIn64BitOs: false)
+                    new InstallPath(@"C:\SystemDir", isSystemPathIn64BitOs: true, requiresElevation: true),
+                    new InstallPath(@"D:\Bar", isSystemPathIn64BitOs: false, requiresElevation: true),
+                    new InstallPath(@"E:\Baz", isSystemPathIn64BitOs: false, requiresElevation: true)
                 });
             }
             else {
@@ -51,8 +53,29 @@ namespace PsGet.Installer.Models {
             }
 
             NextCommand = new DelegateCommand(_ => {
-                App.Current.NavigationService.Navigate(new Uri("/InstallingView.xaml", UriKind.RelativeOrAbsolute), SelectedPath.Path);
+                if (SelectedPath.RequiresElevation) {
+                    Elevate();
+                }
+                else {
+                    App.Current.NavigationService.Navigate(new Uri("/InstallingView.xaml", UriKind.RelativeOrAbsolute), SelectedPath.Path);
+                }
             }, canExecute: false);
+        }
+
+        private void Elevate() {
+            try {
+                Process.Start(
+                    new ProcessStartInfo() {
+                        UseShellExecute = true,
+                        WorkingDirectory = Environment.CurrentDirectory,
+                        FileName = Assembly.GetExecutingAssembly().Location,
+                        Verb = "runas"
+                    });
+            }
+            catch (Win32Exception ex) {
+                MessageBox.Show("Error Elevating Process:\n\n" + ex.ToString());
+            }
+            Application.Current.Shutdown();
         }
 
         protected virtual void OnPropertyChanged(PropertyChangedEventArgs args) {

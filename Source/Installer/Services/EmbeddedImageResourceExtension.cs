@@ -9,12 +9,12 @@ using System.Reflection;
 
 namespace PsGet.Installer.Services {
     [MarkupExtensionReturnType(typeof(ImageSource))]
-    public class EmbeddedResourceMarkupExtension : MarkupExtension {
+    public class EmbeddedImageResourceExtension : MarkupExtension {
         public string ResourceName { get; set; }
 
-        public EmbeddedResourceMarkupExtension() { }
+        public EmbeddedImageResourceExtension() { }
 
-        public EmbeddedResourceMarkupExtension(string resourceName) {
+        public EmbeddedImageResourceExtension(string resourceName) {
             ResourceName = resourceName;
         }
 
