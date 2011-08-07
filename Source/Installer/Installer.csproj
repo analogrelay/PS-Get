@@ -39,7 +39,7 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>..\..\Bin\Debug\</OutputPath>
+    <OutputPath>..\..\Bin\Debug\Installer\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -49,7 +49,7 @@
     <PlatformTarget>x86</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>..\..\Bin\Release\</OutputPath>
+    <OutputPath>..\..\Bin\Release\Installer\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -71,12 +71,15 @@
     <AssemblyOriginatorKeyFile>
     </AssemblyOriginatorKeyFile>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationManifest>Properties\app.manifest</ApplicationManifest>
+  </PropertyGroup>
   <ItemGroup>
-    <Reference Include="NuGet.Core, Version=1.3.20419.9005, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+    <Reference Include="NuGet.Core, Version=1.4.20609.9012, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\NuGet.Core.1.3.20419.9005\lib\net40\NuGet.Core.dll</HintPath>
-      <Embed>true</Embed>
+      <HintPath>..\..\packages\NuGet.Core.1.4.20615.9012\lib\net40\NuGet.Core.dll</HintPath>
       <Private>False</Private>
+      <Embed>true</Embed>
     </Reference>
     <Reference Include="PresentationFramework.Classic" />
     <Reference Include="System" />
@@ -133,9 +136,10 @@
       <SubType>Code</SubType>
     </Compile>
     <None Include="app.config" />
-    <None Include="packages.config" />
     <AppDesigner Include="Properties\" />
     <EmbeddedResource Include="Packages\PS-Get.nupkg" />
+    <None Include="Properties\app.manifest" />
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <Page Include="ChooseInstallLocationView.xaml">
@@ -190,9 +194,8 @@
   <Target Name="EmbedAssembliesAndPackages" BeforeTargets="BeforeBuild">
     <ItemGroup>
       <EmbeddedResource Include="%(Reference.HintPath)" Condition="'%(Reference.Embed)' == 'true'" />
-      <Packages Include="..\..\Bin\$(Configuration)\PS-Get.nupkg" />
+      <Packages Include="..\..\Bin\$(Configuration)\Packages\PS-Get.nupkg" />
     </ItemGroup>
-    <Message Text="@(EmbeddedResource)" Importance="high" />
     <Copy SourceFiles="@(Packages)" DestinationFolder="Packages" />
   </Target>
 </Project>

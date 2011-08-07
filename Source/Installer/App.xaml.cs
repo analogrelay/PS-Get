@@ -26,7 +26,8 @@ namespace PsGet.Installer {
             }
         }
 
-        public App() : base() {
+        public App()
+            : base() {
             DesignTimeMode = DesignerProperties.GetIsInDesignMode(new DependencyObject());
 
             Shell = PowerShell.Create();
@@ -34,14 +35,12 @@ namespace PsGet.Installer {
             if (!DesignTimeMode) {
                 AppDomain.CurrentDomain.AssemblyResolve += (_, args) => {
                     AssemblyName name = new AssemblyName(args.Name);
-                    if (String.Equals(name.Name, "NuGet.Core", StringComparison.OrdinalIgnoreCase)) {
-                        string resourceName = String.Format("PsGet.Installer.{0}.dll", args.Name);
-                        using (Stream strm = typeof(App).Assembly.GetManifestResourceStream(resourceName)) {
-                            if (strm != null) {
-                                byte[] asm = new byte[strm.Length];
-                                strm.Read(asm, 0, asm.Length);
-                                return Assembly.Load(asm);
-                            }
+                    string resourceName = String.Format("PsGet.Installer.{0}.dll", name.Name);
+                    using (Stream strm = typeof(App).Assembly.GetManifestResourceStream(resourceName)) {
+                        if (strm != null) {
+                            byte[] asm = new byte[strm.Length];
+                            strm.Read(asm, 0, asm.Length);
+                            return Assembly.Load(asm);
                         }
                     }
                     return null;

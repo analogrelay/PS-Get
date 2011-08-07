@@ -49,7 +49,9 @@ namespace PsGet.Installer.Models {
                     App.Current.Shell
                                .AddScript("$env:PsModulePath.Split(';')")
                                .Invoke()
-                               .Select(o => new InstallPath(o.ToString())));
+                               .Select(o => o.ToString())
+                               .Distinct()
+                               .Select(s => new InstallPath(s)));
             }
 
             NextCommand = new DelegateCommand(_ => {
