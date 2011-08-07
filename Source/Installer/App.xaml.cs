@@ -45,6 +45,16 @@ namespace PsGet.Installer {
                     return null;
                 };
             }
+
+            DispatcherUnhandledException += (sender, args) => {
+                MessageBox.Show(String.Format(
+@"Unhandled Exception! 
+Please email help@psget.org and provide this information 
+as well as a description of what you were doing at the time:
+
+{0}",
+                                args.Exception.ToString()));
+            };
         }
     }
 }
