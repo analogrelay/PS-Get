@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Configuration;
-using System.Data;
 using System.Linq;
 using System.Windows;
 using System.IO;
@@ -34,12 +33,15 @@ namespace PsGet.Installer {
 
             if (!DesignTimeMode) {
                 AppDomain.CurrentDomain.AssemblyResolve += (_, args) => {
-                    string resourceName = String.Format("PsGet.Installer.{0}.dll", args.Name);
-                    using (Stream strm = typeof(App).Assembly.GetManifestResourceStream(resourceName)) {
-                        if (strm != null) {
-                            byte[] asm = new byte[strm.Length];
-                            strm.Read(asm, 0, asm.Length);
-                            return Assembly.Load(asm);
+                    AssemblyName name = new AssemblyName(args.Name);
+                    if (String.Equals(name.Name, "NuGet.Core", StringComparison.OrdinalIgnoreCase)) {
+                        string resourceName = String.Format("PsGet.Installer.{0}.dll", args.Name);
+                        using (Stream strm = typeof(App).Assembly.GetManifestResourceStream(resourceName)) {
+                            if (strm != null) {
+                                byte[] asm = new byte[strm.Length];
+                                strm.Read(asm, 0, asm.Length);
+                                return Assembly.Load(asm);
+                            }
                         }
                     }
                     return null;
