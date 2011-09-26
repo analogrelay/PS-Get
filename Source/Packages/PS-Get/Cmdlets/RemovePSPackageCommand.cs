@@ -1,9 +1,8 @@
-﻿using System;   
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Management.Automation;
-using PsGet.Utils;
 using NuGet;
 
 namespace PsGet.Cmdlets {
@@ -38,11 +37,8 @@ namespace PsGet.Cmdlets {
         protected override void ProcessRecord() {
             WriteDebug(String.Format("Using Source: ", Source));
             WriteDebug(String.Format("Removing From: ", Destination));
-            using (Operation op = StartOperation(String.Format("Removing {0}", Id))) {
-                PackageManager manager = CreatePackageManager(Source, Destination);
-                BindOperationToManager(op, manager);
-                manager.UninstallPackage(Id, null, Force.IsPresent, RemoveDependencies.IsPresent);
-            }
+            PackageManager manager = CreatePackageManager(Source, Destination);
+            manager.UninstallPackage(Id, null, Force.IsPresent, RemoveDependencies.IsPresent);
         }
     }
 }

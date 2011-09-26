@@ -6,7 +6,6 @@ using System.Management.Automation;
 using System.Threading;
 using System.Diagnostics;
 using NuGet;
-using PsGet.Utils;
 
 namespace PsGet.Cmdlets {
     public abstract class PsGetCmdlet : PSCmdlet {
@@ -27,14 +26,6 @@ namespace PsGet.Cmdlets {
             return PackageRepositoryFactory.Default.CreateRepository(source);
         }
 
-        protected Operation StartOperation(string name) {
-            return new Operation(name, WriteProgress);
-        }
-
-        protected Operation StartOperation(string name, Operation parent) {
-            return new Operation(name, parent, WriteProgress);
-        }
-
         protected PackageManager CreatePackageManager(string source, string destination) {
             IPackageRepository repo = PackageRepositoryFactory.Default.CreateRepository(source);
             return new PackageManager(
@@ -42,24 +33,6 @@ namespace PsGet.Cmdlets {
                 new DefaultPackagePathResolver(destination, useSideBySidePaths: false),
                 new PhysicalFileSystem(destination)
             );
-        }
-
-        protected void BindOperationToManager(Operation op, PackageManager manager) {
-            manager.PackageInstalling += (_, e) => {
-                StartOperation(String.Format("Installing {0}", e.Package.GetFullName()), Operation.Current);
-            };
-            manager.PackageInstalled += (_, e) => {
-                Operation.Current.Dispose();
-            };
-            manager.PackageUninstalling += (_, e) => {
-                StartOperation(String.Format("Removing {0}", e.Package.GetFullName()), Operation.Current);
-            };
-            manager.PackageUninstalled += (_, e) => {
-                Operation.Current.Dispose();
-            };
-            manager.SourceRepository.OnProgressAvailable(e => {
-                op.WriteProgress(e.Operation, e.PercentComplete);
-            });
         }
     }
 }

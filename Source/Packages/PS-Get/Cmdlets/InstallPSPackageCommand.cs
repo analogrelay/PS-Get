@@ -2,7 +2,6 @@
 using System.Diagnostics;
 using System.Management.Automation;
 using NuGet;
-using PsGet.Utils;
 
 namespace PsGet.Cmdlets {
     [Cmdlet(VerbsLifecycle.Install, "PSPackage")]
@@ -31,8 +30,8 @@ namespace PsGet.Cmdlets {
             if (String.IsNullOrEmpty(Source)) {
                 Source = Settings.DefaultSource;
             }
-            
-            if(String.IsNullOrEmpty(Destination)) {
+
+            if (String.IsNullOrEmpty(Destination)) {
                 Destination = Settings.InstallationRoot;
             }
         }
@@ -44,11 +43,8 @@ namespace PsGet.Cmdlets {
             if (Version != null) {
                 idString += " " + Version.ToString();
             }
-            using (Operation op = StartOperation(String.Format("Installing {0}", idString))) {
-                PackageManager manager = CreatePackageManager(Source, Destination);
-                BindOperationToManager(op, manager);
-                PerformInstall(manager);
-            }
+            PackageManager manager = CreatePackageManager(Source, Destination);
+            PerformInstall(manager);
         }
 
         protected virtual void PerformInstall(PackageManager manager) {
