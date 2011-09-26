@@ -4,74 +4,62 @@ using System.Linq;
 using System.Text;
 using System.Management.Automation;
 using System.Threading;
-using PsGet.Communications;
 using System.Diagnostics;
+using NuGet;
+using PsGet.Utils;
 
 namespace PsGet.Cmdlets {
     public abstract class PsGetCmdlet : PSCmdlet {
-#if DEBUG
-        [Parameter]
-        [ValidateNotNull]
-        public string PipeName { get; set; }
-#endif
-
-        protected ShimManager Shim { get; set; }
-        protected NuGetProxy Client { get; set; }
         protected Settings Settings { get; set; }
 
         protected sealed override void BeginProcessing() {
             base.BeginProcessing();
-
             Settings = new Settings(MyInvocation.MyCommand.Module.ModuleBase);
-            
-            // Initialize Current Module if necessary
-            Interlocked.CompareExchange(ref PsGetModule.Current, MyInvocation.MyCommand.Module, null);
-
-#if DEBUG
-            if (!String.IsNullOrEmpty(PipeName)) {
-                Shim = new ShimManager(PipeName);
-            }
-            else {
-#endif
-                Shim = ShimManager.Global;
-#if DEBUG
-            }
-#endif
-
-            Trace.WriteLine(String.Format("PSGET Using Pipe: {0}", Shim.PipeName));
-
-            // Open the client
-            Client = Shim.Open(this);
-
-            // Call Additional Preparation
-            BasePrepare();
 
             // Call Begin Processing
             BeginProcessingCore();
         }
 
-        protected virtual void BasePrepare() {
-
-        }
-
         protected virtual void BeginProcessingCore() {
         }
 
-        protected override void ProcessRecord() {
-            try {
-                InvokeService();
-            }
-            catch (Exception ex) {
-                WriteError(new ErrorRecord(ex, "PsGet.Error", ErrorCategory.InvalidOperation, null));
-            }
+        protected virtual IPackageRepository OpenRepository(string source) {
+            return PackageRepositoryFactory.Default.CreateRepository(source);
         }
 
-        protected virtual void InvokeService() {
+        protected Operation StartOperation(string name) {
+            return new Operation(name, WriteProgress);
         }
 
-        protected override void EndProcessing() {
-            Trace.WriteLine("PSGET Disposing Client");
-            Client.Dispose();
+        protected Operation StartOperation(string name, Operation parent) {
+            return new Operation(name, parent, WriteProgress);
+        }
+
+        protected PackageManager CreatePackageManager(string source, string destination) {
+            IPackageRepository repo = PackageRepositoryFactory.Default.CreateRepository(source);
+            return new PackageManager(
+                repo,
+                new DefaultPackagePathResolver(destination, useSideBySidePaths: false),
+                new PhysicalFileSystem(destination)
+            );
+        }
+
+        protected void BindOperationToManager(Operation op, PackageManager manager) {
+            manager.PackageInstalling += (_, e) => {
+                StartOperation(String.Format("Installing {0}", e.Package.GetFullName()), Operation.Current);
+            };
+            manager.PackageInstalled += (_, e) => {
+                Operation.Current.Dispose();
+            };
+            manager.PackageUninstalling += (_, e) => {
+                StartOperation(String.Format("Removing {0}", e.Package.GetFullName()), Operation.Current);
+            };
+            manager.PackageUninstalled += (_, e) => {
+                Operation.Current.Dispose();
+            };
+            manager.SourceRepository.OnProgressAvailable(e => {
+                op.WriteProgress(e.Operation, e.PercentComplete);
+            });
         }
     }
 }

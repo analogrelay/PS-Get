@@ -4,7 +4,9 @@
         <View>
             <Name>Package</Name>
             <ViewSelectedBy>
-                <TypeName>PsGet.Helper.Package</TypeName>
+                <TypeName>NuGet.IPackage</TypeName>
+                <TypeName>NuGet.DataServicePackage</TypeName>
+                <TypeName>NuGet.ZipPackage</TypeName>
             </ViewSelectedBy>
             <TableControl>
                 <TableHeaders>

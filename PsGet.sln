@@ -1,6 +1,6 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 11.00
-# Visual Studio 2010
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 11
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Build", "Build", "{7FA17050-D66E-469A-AF1C-6ECBA170B10F}"
 	ProjectSection(SolutionItems) = preProject
 		Build\PsGet.BinaryPackage.targets = Build\PsGet.BinaryPackage.targets
@@ -14,12 +14,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Source", "Source", "{57A2B9
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Packages", "Packages", "{74FFBAFE-F424-4889-9E97-38A2FF91A770}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Helper", "Source\Helper\Helper.csproj", "{F5815118-6F6D-47BC-A108-A3BC155E0A1C}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PS-Get", "Source\Packages\PS-Get\PS-Get.csproj", "{2D953EDF-41DD-4A08-BA6F-B64E7E918819}"
-	ProjectSection(ProjectDependencies) = postProject
-		{F5815118-6F6D-47BC-A108-A3BC155E0A1C} = {F5815118-6F6D-47BC-A108-A3BC155E0A1C}
-	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Installer", "Source\Installer\Installer.csproj", "{4743F192-8003-4890-9C86-635781FEDB02}"
 	ProjectSection(ProjectDependencies) = postProject
@@ -29,9 +24,9 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "MSBuildCommunityExtensions", "MSBuildCommunityExtensions", "{7D477708-61FA-49AF-AF29-6794B1F8179D}"
 	ProjectSection(SolutionItems) = preProject
 		Build\MSBuildCommunityTasks\ICSharpCode.SharpZipLib.dll = Build\MSBuildCommunityTasks\ICSharpCode.SharpZipLib.dll
+		Build\MSBuildCommunityTasks\MSBuild.Community.Tasks.Targets = Build\MSBuildCommunityTasks\MSBuild.Community.Tasks.Targets
 		Build\MSBuildCommunityTasks\MSBuild.Community.Tasks.dll = Build\MSBuildCommunityTasks\MSBuild.Community.Tasks.dll
 		Build\MSBuildCommunityTasks\MSBuild.Community.Tasks.pdb = Build\MSBuildCommunityTasks\MSBuild.Community.Tasks.pdb
-		Build\MSBuildCommunityTasks\MSBuild.Community.Tasks.Targets = Build\MSBuildCommunityTasks\MSBuild.Community.Tasks.Targets
 		Build\MSBuildCommunityTasks\MSBuild.Community.Tasks.xml = Build\MSBuildCommunityTasks\MSBuild.Community.Tasks.xml
 	EndProjectSection
 EndProject
@@ -57,10 +52,6 @@ Global
 		Release|Mixed Platforms = Release|Mixed Platforms
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{F5815118-6F6D-47BC-A108-A3BC155E0A1C}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
-		{F5815118-6F6D-47BC-A108-A3BC155E0A1C}.Debug|Mixed Platforms.Build.0 = Debug|x86
-		{F5815118-6F6D-47BC-A108-A3BC155E0A1C}.Release|Mixed Platforms.ActiveCfg = Release|x86
-		{F5815118-6F6D-47BC-A108-A3BC155E0A1C}.Release|Mixed Platforms.Build.0 = Release|x86
 		{2D953EDF-41DD-4A08-BA6F-B64E7E918819}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
 		{2D953EDF-41DD-4A08-BA6F-B64E7E918819}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
 		{2D953EDF-41DD-4A08-BA6F-B64E7E918819}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
@@ -69,25 +60,24 @@ Global
 		{4743F192-8003-4890-9C86-635781FEDB02}.Debug|Mixed Platforms.Build.0 = Debug|x86
 		{4743F192-8003-4890-9C86-635781FEDB02}.Release|Mixed Platforms.ActiveCfg = Release|x86
 		{4743F192-8003-4890-9C86-635781FEDB02}.Release|Mixed Platforms.Build.0 = Release|x86
-		{82B9ADCF-8EC7-4897-9B13-23613C79E7EF}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
-		{82B9ADCF-8EC7-4897-9B13-23613C79E7EF}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
-		{82B9ADCF-8EC7-4897-9B13-23613C79E7EF}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
-		{82B9ADCF-8EC7-4897-9B13-23613C79E7EF}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{5F7DF5B0-21E1-4746-8F77-5CB66923287E}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
 		{5F7DF5B0-21E1-4746-8F77-5CB66923287E}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
 		{5F7DF5B0-21E1-4746-8F77-5CB66923287E}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{5F7DF5B0-21E1-4746-8F77-5CB66923287E}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{82B9ADCF-8EC7-4897-9B13-23613C79E7EF}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{82B9ADCF-8EC7-4897-9B13-23613C79E7EF}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{82B9ADCF-8EC7-4897-9B13-23613C79E7EF}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{82B9ADCF-8EC7-4897-9B13-23613C79E7EF}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{7D477708-61FA-49AF-AF29-6794B1F8179D} = {7FA17050-D66E-469A-AF1C-6ECBA170B10F}
-		{74FFBAFE-F424-4889-9E97-38A2FF91A770} = {57A2B902-3432-45E6-B15B-E5E38E412B82}
-		{F5815118-6F6D-47BC-A108-A3BC155E0A1C} = {57A2B902-3432-45E6-B15B-E5E38E412B82}
-		{4743F192-8003-4890-9C86-635781FEDB02} = {57A2B902-3432-45E6-B15B-E5E38E412B82}
 		{2D953EDF-41DD-4A08-BA6F-B64E7E918819} = {74FFBAFE-F424-4889-9E97-38A2FF91A770}
-		{82B9ADCF-8EC7-4897-9B13-23613C79E7EF} = {74FFBAFE-F424-4889-9E97-38A2FF91A770}
+		{4743F192-8003-4890-9C86-635781FEDB02} = {57A2B902-3432-45E6-B15B-E5E38E412B82}
 		{5F7DF5B0-21E1-4746-8F77-5CB66923287E} = {E6ADB305-B943-4CD2-A73C-16697F782A0F}
+		{74FFBAFE-F424-4889-9E97-38A2FF91A770} = {57A2B902-3432-45E6-B15B-E5E38E412B82}
+		{7D477708-61FA-49AF-AF29-6794B1F8179D} = {7FA17050-D66E-469A-AF1C-6ECBA170B10F}
+		{82B9ADCF-8EC7-4897-9B13-23613C79E7EF} = {74FFBAFE-F424-4889-9E97-38A2FF91A770}
 	EndGlobalSection
 EndGlobal

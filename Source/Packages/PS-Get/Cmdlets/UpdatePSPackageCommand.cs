@@ -1,16 +1,19 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Management.Automation;
-using PsGet.Communications;
+using NuGet;
 
 namespace PsGet.Cmdlets {
     [Cmdlet(VerbsData.Update, "PSPackage")]
     public class UpdatePSPackageCommand : InstallPSPackageCommand {
-        [Parameter(Position = 4)]
-        public SwitchParameter DoNotUpdateDependencies { get; set; }
+        protected override string OperationNameTemplate {
+            get {
+                return "Updating {0}";
+            }
+        }
 
-        protected override void InvokeService() {
-            Client.Update(Id, Version, !DoNotUpdateDependencies.IsPresent, Source, Destination);
+        protected override void PerformInstall(PackageManager manager) {
+            manager.UpdatePackage(Id, Version != null ? new VersionSpec(Version) : null, !IgnoreDependencies.IsPresent);
         }
     }
 }
