@@ -46,6 +46,7 @@
   <ItemGroup>
     <Reference Include="NuGet.Core">
       <HintPath>..\..\..\packages\NuGet.Core.1.5.20902.9023\lib\net40-Client\NuGet.Core.dll</HintPath>
+      <Package>true</Package>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
