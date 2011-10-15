@@ -68,11 +68,6 @@
     <Compile Include="Cmdlets\InstallPSPackageCommand.cs" />
     <Compile Include="Cmdlets\PsGetCmdlet.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Service References\Helper\Reference.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </Compile>
     <Compile Include="Settings.cs" />
   </ItemGroup>
   <ItemGroup />
