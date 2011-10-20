@@ -1,5 +1,0 @@
-[paths]
-default = http://psget.org
-
-[extensions]
-hgext.purge=
