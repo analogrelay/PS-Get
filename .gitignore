@@ -5,3 +5,6 @@ Thumbs.db
 [Dd]ebug*/
 [Rr]elease*/
 _[Rr]e[Ss]harper*/
+*.suo
+*.dotCover
+*.user
