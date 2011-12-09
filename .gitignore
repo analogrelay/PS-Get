@@ -1,0 +1,7 @@
+#ignore thumbnails created by windows
+Thumbs.db
+#Ignore files build by Visual Studio
+[Bb]in*/
+[Dd]ebug*/
+[Rr]elease*/
+_[Rr]e[Ss]harper*/

@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 	<Target Name="Build">
-		<Copy SourceFiles=".hgrc" DestinationFiles=".hg\hgrc" />
-		<Exec Command="hg clean --all" IgnoreExitCode="true" WorkingDirectory="$(MSBuildThisFileDirectory)" />
 		<RemoveDir Directories="$(MSBuildThisFileDirectory)\Bin" Condition="Exists('$(MSBuildThisFileDirectory)\Bin')" />
 		<MSBuild Projects="PsGet.sln" BuildInParallel="true" Properties="Configuration=Debug" />
 		<MSBuild Projects="PsGet.sln" BuildInParallel="true" Properties="Configuration=Release" />
