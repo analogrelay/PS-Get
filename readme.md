@@ -21,11 +21,9 @@ How to Install
 
 1. Open PowerShell
 2. Run the following command:
-
 ```
 (new-object Net.WebClient).DownloadString("http://install.psget.org") | iex
 ```
-
 3. Follow the prompts!
 
 
