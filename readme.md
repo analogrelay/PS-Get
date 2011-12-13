@@ -19,16 +19,33 @@ Requirements
 How to Install
 --------------
 
-1. Download the latest source.
-2. Run the Build.cmd 
-3. Navigate to the 'Bin' Folder.
-4. Navigate to the 'Release' Folder.
-5. Navigate to the 'Installer' Folder.
-6. Double-Click 'PsGet.Installer.exe'.
-7. Click Install.
+1. Open PowerShell
+2. Run the following command:
 
-PowerShell Workaround for .NET 4
+```
+(new-object Net.WebClient).DownloadString("http://install.psget.org") | iex
+```
+
+3. Follow the prompts!
+
+
+FAQs
 --------------------------------
+Q: The installer fails with the following message: 'File ... cannot be loaded because the execution of scripts is disabled on this system. Please see "get-help about_signing" for more details.'
+
+A: PowerShell requires that scripts be signed and we aren't able to sign PS-Get right now. You should temporarily disable signing by running the following command:
+
+```
+Set-ExecutionPolicy RemoteSigned
+```
+
+We recommend setting the Execution Policy back to normal after installing, but feel free to leave it at your own risk :).
+
+Q: The installer fails with the following message: "PS-Get requires .NET 4.0 ..."
+
+A:
+
+Either download the PowerShell 3.0 CTP from http://www.microsoft.com/download/en/details.aspx?id=27548 or try the following workaround:
 
 Create a file called **powershell.exe.config**, paste in the following:
 
