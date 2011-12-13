@@ -29,9 +29,9 @@ How to Install
 
 FAQs
 --------------------------------
-Q: The installer fails with the following message: 'File ... cannot be loaded because the execution of scripts is disabled on this system. Please see "get-help about_signing" for more details.'
+*Q*: The installer fails with the following message: 'File ... cannot be loaded because the execution of scripts is disabled on this system. Please see "get-help about_signing" for more details.'
 
-A: PowerShell requires that scripts be signed and we aren't able to sign PS-Get right now. You should temporarily disable signing by running the following command:
+*A*: PowerShell requires that scripts be signed and we aren't able to sign PS-Get right now. You should temporarily disable signing by running the following command:
 
 ```
 Set-ExecutionPolicy RemoteSigned
@@ -39,11 +39,9 @@ Set-ExecutionPolicy RemoteSigned
 
 We recommend setting the Execution Policy back to normal after installing, but feel free to leave it at your own risk :).
 
-Q: The installer fails with the following message: "PS-Get requires .NET 4.0 ..."
+*Q*: The installer fails with the following message: "PS-Get requires .NET 4.0 ..."
 
-A:
-
-Either download the PowerShell 3.0 CTP from http://www.microsoft.com/download/en/details.aspx?id=27548 or try the following workaround:
+*A*: Either download the PowerShell 3.0 CTP from http://www.microsoft.com/download/en/details.aspx?id=27548 or try the following workaround:
 
 Create a file called **powershell.exe.config**, paste in the following:
 
