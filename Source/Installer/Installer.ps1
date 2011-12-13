@@ -4,6 +4,22 @@
 	[string]$NuGetExeUrl = "http://cloud.github.com/downloads/anurse/PS-Get/NuGet.exe", 
 	[string]$PsGetFeed = "http://www.myget.org/F/psget/"
 )
+
+if([Environment]::Version.Major -lt 4) {
+	Write-Host "PS-Get requires .NET 4.0. The easiest way to do this is to download the PowerShell 3.0 CTP from http://www.microsoft.com/download/en/details.aspx?id=27548"
+	throw "Installation Failed."
+}
+
+function YesNoPrompt($msg) {
+	while($answer -eq $null -or $answer.ToLowerInvariant() -ne "yes") {
+		$answer = Read-Host $msg
+		if($answer.ToLowerInvariant() -eq "no") {
+			return $false
+		}
+	}
+	return $true
+}
+
 #$ExpectedHash = "0000000";
 $ExpectedHash = "386121DCF41F16B8CA6B0F9945F65A9D01E08B0E";
 
@@ -32,14 +48,10 @@ while([String]::IsNullOrEmpty($InstallPath)) {
 }
 
 if(!$NoPrompt) {
-	$answer = $null
-	while($answer -eq $null -or $answer.ToLowerInvariant() -ne "yes") {
-		Write-Host "Preparing to install PS-Get to $InstallPath"
-		Write-Host "Modules installed via PS-Get will be installed into this folder as well"
-		$answer = Read-Host "Ready to install? Type YES to start installing, NO to cancel"
-		if($answer.ToLowerInvariant() -eq "no") {
-			return;
-		}
+	Write-Host "Preparing to install PS-Get to $InstallPath"
+	Write-Host "Modules installed via PS-Get will be installed into this folder as well"
+	if(!(YesNoPrompt "Ready to install? Type YES to start installing, NO to cancel")) {
+		return;
 	}
 }
 
@@ -71,10 +83,41 @@ Write-Host "Installing PS-Get Package"
 Write-Host "`tInstalling PS-Get from $PsGetFeed"
 
 if(!(Test-Path $InstallPath)) {
-	mkdir $InstallPath
+	mkdir $InstallPath | Out-Null
 }
 
 pushd $InstallPath
-&$tmpExe install PS-Get -Source $PsGetFeed -ExcludeVersion
+$result = &$tmpExe install PS-Get -Source $PsGetFeed -ExcludeVersion 2>&1  
+if($LASTEXITCODE -gt 0) {
+	throw "PS-Get could not be installed from $PsGet. Error from NuGet.exe:`r`n$result";
+}
 Write-Host "`tRemoving Temporary NuGet.exe"
 del $tmpExe
+popd
+
+# Ask the user if we should add it to the profile
+Write-Host
+
+Write-Host "PS-Get is now installed, activate it by running 'Import-Module PS-Get'"
+Write-Host "Would you like PS-Get to add an entry to your profile to import PS-Get?"
+Write-Host "NOTE: This will add the import entry to the end of your profile file, if you have customized your profile you may wish to do this manually"
+Write-Host "The installer does not check if the code already exists, so this may result in duplicated code if you've already installed PS-Get"
+Write-Host "According to our information, your profile is in: $profile"
+Write-Host "If this is incorrect, you should add the Import line manually"
+if(YesNoPrompt "Add PS-Get to your profile script?") {
+	# Make sure there's a profile folder
+	if(!(Test-Path (Split-Path -Parent $profile))) {
+		mkdir (Split-Path -Parent $profile)
+	}
+
+	# Add Import lines to the end of the profile
+	"`r`n" | Out-File -FilePath $profile -Append -Encoding ASCII
+	"### Added by PS-Get Installer, feel free to move elsewhere if you know what you're doing ;) ###" | Out-File -FilePath $profile -Append -Encoding ASCII
+	"# Import PS-Get Core Module, this line must happen before the others in this block" | Out-File -FilePath $profile -Append -Encoding ASCII
+	"Import-Module PS-Get" | Out-File -FilePath $profile -Append -Encoding ASCII
+	"### END Added by PS-Get Installer section ###" | Out-File -FilePath $profile -Append -Encoding ASCII
+
+	Write-Host "Done! Code added to profile"
+}
+Write-Host
+Write-Host "PS-Get has been installed successfully!"

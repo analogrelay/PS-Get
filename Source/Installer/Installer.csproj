@@ -37,4 +37,5 @@
   <Target Name="Clean">
     <RemoveDir Directories="$(MSBuildThisFileDirectory)\$(OutputPath)" />
   </Target>
+  <Target Name="Rebuild" DependsOnTargets="Clean;Build" />
 </Project>

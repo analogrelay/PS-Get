@@ -62,10 +62,11 @@
     <Compile Include="..\..\..\Build\CommonAssemblyInfo.cs">
       <Link>Properties\CommonAssemblyInfo.cs</Link>
     </Compile>
-    <Compile Include="Cmdlets\RemovePSPackageCommand.cs" />
-    <Compile Include="Cmdlets\UpdatePSPackageCommand.cs" />
-    <Compile Include="Cmdlets\GetPSPackageCommand.cs" />
-    <Compile Include="Cmdlets\InstallPSPackageCommand.cs" />
+    <Compile Include="Cmdlets\ImportPackageCommand.cs" />
+    <Compile Include="Cmdlets\RemovePackageCommand.cs" />
+    <Compile Include="Cmdlets\UpdatePackageCommand.cs" />
+    <Compile Include="Cmdlets\GetPackageCommand.cs" />
+    <Compile Include="Cmdlets\InstallPackageCommand.cs" />
     <Compile Include="Cmdlets\PsGetCmdlet.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Settings.cs" />

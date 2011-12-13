@@ -9,12 +9,6 @@ namespace PsGet {
             _moduleBase = moduleBase;
         }
 
-        public string HelperPath {
-            get {
-                return Path.Combine(_moduleBase, "PsGet.Helper.exe");
-            }
-        }
-
         public string InstallationRoot {
             get {
                 return Path.GetFullPath(Path.Combine(_moduleBase, ".."));
