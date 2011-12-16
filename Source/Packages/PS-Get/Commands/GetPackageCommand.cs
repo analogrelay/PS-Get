@@ -19,7 +19,7 @@ namespace PsGet.Cmdlets {
         [Parameter(HelpMessage="Show all versions of packages")]
         public SwitchParameter AllVersions { get; set; }
 
-        protected override void BeginProcessingCore() {
+        protected internal override void BeginProcessingCore() {
             if (String.IsNullOrEmpty(Source)) {
                 Source = Settings.DefaultSource;
             }

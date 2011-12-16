@@ -10,7 +10,7 @@ using PsGet.Hosting;
 
 namespace PsGet.Cmdlets {
     public abstract class PsGetCmdlet : CommandBase {
-        protected Settings Settings { get; set; }
+        protected internal Settings Settings { get; set; }
         protected internal IPackageRepositoryFactory RepositoryFactory { get; set; }
         
         protected PsGetCmdlet()
@@ -26,15 +26,15 @@ namespace PsGet.Cmdlets {
             BeginProcessingCore();
         }
 
-        protected virtual void BeginProcessingCore() {
+        protected internal virtual void BeginProcessingCore() {
         }
 
         protected internal virtual IPackageRepository OpenRepository(string source) {
             return RepositoryFactory.CreateRepository(source);
         }
 
-        protected internal virtual PackageManager CreatePackageManager(string source, string destination) {
-            IPackageRepository repo = PackageRepositoryFactory.Default.CreateRepository(source);
+        protected internal virtual IPackageManager CreatePackageManager(string source, string destination) {
+            IPackageRepository repo = RepositoryFactory.CreateRepository(source);
             return new PackageManager(
                 repo,
                 CreatePackagePathResolver(destination),

@@ -16,7 +16,7 @@ namespace PsGet.Cmdlets
             }
         }
 
-        protected override void PerformInstall(PackageManager manager, string id, Version version, bool ignoreDependencies)
+        protected override void PerformInstall(IPackageManager manager, string id, Version version, bool ignoreDependencies)
         {
             manager.UpdatePackage(id, version != null ? new VersionSpec(version) : null, !ignoreDependencies);
         }

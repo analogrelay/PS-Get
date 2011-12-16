@@ -26,7 +26,7 @@ namespace PsGet.Cmdlets {
 
         protected virtual string OperationNameTemplate { get { return "Installing {0}"; } }
 
-        protected override void BeginProcessingCore() {
+        protected internal override void BeginProcessingCore() {
             if (String.IsNullOrEmpty(Source)) {
                 Source = Settings.DefaultSource;
             }
@@ -54,11 +54,11 @@ namespace PsGet.Cmdlets {
         {
             WriteDebug(String.Format("Using Source: ", source));
             WriteDebug(String.Format("Installing To: ", destination));
-            PackageManager manager = CreatePackageManager(source, destination);
+            IPackageManager manager = CreatePackageManager(source, destination);
             PerformInstall(manager, id, version, ignoreDependencies);
         }
 
-        protected virtual void PerformInstall(PackageManager manager, string id, Version version, bool ignoreDependencies) {
+        protected virtual void PerformInstall(IPackageManager manager, string id, Version version, bool ignoreDependencies) {
             manager.InstallPackage(id, version, ignoreDependencies);
         }
     }

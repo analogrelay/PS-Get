@@ -25,7 +25,7 @@ namespace PsGet.Cmdlets {
         [Parameter]
         public SwitchParameter RemoveDependencies { get; set; }
 
-        protected override void BeginProcessingCore() {
+        protected internal override void BeginProcessingCore() {
             if (String.IsNullOrEmpty(Source)) {
                 Source = Settings.DefaultSource;
             }
@@ -37,7 +37,7 @@ namespace PsGet.Cmdlets {
         protected override void ProcessRecord() {
             WriteDebug(String.Format("Using Source: ", Source));
             WriteDebug(String.Format("Removing From: ", Destination));
-            PackageManager manager = CreatePackageManager(Source, Destination);
+            IPackageManager manager = CreatePackageManager(Source, Destination);
             manager.UninstallPackage(Id, null, Force.IsPresent, RemoveDependencies.IsPresent);
         }
     }
