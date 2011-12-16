@@ -57,9 +57,17 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AttributeAssert.cs" />
+    <Compile Include="CmdletExtensions.cs" />
+    <Compile Include="CommandOutput.cs" />
+    <Compile Include="Commands\GetPackageCommandFacts.cs" />
     <Compile Include="Commands\PsGetCmdletFacts.cs" />
-    <Compile Include="Commands\TestHostEnvironment.cs" />
+    <Compile Include="PackageFilters.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SimplePackage.cs" />
+    <Compile Include="TestCommandRuntime.cs" />
+    <Compile Include="TestHostEnvironment.cs" />
+    <Compile Include="TestRepository.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

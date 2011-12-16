@@ -8,29 +8,37 @@ namespace PsGet.Hosting
 {
     public abstract class CommandBase : PSCmdlet
     {
-        public ISessionStorage Session { get; set; }
-        public ICommandInvoker Invoker { get; set; }
-        public IHostEnvironment HostEnvironment { get; set; }
+        protected internal ISessionStorage Session { get; internal set; }
+        protected internal ICommandInvoker Invoker { get; internal set; }
+        protected internal IHostEnvironment HostEnvironment { get; internal set; }
 
-        // Test helper methods
-        internal void FireBeginProcessing()
+        protected CommandBase()
         {
-            BeginProcessing();
+            Session = new PowerShellSessionStorage(SessionState);
+            Invoker = new PowerShellInvoker(InvokeCommand);
+            HostEnvironment = new PowerShellHostEnvironment(MyInvocation);
         }
 
-        internal void FireEndProcessing()
+        // Disable warning about obsolete overrides of non-obsolete methods because that's exactly what we want!
+        protected override sealed void BeginProcessing()
         {
-            EndProcessing();
+            BeginProcessingCore();
         }
 
-        internal void FireProcessRecord()
+        protected internal virtual void BeginProcessingCore() { }
+
+        protected override sealed void ProcessRecord()
         {
-            ProcessRecord();
+            ProcessRecordCore();
         }
 
-        internal void FireStopProcessing()
+        protected internal virtual void ProcessRecordCore() { }
+
+        protected override sealed void EndProcessing()
         {
-            StopProcessing();
+            EndProcessingCore();
         }
+
+        protected internal virtual void EndProcessingCore() { }
     }
 }

@@ -34,7 +34,7 @@ namespace PsGet.Cmdlets {
             }
         }
 
-        protected override void ProcessRecord() {
+        protected internal override void ProcessRecordCore() {
             WriteDebug(String.Format("Using Source: ", Source));
             WriteDebug(String.Format("Removing From: ", Destination));
             IPackageManager manager = CreatePackageManager(Source, Destination);

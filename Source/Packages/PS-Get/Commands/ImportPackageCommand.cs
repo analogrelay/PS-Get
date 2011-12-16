@@ -10,7 +10,7 @@ namespace PsGet.Cmdlets
     [Cmdlet(VerbsData.Import, "Package")]
     public class ImportPackageCommand : InstallPackageCommand
     {
-        protected override void ProcessRecord()
+        protected internal override void ProcessRecordCore()
         {
             ImportPackage(Id, Version);
         }

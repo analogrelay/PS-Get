@@ -18,15 +18,8 @@ namespace PsGet.Cmdlets {
             RepositoryFactory = PackageRepositoryFactory.Default;
         }
 
-        protected sealed override void BeginProcessing() {
-            base.BeginProcessing();
+        protected internal override void BeginProcessingCore() {
             Settings = new Settings(HostEnvironment.ModuleBase);
-
-            // Call Begin Processing
-            BeginProcessingCore();
-        }
-
-        protected internal virtual void BeginProcessingCore() {
         }
 
         protected internal virtual IPackageRepository OpenRepository(string source) {

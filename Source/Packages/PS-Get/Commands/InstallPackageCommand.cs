@@ -36,7 +36,7 @@ namespace PsGet.Cmdlets {
             }
         }
 
-        protected override void ProcessRecord() {
+        protected internal override void ProcessRecordCore() {
             DoInstall();
         }
 
