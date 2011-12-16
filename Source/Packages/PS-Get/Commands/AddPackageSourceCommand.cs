@@ -3,13 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Management.Automation;
 using System.Text;
-using PsGet.Abstractions;
-using PsGet.Sources;
 
 namespace PsGet.Cmdlets
 {
-    [Cmdlet(VerbsCommon.Add, "PSPackageSource")]
-    public class AddPSPackageSourceCommand : PSCmdlet
+    [Cmdlet(VerbsCommon.Add, "PackageSource")]
+    public class AddPackageSourceCommand : PSCmdlet
     {
         [Parameter(Mandatory = true, Position = 0, ValueFromPipeline = true, ValueFromPipelineByPropertyName = true)]
         public string Source { get; set; }
@@ -20,7 +18,7 @@ namespace PsGet.Cmdlets
         [Parameter(Mandatory = false)]
         public PackageSourceListScope Scope { get; set; }
 
-        public AddPSPackageSourceCommand()
+        public AddPackageSourceCommand()
         {
             Scope = PackageSourceListScope.User;
         }

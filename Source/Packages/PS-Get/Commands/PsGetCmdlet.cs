@@ -1,0 +1,54 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Management.Automation;
+using System.Threading;
+using System.Diagnostics;
+using NuGet;
+using PsGet.Hosting;
+
+namespace PsGet.Cmdlets {
+    public abstract class PsGetCmdlet : CommandBase {
+        protected Settings Settings { get; set; }
+        protected internal IPackageRepositoryFactory RepositoryFactory { get; set; }
+        
+        protected PsGetCmdlet()
+        {
+            RepositoryFactory = PackageRepositoryFactory.Default;
+        }
+
+        protected sealed override void BeginProcessing() {
+            base.BeginProcessing();
+            Settings = new Settings(HostEnvironment.ModuleBase);
+
+            // Call Begin Processing
+            BeginProcessingCore();
+        }
+
+        protected virtual void BeginProcessingCore() {
+        }
+
+        protected internal virtual IPackageRepository OpenRepository(string source) {
+            return RepositoryFactory.CreateRepository(source);
+        }
+
+        protected internal virtual PackageManager CreatePackageManager(string source, string destination) {
+            IPackageRepository repo = PackageRepositoryFactory.Default.CreateRepository(source);
+            return new PackageManager(
+                repo,
+                CreatePackagePathResolver(destination),
+                CreateFileSystem(destination)
+            );
+        }
+
+        protected internal virtual IPackagePathResolver CreatePackagePathResolver(string root) {
+            return new DefaultPackagePathResolver(root, useSideBySidePaths: false);
+        }
+
+        protected internal virtual IFileSystem CreateFileSystem(string root)
+        {
+            return new PhysicalFileSystem(root);
+        }
+    }
+}

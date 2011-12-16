@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Management.Automation;
 using NuGet;
+using PsGet.Hosting;
 
 namespace PsGet.Cmdlets {
     [Cmdlet(VerbsCommon.Get, "Package")]
