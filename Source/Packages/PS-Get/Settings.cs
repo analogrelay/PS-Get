@@ -2,7 +2,7 @@
 using System.Management.Automation;
 
 namespace PsGet {
-    public class Settings {
+    public class Settings{
         internal static readonly string TheDefaultSource = "http://packages.psget.org";
         private string _moduleBase;
 

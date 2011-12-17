@@ -12,10 +12,12 @@ namespace PsGet.Cmdlets {
     public abstract class PsGetCmdlet : CommandBase {
         protected internal Settings Settings { get; set; }
         protected internal IPackageRepositoryFactory RepositoryFactory { get; set; }
+        internal Func<string, string, IPackageManager> PackageManagerFactory { get; set; }
         
         protected PsGetCmdlet()
         {
             RepositoryFactory = PackageRepositoryFactory.Default;
+            PackageManagerFactory = CreatePackageManagerCore;
         }
 
         protected internal override void BeginProcessingCore() {
@@ -27,6 +29,10 @@ namespace PsGet.Cmdlets {
         }
 
         protected internal virtual IPackageManager CreatePackageManager(string source, string destination) {
+            return PackageManagerFactory(source, destination);
+        }
+
+        private IPackageManager CreatePackageManagerCore(string source, string destination) {
             IPackageRepository repo = RepositoryFactory.CreateRepository(source);
             return new PackageManager(
                 repo,

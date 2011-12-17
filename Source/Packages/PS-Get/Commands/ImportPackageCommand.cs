@@ -12,18 +12,13 @@ namespace PsGet.Cmdlets
     {
         protected internal override void ProcessRecordCore()
         {
-            ImportPackage(Id, Version);
-        }
-
-        private void ImportPackage(string id, Version version)
-        {
             // First, check if the module exists
-            var module = SessionState.InvokeCommand.InvokeScript("Get-Module -ListAvailable " + id).Select(p => p.ImmediateBaseObject).OfType<PSModuleInfo>().FirstOrDefault();
-            if (module == null || (version != null && !module.Version.Equals(version)))
+            var module = SessionState.InvokeCommand.InvokeScript("Get-Module -ListAvailable " + Id).Select(p => p.ImmediateBaseObject).OfType<PSModuleInfo>().FirstOrDefault();
+            if (module == null || (Version != null && !module.Version.Equals(Version)))
             {
                 // Install/Update the module
                 WriteDebug("Module is not installed or is not the specified version, installing");
-                DoInstall(id, version);
+                DoInstall(Id, Version, IgnoreDependencies.IsPresent, Source, Destination);
             }
 
             // Now import the module
