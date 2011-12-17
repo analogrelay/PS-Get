@@ -12,7 +12,7 @@
 ModuleToProcess = 'PsJson.dll'
 
 # Version number of this module.
-ModuleVersion = '0.5.11216.0'
+ModuleVersion = '0.5.11217.0'
 
 # ID used to uniquely identify this module
 GUID = 'EBBC6424-DD95-40FA-9FFC-07DF99C0491B'

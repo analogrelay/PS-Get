@@ -3,6 +3,8 @@
 	<Target Name="Build">
 		<RemoveDir Directories="$(MSBuildThisFileDirectory)\Bin" Condition="Exists('$(MSBuildThisFileDirectory)\Bin')" />
 		<MSBuild Projects="PsGet.sln" BuildInParallel="true" Properties="Configuration=Debug" />
+		<MSBuild Projects="Facts\Facts.msbuild" Properties="Configuration=Debug" Targets="RunTests" />
 		<MSBuild Projects="PsGet.sln" BuildInParallel="true" Properties="Configuration=Release" />
+		<MSBuild Projects="Facts\Facts.msbuild" Properties="Configuration=Release" Targets="RunTests" />
 	</Target>
 </Project>
