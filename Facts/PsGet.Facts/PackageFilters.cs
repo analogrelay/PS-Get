@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using NuGet;
 using Xunit;
+using PsGet.Facts.TestDoubles;
 
 namespace PsGet.Facts
 {

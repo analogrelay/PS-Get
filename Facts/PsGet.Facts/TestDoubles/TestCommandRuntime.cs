@@ -5,9 +5,12 @@ using System.Text;
 using System.Management.Automation;
 using System.Management.Automation.Host;
 using System.Collections;
+using System.Diagnostics.CodeAnalysis;
 
-namespace PsGet.Facts
+namespace PsGet.Facts.TestDoubles
 {
+    // Test Doubles are tested via their use in unit tests
+    [ExcludeFromCodeCoverage]
     public class TestCommandRuntime : ICommandRuntime
     {
         public CommandOutput Output { get; private set; }

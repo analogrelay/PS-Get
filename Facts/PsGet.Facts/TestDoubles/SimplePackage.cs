@@ -3,9 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using NuGet;
+using System.Diagnostics.CodeAnalysis;
 
-namespace PsGet.Facts
+namespace PsGet.Facts.TestDoubles
 {
+    // Test Doubles are tested via their use in unit tests
+    [ExcludeFromCodeCoverage]
     public class SimplePackage : IPackage
     {
         public string Id { get; set; }

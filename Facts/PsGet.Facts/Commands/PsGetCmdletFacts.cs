@@ -6,6 +6,7 @@ using Xunit;
 using NuGet;
 using Moq;
 using PsGet.Cmdlets;
+using PsGet.Facts.TestDoubles;
 
 namespace PsGet.Facts.Commands
 {

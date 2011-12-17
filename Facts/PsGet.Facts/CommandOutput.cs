@@ -4,9 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Management.Automation;
 using System.Collections;
+using System.Diagnostics.CodeAnalysis;
 
 namespace PsGet.Facts
 {
+    // Data classes are tested via their use in unit tests
+    [ExcludeFromCodeCoverage]
     public class CommandOutput
     {
         public IList<string> CommandDetailStream { get; private set; }

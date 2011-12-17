@@ -5,19 +5,22 @@ using System.Text;
 using Xunit;
 using System.Linq.Expressions;
 using System.Reflection;
+using System.Diagnostics.CodeAnalysis;
 
 namespace PsGet.Facts   
 {
+    // Asserts are tested via their use in unit tests
+    [ExcludeFromCodeCoverage]
     public static class AttributeAssert
     {
-        public static void Has<T>(MemberInfo member, T attr) where T : Attribute
+        public static void Has(MemberInfo member, Attribute attr)
         {
-            T[] attrs = (T[])member.GetCustomAttributes(typeof(T), inherit: false);
+            Attribute[] attrs = (Attribute[])member.GetCustomAttributes(attr.GetType(), inherit: false);
             Assert.Equal(1, attrs.Length);
             Assert.Equal(attr, attrs[0]);
         }
 
-        public static void Has<T>(Expression<Func<object>> expr, T attr) where T : Attribute
+        public static void Has(Expression<Func<object>> expr, Attribute attr)
         {
             Has(ExtractMember(expr), attr);
         }

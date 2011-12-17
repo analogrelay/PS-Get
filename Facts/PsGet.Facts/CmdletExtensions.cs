@@ -4,20 +4,20 @@ using System.Linq;
 using System.Text;
 using System.Management.Automation;
 using PsGet.Hosting;
+using NuGet;
+using PsGet.Cmdlets;
+using Moq;
+using Xunit;
+using PsGet.Facts.TestDoubles;
 
 namespace PsGet.Facts
 {
     public static class CmdletExtensions
     {
-        /// <summary>
-        /// Sets up the default values for test abstractions.
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="self"></param>
-        /// <returns></returns>
         public static T AutoConfigure<T>(this T self) where T : CommandBase
         {
             self.HostEnvironment = new TestHostEnvironment();
+            self.CommandRuntime = new TestCommandRuntime();
             return self;
         }
 
@@ -40,6 +40,33 @@ namespace PsGet.Facts
             }
             self.EndProcessingCore();
             return runtime.Output;
+        }
+
+        public static TestCommandInvoker AttachInvoker(this CommandBase self)
+        {
+            return self.AttachInvoker(autoHandle: true);
+        }
+
+        public static TestCommandInvoker AttachInvoker(this CommandBase self, bool autoHandle)
+        {
+            TestCommandInvoker invoker = new TestCommandInvoker(autoHandle);
+            self.Invoker = invoker;
+            return invoker;
+        }
+
+        public static Mock<IPackageManager> AttachPackageManager(this PsGetCmdlet self) {
+            Mock<IPackageManager> mock = new Mock<IPackageManager>();
+            self.PackageManagerFactory = (source, destination) =>
+            {
+                InstallPackageCommand cmd = self as InstallPackageCommand;
+                if (cmd != null)
+                {
+                    Assert.Equal(cmd.Source, source);
+                    Assert.Equal(cmd.Destination, destination);
+                }
+                return mock.Object;
+            };
+            return mock;
         }
     }
 }

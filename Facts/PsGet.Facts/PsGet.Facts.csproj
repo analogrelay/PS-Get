@@ -58,17 +58,25 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AttributeAssert.cs" />
+    <Compile Include="CmdletAssert.cs" />
     <Compile Include="CmdletExtensions.cs" />
     <Compile Include="CommandOutput.cs" />
     <Compile Include="Commands\GetPackageCommandFacts.cs" />
+    <Compile Include="Commands\ImportPackageCommandFacts.cs" />
     <Compile Include="Commands\InstallPackageCommandFacts.cs" />
     <Compile Include="Commands\PsGetCmdletFacts.cs" />
+    <Compile Include="Commands\PsGetCmdletWithSourceFacts.cs" />
+    <Compile Include="Commands\RemovePackageCommandFacts.cs" />
+    <Compile Include="Commands\UpdatePackageCommandFacts.cs" />
+    <Compile Include="Hosting\CommandBaseFacts.cs" />
     <Compile Include="PackageFilters.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SimplePackage.cs" />
-    <Compile Include="TestCommandRuntime.cs" />
-    <Compile Include="TestHostEnvironment.cs" />
-    <Compile Include="TestRepository.cs" />
+    <Compile Include="TestDoubles\SimpleModuleMetadata.cs" />
+    <Compile Include="TestDoubles\SimplePackage.cs" />
+    <Compile Include="TestDoubles\TestCommandInvoker.cs" />
+    <Compile Include="TestDoubles\TestCommandRuntime.cs" />
+    <Compile Include="TestDoubles\TestHostEnvironment.cs" />
+    <Compile Include="TestDoubles\TestRepository.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

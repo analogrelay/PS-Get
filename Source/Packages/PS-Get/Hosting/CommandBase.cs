@@ -8,13 +8,11 @@ namespace PsGet.Hosting
 {
     public abstract class CommandBase : PSCmdlet
     {
-        protected internal ISessionStorage Session { get; internal set; }
         protected internal ICommandInvoker Invoker { get; internal set; }
         protected internal IHostEnvironment HostEnvironment { get; internal set; }
 
         protected CommandBase()
         {
-            Session = new PowerShellSessionStorage(SessionState);
             Invoker = new PowerShellInvoker(InvokeCommand);
             HostEnvironment = new PowerShellHostEnvironment(MyInvocation);
         }
@@ -40,5 +38,12 @@ namespace PsGet.Hosting
         }
 
         protected internal virtual void EndProcessingCore() { }
+
+        protected override sealed void StopProcessing()
+        {
+            StopProcessingCore();
+        }
+
+        protected internal virtual void StopProcessingCore() { }
     }
 }

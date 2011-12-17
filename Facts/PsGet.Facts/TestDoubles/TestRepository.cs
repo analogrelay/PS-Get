@@ -4,9 +4,12 @@ using System.Linq;
 using System.Text;
 using NuGet;
 using Moq;
+using System.Diagnostics.CodeAnalysis;
 
-namespace PsGet.Facts
+namespace PsGet.Facts.TestDoubles
 {
+    // Test Doubles are tested via their use in unit tests
+    [ExcludeFromCodeCoverage]
     public class TestRepository : IPackageRepository
     {
         public static readonly IPackage[] DefaultPackages = new IPackage[] {

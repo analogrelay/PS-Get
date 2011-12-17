@@ -63,7 +63,10 @@
     <Compile Include="..\..\..\Build\CommonAssemblyInfo.cs">
       <Link>Properties\CommonAssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="Abstractions\IModuleMetadata.cs" />
+    <Compile Include="Abstractions\PSModuleInfoAdapter.cs" />
     <Compile Include="Commands\ImportPackageCommand.cs" />
+    <Compile Include="Commands\PsGetCmdletWithSource.cs" />
     <Compile Include="Commands\RemovePackageCommand.cs" />
     <Compile Include="Commands\UpdatePackageCommand.cs" />
     <Compile Include="Commands\GetPackageCommand.cs" />
@@ -72,10 +75,8 @@
     <Compile Include="Hosting\CommandBase.cs" />
     <Compile Include="Hosting\ICommandInvoker.cs" />
     <Compile Include="Hosting\IHostEnvironment.cs" />
-    <Compile Include="Hosting\ISessionStorage.cs" />
     <Compile Include="Hosting\PowerShellHostEnvironment.cs" />
     <Compile Include="Hosting\PowerShellInvoker.cs" />
-    <Compile Include="Hosting\PowerShellSessionStorage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Settings.cs" />
   </ItemGroup>

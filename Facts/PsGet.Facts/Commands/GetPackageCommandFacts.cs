@@ -6,6 +6,7 @@ using Xunit;
 using System.Management.Automation;
 using PsGet.Cmdlets;
 using NuGet;
+using PsGet.Facts.TestDoubles;
 
 namespace PsGet.Facts.Commands
 {
@@ -14,14 +15,15 @@ namespace PsGet.Facts.Commands
         [Fact]
         public void VerifyCmdlet()
         {
-            AttributeAssert.Has(typeof(GetPackageCommand), new CmdletAttribute(VerbsCommon.Get, "Package"));
+            CmdletAssert.IsCmdlet(typeof(GetPackageCommand), VerbsCommon.Get, "Package");
         }
 
         [Fact]
         public void VerifyIdParameter()
         {
-            AttributeAssert.Has(() => new GetPackageCommand().Id, new ParameterAttribute()
-            {
+            CmdletAssert.IsParameter(
+                () => new GetPackageCommand().Id,
+                new ParameterAttribute() {
                 Position = 0,
                 ValueFromPipelineByPropertyName = true,
                 HelpMessage = "A filter to apply to the ID of the packages on the server"
@@ -31,19 +33,21 @@ namespace PsGet.Facts.Commands
         [Fact]
         public void VerifySourceParameter()
         {
-            AttributeAssert.Has(() => new GetPackageCommand().Source, new ParameterAttribute()
-            {
+            CmdletAssert.IsParameter(
+                () => new GetPackageCommand().Source, 
+                new ParameterAttribute() {
                 Position = 1,
                 HelpMessage = "The NuGet feed to list packages from"
-            });
-            AttributeAssert.Has(() => new GetPackageCommand().Source, new ValidateNotNullOrEmptyAttribute());
+            }, 
+            new ValidateNotNullOrEmptyAttribute());
         }
 
         [Fact]
         public void VerifyAllVersionsParameter()
         {
-            AttributeAssert.Has(() => new GetPackageCommand().AllVersions, new ParameterAttribute()
-            {
+            CmdletAssert.IsParameter(
+                () => new GetPackageCommand().AllVersions, 
+                new ParameterAttribute() {
                 HelpMessage = "Show all versions of packages"
             });
         }
