@@ -2,7 +2,7 @@
 <package> 
   <metadata> 
     <id>PS-Get</id> 
-    <version>0.5.11216.0</version> 
+    <version>0.5.11217.0</version> 
     <authors>Andrew Nurse</authors>
     <description>NuGet-based system for deploying PowerShell Modules</description> 
     <language>en-US</language>

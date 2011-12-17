@@ -43,8 +43,8 @@ namespace PsGet.Cmdlets {
 
         protected internal virtual void DoInstall(string id, Version version, bool ignoreDependencies, string source, string destination)
         {
-            WriteDebug(String.Format("Using Source: ", source));
-            WriteDebug(String.Format("Installing To: ", destination));
+            WriteDebug(String.Concat("Using Source: ", source));
+            WriteDebug(String.Concat("Installing To: ", destination));
             IPackageManager manager = CreatePackageManager(source, destination);
             PerformInstall(manager, id, version, ignoreDependencies);
         }

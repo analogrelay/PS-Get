@@ -15,7 +15,7 @@ namespace PsGet.Facts.Commands
         [Fact]
         public void VerifyCmdlet()
         {
-            AttributeAssert.Has(typeof(InstallPackageCommand), new CmdletAttribute(VerbsData.Import, "Package"));
+            AttributeAssert.Has(typeof(InstallPackageCommand), new CmdletAttribute(VerbsLifecycle.Install, "Package"));
         }
 
         [Fact]
@@ -83,7 +83,7 @@ namespace PsGet.Facts.Commands
         [Fact]
         public void SourceIsSetToDefaultSourceIfNotSpecified()
         {
-            // Assert
+            // Arrange
             InstallPackageCommand cmd = new InstallPackageCommand();
             cmd.HostEnvironment = new TestHostEnvironment();
 
@@ -97,7 +97,7 @@ namespace PsGet.Facts.Commands
         [Fact]
         public void SourceIsLeftAloneIfSpecified()
         {
-            // Assert
+            // Arrange
             InstallPackageCommand cmd = new InstallPackageCommand();
             cmd.HostEnvironment = new TestHostEnvironment();
             cmd.Source = "http://packages.nuget.org";
@@ -112,7 +112,7 @@ namespace PsGet.Facts.Commands
         [Fact]
         public void DestinationIsSetToInstallationRootIfNotSpecified()
         {
-            // Assert
+            // Arrange
             InstallPackageCommand cmd = new InstallPackageCommand();
             cmd.HostEnvironment = new TestHostEnvironment();
 
@@ -126,7 +126,7 @@ namespace PsGet.Facts.Commands
         [Fact]
         public void DestinationIsLeftAloneIfSpecified()
         {
-            // Assert
+            // Arrange
             InstallPackageCommand cmd = new InstallPackageCommand();
             cmd.HostEnvironment = new TestHostEnvironment();
             cmd.Source = @"C:\Foo\Bar";
@@ -141,7 +141,7 @@ namespace PsGet.Facts.Commands
         [Fact]
         public void WhenIdSpecified_PackageManagerIsCalledToInstallLatestVersionAndDependencies()
         {
-            // Assert
+            // Arrange
             InstallPackageCommand cmd = new InstallPackageCommand();
             cmd.HostEnvironment = new TestHostEnvironment();
             Mock<IPackageManager> mockManager = new Mock<IPackageManager>();
@@ -158,6 +158,78 @@ namespace PsGet.Facts.Commands
 
             // Assert
             mockManager.Verify(m => m.InstallPackage("Foo", null, false));
+        }
+
+        [Fact]
+        public void WhenIdAndVersionSpecified_PackageManagerIsCalledToInstallSpecificVersionAndDependencies()
+        {
+            // Arrange
+            InstallPackageCommand cmd = new InstallPackageCommand();
+            cmd.HostEnvironment = new TestHostEnvironment();
+            Mock<IPackageManager> mockManager = new Mock<IPackageManager>();
+            cmd.PackageManagerFactory = (source, destination) =>
+            {
+                Assert.Equal(source, cmd.Source);
+                Assert.Equal(destination, cmd.Destination);
+                return mockManager.Object;
+            };
+            cmd.Id = "Foo";
+            cmd.Version = new Version(1, 0, 0, 0);
+
+            // Act
+            cmd.Execute();
+
+            // Assert
+            mockManager.Verify(m => m.InstallPackage("Foo", new Version(1, 0, 0, 0), false));
+        }
+
+        [Fact]
+        public void WhenIgnoreDependenciesSpecified_PackageManagerIsCalledToInstallPackageAndIgnoreDependencies()
+        {
+            // Arrange
+            InstallPackageCommand cmd = new InstallPackageCommand();
+            cmd.HostEnvironment = new TestHostEnvironment();
+            Mock<IPackageManager> mockManager = new Mock<IPackageManager>();
+            cmd.PackageManagerFactory = (source, destination) =>
+            {
+                Assert.Equal(source, cmd.Source);
+                Assert.Equal(destination, cmd.Destination);
+                return mockManager.Object;
+            };
+            cmd.Id = "Foo";
+            cmd.IgnoreDependencies = SwitchParameter.Present;
+
+            // Act
+            cmd.Execute();
+
+            // Assert
+            mockManager.Verify(m => m.InstallPackage("Foo", null, true));
+        }
+
+        [Fact]
+        public void CommandOutputsDebugInformation()
+        {
+            // Arrange
+            InstallPackageCommand cmd = new InstallPackageCommand();
+            cmd.HostEnvironment = new TestHostEnvironment();
+            Mock<IPackageManager> mockManager = new Mock<IPackageManager>();
+            cmd.PackageManagerFactory = (source, destination) =>
+            {
+                Assert.Equal(source, cmd.Source);
+                Assert.Equal(destination, cmd.Destination);
+                return mockManager.Object;
+            };
+            cmd.Source = "http://packages.nuget.org";
+            cmd.Destination = @"D:\Foo";
+
+            // Act
+            CommandOutput output = cmd.Execute();
+
+            // Assert
+            Assert.Equal(new[] {
+                @"Using Source: http://packages.nuget.org",
+                @"Installing To: D:\Foo"
+            }, output.DebugStream.ToArray());
         }
     }
 }
