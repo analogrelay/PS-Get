@@ -33,6 +33,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Facts", "Facts", "{13B90F81
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PsGet.Facts", "Facts\PsGet.Facts\PsGet.Facts.csproj", "{EF672800-94FD-449D-90B1-066F24B494A8}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PsGet.Facts.Integration", "Facts\PsGet.Facts.Integration\PsGet.Facts.Integration.csproj", "{691C9283-42A9-4AF1-B0B2-D41F5D6812E6}"
+EndProject
 Global
 	GlobalSection(TestCaseManagementSettings) = postSolution
 		CategoryFile = PsGet.vsmdi
@@ -76,6 +78,14 @@ Global
 		{EF672800-94FD-449D-90B1-066F24B494A8}.Release|Any CPU.Build.0 = Release|Any CPU
 		{EF672800-94FD-449D-90B1-066F24B494A8}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{EF672800-94FD-449D-90B1-066F24B494A8}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{691C9283-42A9-4AF1-B0B2-D41F5D6812E6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{691C9283-42A9-4AF1-B0B2-D41F5D6812E6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{691C9283-42A9-4AF1-B0B2-D41F5D6812E6}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{691C9283-42A9-4AF1-B0B2-D41F5D6812E6}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{691C9283-42A9-4AF1-B0B2-D41F5D6812E6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{691C9283-42A9-4AF1-B0B2-D41F5D6812E6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{691C9283-42A9-4AF1-B0B2-D41F5D6812E6}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{691C9283-42A9-4AF1-B0B2-D41F5D6812E6}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -87,5 +97,6 @@ Global
 		{2D953EDF-41DD-4A08-BA6F-B64E7E918819} = {74FFBAFE-F424-4889-9E97-38A2FF91A770}
 		{82B9ADCF-8EC7-4897-9B13-23613C79E7EF} = {74FFBAFE-F424-4889-9E97-38A2FF91A770}
 		{EF672800-94FD-449D-90B1-066F24B494A8} = {13B90F81-7FCB-4E4C-BD2F-CB2036B2AA66}
+		{691C9283-42A9-4AF1-B0B2-D41F5D6812E6} = {13B90F81-7FCB-4E4C-BD2F-CB2036B2AA66}
 	EndGlobalSection
 EndGlobal

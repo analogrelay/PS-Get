@@ -6,3 +6,4 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyDescription("PowerShell Module which provides the core behavior of PS-Get")]
 [assembly: Guid("9b5fc83f-44f0-4fa7-b496-04804d097a9a")]
 [assembly: InternalsVisibleTo("PsGet.Facts")]
+[assembly: InternalsVisibleTo("PsGet.Facts.Integration")]
