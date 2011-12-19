@@ -8,7 +8,7 @@ using PsGet.Commands;
 
 namespace PsGet.Cmdlets {
     [Cmdlet(VerbsCommon.Remove, "Package")]
-    public class RemovePackageCommand : PsGetCmdletWithSource {
+    public class RemovePackageCommand : PackageManagerCmdletWithSource {
         [Parameter(Position = 0, Mandatory = true, ValueFromPipelineByPropertyName = true)]
         [ValidateNotNullOrEmpty]
         public string Id { get; set; }

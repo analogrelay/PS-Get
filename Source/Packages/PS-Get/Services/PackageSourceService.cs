@@ -8,56 +8,26 @@ namespace PsGet.Services
 {
     public class PackageSourceService
     {
-        private IPackageSourceStore _machineStore;
-        private IPackageSourceStore _userStore;
-        private IPackageSourceStore _sessionStore;
+        public virtual IPackageSourceStore MachineStore { get; set; }
+        public virtual IPackageSourceStore UserStore { get; set; }
+        public virtual IPackageSourceStore SessionStore { get; set; }
+
+        protected internal PackageSourceService() { }
 
         public PackageSourceService(IPackageSourceStore machineStore, IPackageSourceStore userStore, IPackageSourceStore sessionStore)
         {
-            _machineStore = machineStore;
-            _userStore = userStore;
-            _sessionStore = sessionStore;
+            MachineStore = machineStore;
+            UserStore = userStore;
+            SessionStore = sessionStore;
         }
 
-        public IEnumerable<PackageSource> Sources
+        public virtual IEnumerable<PackageSource> AllSources
         {
             get
             {
-                return _sessionStore.Sources
-                                    .Union(_userStore.Sources, new PackageSourceNameComparer())
-                                    .Union(_machineStore.Sources, new PackageSourceNameComparer());
-            }
-        }
-
-        public void AddSource(PackageSource source, PackageSourceScope scope)
-        {
-            switch (scope)
-            {
-                case PackageSourceScope.Machine:
-                    _machineStore.AddSource(source);
-                    break;
-                case PackageSourceScope.User:
-                    _userStore.AddSource(source);
-                    break;
-                case PackageSourceScope.Session:
-                    _sessionStore.AddSource(source);
-                    break;
-            }
-        }
-
-        public void RemoveSource(string name, PackageSourceScope scope)
-        {
-            switch (scope)
-            {
-                case PackageSourceScope.Machine:
-                    _machineStore.RemoveSource(name);
-                    break;
-                case PackageSourceScope.User:
-                    _userStore.RemoveSource(name);
-                    break;
-                case PackageSourceScope.Session:
-                    _sessionStore.RemoveSource(name);
-                    break;
+                return SessionStore.Sources
+                                   .Union(UserStore.Sources, new PackageSourceNameComparer())
+                                   .Union(MachineStore.Sources, new PackageSourceNameComparer());
             }
         }
     }

@@ -54,7 +54,14 @@ namespace PsGet.Facts
             return invoker;
         }
 
-        public static Mock<IPackageManager> AttachPackageManager(this PsGetCmdlet self) {
+        public static TestSessionStore AttachSession(this CommandBase self)
+        {
+            TestSessionStore store = new TestSessionStore();
+            self.Session = store;
+            return store;
+        }
+
+        public static Mock<IPackageManager> AttachPackageManager(this PackageManagerCmdlet self) {
             Mock<IPackageManager> mock = new Mock<IPackageManager>();
             self.PackageManagerFactory = (source, destination) =>
             {

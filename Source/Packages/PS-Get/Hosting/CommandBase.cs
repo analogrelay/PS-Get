@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Management.Automation;
+using PsGet.Abstractions;
 
 namespace PsGet.Hosting
 {
@@ -10,6 +11,7 @@ namespace PsGet.Hosting
     {
         protected internal ICommandInvoker Invoker { get; internal set; }
         protected internal IHostEnvironment HostEnvironment { get; internal set; }
+        protected internal ISessionStore Session { get; internal set; }
 
         protected CommandBase()
         {

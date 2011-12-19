@@ -63,5 +63,21 @@ namespace PsGet.Services
             }
             SourceList.AddRange(list.Select(src => new KeyValuePair<string, PackageSource>(src.Name, src.Build())));
         }
+
+        internal static XmlSourceStore CreateMachine()
+        {
+            return Create(Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData));
+        }
+
+        internal static XmlSourceStore CreateUser()
+        {
+            return Create(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData));
+        }
+
+        private static XmlSourceStore Create(string dataRoot)
+        {
+            PhysicalFileSystem fs = new PhysicalFileSystem(Path.Combine(dataRoot, "PS-Get"));
+            return new XmlSourceStore(fs, "sourceList.xml");
+        }
     }
 }

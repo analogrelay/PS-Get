@@ -4,7 +4,7 @@ using Moq;
 using NuGet;
 using PsGet.Services;
 using Xunit;
-using IFileSystem = PsGet.Abstractions.IFileSystem;
+using PsGet.Facts.TestDoubles;
 
 namespace PsGet.Facts.Services
 {
@@ -14,7 +14,7 @@ namespace PsGet.Facts.Services
         public void ConstructorWithNonExistantFileLoadsEmptyList()
         {
             // Arrange
-            var mockFileSystem = new Mock<IFileSystem>();
+            var mockFileSystem = new Mock<MockableFileSystem>();
 
             // Act
             XmlSourceStore store = new XmlSourceStore(mockFileSystem.Object, "sourceList.xml");
@@ -33,7 +33,7 @@ namespace PsGet.Facts.Services
 </sources>";
 
             // Arrange
-            var mockFileSystem = new Mock<IFileSystem>();
+            var mockFileSystem = new Mock<MockableFileSystem>();
             MemoryStream strm = CaptureFileContent(mockFileSystem, "sourceList.xml");
             XmlSourceStore store = new XmlSourceStore(mockFileSystem.Object, "sourceList.xml");
             store.AddSource("http://foo.bar", "Foo");
@@ -61,7 +61,7 @@ namespace PsGet.Facts.Services
 </sources>";
 
             // Arrange
-            var mockFileSystem = new Mock<IFileSystem>();
+            var mockFileSystem = new Mock<MockableFileSystem>();
             SetFileContent(mockFileSystem, "sourceList.xml", toLoad);
             XmlSourceStore store = new XmlSourceStore(mockFileSystem.Object, "sourceList.xml");
             MemoryStream strm = CaptureFileContent(mockFileSystem, "sourceList.xml");
@@ -84,7 +84,7 @@ namespace PsGet.Facts.Services
 </sources>";
 
             // Arrange
-            var mockFileSystem = new Mock<IFileSystem>();
+            var mockFileSystem = new Mock<MockableFileSystem>();
             SetFileContent(mockFileSystem, "sourceList.xml", toLoad);
 
             // Act
@@ -95,7 +95,7 @@ namespace PsGet.Facts.Services
             Assert.Contains(new PackageSource("http://biz.baz", "Baz"), store.Sources);
         }
 
-        private void SetFileContent(Mock<IFileSystem> mockFileSystem, string fileName, string content)
+        private void SetFileContent(Mock<MockableFileSystem> mockFileSystem, string fileName, string content)
         {
             mockFileSystem.Setup(fs => fs.FileExists(fileName)).Returns(true);
             mockFileSystem.Setup(fs => fs.OpenFile(fileName)).Returns(
@@ -112,7 +112,7 @@ namespace PsGet.Facts.Services
             }
         }
 
-        private MemoryStream CaptureFileContent(Mock<IFileSystem> mockFileSystem, string fileName)
+        private MemoryStream CaptureFileContent(Mock<MockableFileSystem> mockFileSystem, string fileName)
         {
             MemoryStream strm = new MemoryStream();
             mockFileSystem.Setup(fs => fs.OpenFile(fileName)).Returns(strm);

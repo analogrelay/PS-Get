@@ -7,7 +7,7 @@ using System.Management.Automation;
 
 namespace PsGet.Commands
 {
-    public abstract class PsGetCmdletWithSource : PsGetCmdlet
+    public abstract class PackageManagerCmdletWithSource : PackageManagerCmdlet
     {
         [Parameter]
         [ValidateNotNullOrEmpty]

@@ -6,7 +6,7 @@ using PsGet.Commands;
 
 namespace PsGet.Cmdlets {
     [Cmdlet(VerbsLifecycle.Install, "Package")]
-    public class InstallPackageCommand : PsGetCmdletWithSource {
+    public class InstallPackageCommand : PackageManagerCmdletWithSource {
         [Parameter(Position = 0, Mandatory = true, ValueFromPipelineByPropertyName = true)]
         public string Id { get; set; }
 

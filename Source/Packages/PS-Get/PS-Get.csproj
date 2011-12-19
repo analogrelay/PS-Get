@@ -73,16 +73,18 @@
     </Compile>
     <Compile Include="Abstractions\IFileSystem.cs" />
     <Compile Include="Abstractions\IModuleMetadata.cs" />
+    <Compile Include="Hosting\ISessionStore.cs" />
     <Compile Include="Abstractions\PhysicalFileSystem.cs" />
     <Compile Include="Abstractions\PSModuleInfoAdapter.cs" />
     <Compile Include="Commands\GetPackageSourceCommand.cs" />
     <Compile Include="Commands\ImportPackageCommand.cs" />
-    <Compile Include="Commands\PsGetCmdletWithSource.cs" />
+    <Compile Include="Commands\PackageManagerCmdletWithSource.cs" />
+    <Compile Include="Commands\PackageSourceCmdlet.cs" />
     <Compile Include="Commands\RemovePackageCommand.cs" />
     <Compile Include="Commands\UpdatePackageCommand.cs" />
     <Compile Include="Commands\GetPackageCommand.cs" />
     <Compile Include="Commands\InstallPackageCommand.cs" />
-    <Compile Include="Commands\PsGetCmdlet.cs" />
+    <Compile Include="Commands\PackageManagerCmdlet.cs" />
     <Compile Include="Hosting\CommandBase.cs" />
     <Compile Include="Hosting\ICommandInvoker.cs" />
     <Compile Include="Hosting\IHostEnvironment.cs" />
@@ -90,6 +92,7 @@
     <Compile Include="Hosting\PowerShellInvoker.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\InMemorySourceStore.cs" />
+    <Compile Include="Services\NullSourceStore.cs" />
     <Compile Include="Services\PackageSourceBuilder.cs" />
     <Compile Include="Services\IPackageSourceStore.cs" />
     <Compile Include="Services\PackageSourceNameComparer.cs" />

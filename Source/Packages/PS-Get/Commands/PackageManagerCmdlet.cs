@@ -9,12 +9,12 @@ using NuGet;
 using PsGet.Hosting;
 
 namespace PsGet.Cmdlets {
-    public abstract class PsGetCmdlet : CommandBase {
+    public abstract class PackageManagerCmdlet : CommandBase {
         protected internal Settings Settings { get; set; }
         protected internal IPackageRepositoryFactory RepositoryFactory { get; set; }
         internal Func<string, string, IPackageManager> PackageManagerFactory { get; set; }
         
-        protected PsGetCmdlet()
+        protected PackageManagerCmdlet()
         {
             RepositoryFactory = PackageRepositoryFactory.Default;
             PackageManagerFactory = CreatePackageManagerCore;

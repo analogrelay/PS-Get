@@ -8,7 +8,7 @@ using PsGet.Hosting;
 
 namespace PsGet.Cmdlets {
     [Cmdlet(VerbsCommon.Get, "Package")]
-    public class GetPackageCommand : PsGetCmdlet {
+    public class GetPackageCommand : PackageManagerCmdlet {
         [Parameter(Position = 0, ValueFromPipelineByPropertyName = true, HelpMessage="A filter to apply to the ID of the packages on the server")]
         public string Id { get; set; }
 

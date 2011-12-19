@@ -10,13 +10,13 @@ using System.Management.Automation;
 
 namespace PsGet.Facts.Commands
 {
-    public class PsGetCmdletWithSourceFacts
+    public class PackageManagerCmdletWithSourceFacts
     {
         [Fact]
         public void VerifySourceParameter()
         {
             CmdletAssert.IsParameter(
-                () => new Mock<PsGetCmdletWithSource>().Object.Source,
+                () => new Mock<PackageManagerCmdletWithSource>().Object.Source,
                 new ValidateNotNullOrEmptyAttribute());
         }
 
@@ -24,7 +24,7 @@ namespace PsGet.Facts.Commands
         public void VerifyDestinationParameter()
         {
             CmdletAssert.IsParameter(
-                () => new Mock<PsGetCmdletWithSource>().Object.Destination,
+                () => new Mock<PackageManagerCmdletWithSource>().Object.Destination,
                 new ValidateNotNullOrEmptyAttribute());
         }
 
@@ -32,7 +32,7 @@ namespace PsGet.Facts.Commands
         public void SourceIsSetToDefaultSourceIfNotSpecified()
         {
             // Arrange
-            PsGetCmdletWithSource cmd = new Mock<PsGetCmdletWithSource>() { CallBase = true }.Object.AutoConfigure();
+            PackageManagerCmdletWithSource cmd = new Mock<PackageManagerCmdletWithSource>() { CallBase = true }.Object.AutoConfigure();
 
             // Act
             cmd.BeginProcessingCore();
@@ -45,7 +45,7 @@ namespace PsGet.Facts.Commands
         public void SourceIsLeftAloneIfSpecified()
         {
             // Arrange
-            PsGetCmdletWithSource cmd = new Mock<PsGetCmdletWithSource>() { CallBase = true }.Object.AutoConfigure();
+            PackageManagerCmdletWithSource cmd = new Mock<PackageManagerCmdletWithSource>() { CallBase = true }.Object.AutoConfigure();
             cmd.Source = "http://packages.nuget.org";
 
             // Act
@@ -59,7 +59,7 @@ namespace PsGet.Facts.Commands
         public void DestinationIsSetToInstallationRootIfNotSpecified()
         {
             // Arrange
-            PsGetCmdletWithSource cmd = new Mock<PsGetCmdletWithSource>() { CallBase = true }.Object.AutoConfigure();
+            PackageManagerCmdletWithSource cmd = new Mock<PackageManagerCmdletWithSource>() { CallBase = true }.Object.AutoConfigure();
 
             // Act
             cmd.BeginProcessingCore();
@@ -72,7 +72,7 @@ namespace PsGet.Facts.Commands
         public void DestinationIsLeftAloneIfSpecified()
         {
             // Arrange
-            PsGetCmdletWithSource cmd = new Mock<PsGetCmdletWithSource>() { CallBase = true }.Object.AutoConfigure();
+            PackageManagerCmdletWithSource cmd = new Mock<PackageManagerCmdletWithSource>() { CallBase = true }.Object.AutoConfigure();
             cmd.Source = @"C:\Foo\Bar";
 
             // Act

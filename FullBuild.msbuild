@@ -1,10 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+        <Target Name="IntegrationOn">
+		<PropertyGroup>
+			<Integration>true</Integration>
+		</PropertyGroup>
+        </Target>
+        <Target Name="Full" DependsOnTargets="IntegrationOn">
+		<CallTarget Targets="Build" />
+	</Target>
 	<Target Name="Build">
 		<RemoveDir Directories="$(MSBuildThisFileDirectory)\Bin" Condition="Exists('$(MSBuildThisFileDirectory)\Bin')" />
 		<MSBuild Projects="PsGet.sln" BuildInParallel="true" Properties="Configuration=Debug" />
-		<MSBuild Projects="Facts\Facts.msbuild" Properties="Configuration=Debug" Targets="RunTests" />
+		<MSBuild Projects="Facts\Facts.msbuild" Properties="Configuration=Debug;Integration=$(Integration)" Targets="RunTests" />
 		<MSBuild Projects="PsGet.sln" BuildInParallel="true" Properties="Configuration=Release" />
-		<MSBuild Projects="Facts\Facts.msbuild" Properties="Configuration=Release" Targets="RunTests" />
+		<MSBuild Projects="Facts\Facts.msbuild" Properties="Configuration=Release;Integration=$(Integration)" Targets="RunTests" />
 	</Target>
 </Project>

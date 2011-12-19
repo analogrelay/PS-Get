@@ -65,8 +65,8 @@
     <Compile Include="Commands\GetPackageSourceCommandFacts.cs" />
     <Compile Include="Commands\ImportPackageCommandFacts.cs" />
     <Compile Include="Commands\InstallPackageCommandFacts.cs" />
-    <Compile Include="Commands\PsGetCmdletFacts.cs" />
-    <Compile Include="Commands\PsGetCmdletWithSourceFacts.cs" />
+    <Compile Include="Commands\PackageManagerCmdletFacts.cs" />
+    <Compile Include="Commands\PackageManagerCmdletWithSourceFacts.cs" />
     <Compile Include="Commands\RemovePackageCommandFacts.cs" />
     <Compile Include="Commands\UpdatePackageCommandFacts.cs" />
     <Compile Include="Hosting\CommandBaseFacts.cs" />
@@ -75,12 +75,14 @@
     <Compile Include="Services\InMemorySourceStoreFacts.cs" />
     <Compile Include="Services\PackageSourceServiceFacts.cs" />
     <Compile Include="Services\XmlSourceStoreFacts.cs" />
+    <Compile Include="TestDoubles\MockableFileSystem.cs" />
     <Compile Include="TestDoubles\SimpleModuleMetadata.cs" />
     <Compile Include="TestDoubles\SimplePackage.cs" />
     <Compile Include="TestDoubles\TestCommandInvoker.cs" />
     <Compile Include="TestDoubles\TestCommandRuntime.cs" />
     <Compile Include="TestDoubles\TestHostEnvironment.cs" />
     <Compile Include="TestDoubles\TestRepository.cs" />
+    <Compile Include="TestDoubles\TestSessionStore.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
