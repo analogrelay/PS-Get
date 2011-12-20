@@ -9,7 +9,7 @@ using PsGet.Services;
 namespace PsGet.Commands
 {
     [Cmdlet(VerbsCommon.Add, "PackageSource")]
-    public class AddPackageSourceCommand : PackageSourceManagementCommand
+    public class AddPackageSourceCommand : PackageSourceCommand
     {
         [Parameter(Mandatory = true, Position = 0, ValueFromPipelineByPropertyName = true)]
         [ValidateNotNullOrEmpty]

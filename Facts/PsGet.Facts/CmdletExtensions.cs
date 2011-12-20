@@ -61,18 +61,9 @@ namespace PsGet.Facts
             return store;
         }
 
-        public static Mock<IPackageManager> AttachPackageManager(this PsGetCommand self) {
+        public static Mock<IPackageManager> AttachPackageManager(this PackageManagementCommand self) {
             Mock<IPackageManager> mock = new Mock<IPackageManager>();
-            self.PackageManagerFactory = (source, destination) =>
-            {
-                InstallPackageCommand cmd = self as InstallPackageCommand;
-                if (cmd != null)
-                {
-                    Assert.Equal(cmd.Source, source);
-                    Assert.Equal(cmd.Destination, destination);
-                }
-                return mock.Object;
-            };
+            self.PackageManagerFactory = (source, destination) => mock.Object;
             return mock;
         }
     }

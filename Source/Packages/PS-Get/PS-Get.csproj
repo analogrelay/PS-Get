@@ -82,7 +82,7 @@
     <Compile Include="Commands\GetPackageSourceCommand.cs" />
     <Compile Include="Commands\ImportPackageCommand.cs" />
     <Compile Include="Commands\PackageManagementCommand.cs" />
-    <Compile Include="Commands\PackageSourceCmdlet.cs" />
+    <Compile Include="Commands\PackageSourceManagementCommand.cs" />
     <Compile Include="Commands\RemovePackageCommand.cs" />
     <Compile Include="Commands\UpdatePackageCommand.cs" />
     <Compile Include="Commands\GetPackageCommand.cs" />

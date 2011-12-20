@@ -5,10 +5,11 @@ using System.Text;
 using Xunit;
 using PsGet.Hosting;
 using Moq;
+using PsGet.Commands;
 
-namespace PsGet.Facts.Hosting
+namespace PsGet.Facts.Commands
 {
-    public class CommandBaseFacts
+    public class PsGetCommandBaseFacts
     {
         [Fact]
         public void DefaultConstructorConfiguresPowerShellHosting()
@@ -26,7 +27,7 @@ namespace PsGet.Facts.Hosting
             var cmd = new Mock<TestCommand>() { CallBase = true };
 
             // Act
-            cmd.Object.FireBeginProcessing();
+            cmd.Object.AutoConfigure().FireBeginProcessing();
 
             // Assert
             cmd.Verify(c => c.BeginProcessingCore());
@@ -71,7 +72,7 @@ namespace PsGet.Facts.Hosting
             cmd.Verify(c => c.StopProcessingCore());
         }
 
-        public class TestCommand : CommandBase
+        public class TestCommand : PsGetCommandBase
         {
             public void FireBeginProcessing() { BeginProcessing(); }
             public void FireProcessRecord() { ProcessRecord(); }

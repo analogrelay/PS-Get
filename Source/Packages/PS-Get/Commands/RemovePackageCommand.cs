@@ -20,7 +20,7 @@ namespace PsGet.Commands {
         public SwitchParameter RemoveDependencies { get; set; }
 
         protected internal override void ProcessRecordCore() {
-            IPackageManager manager = CreatePackageManager(Source, Destination);
+            IPackageManager manager = CreatePackageManager();
             manager.UninstallPackage(Id, null, Force.IsPresent, RemoveDependencies.IsPresent);
         }
     }

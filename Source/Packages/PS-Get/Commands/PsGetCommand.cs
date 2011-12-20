@@ -14,8 +14,7 @@ namespace PsGet.Commands
     public abstract class PsGetCommand : PsGetCommandBase
     {
         protected internal IPackageRepositoryFactory RepositoryFactory { get; set; }
-        internal Func<string, string, IPackageManager> PackageManagerFactory { get; set; }
-
+        
         private PackageSourceService _service = null;
 
         internal static readonly string SourceListVariable = "PSGetSources";
@@ -32,37 +31,6 @@ namespace PsGet.Commands
         protected PsGetCommand()
         {
             RepositoryFactory = PackageRepositoryFactory.Default;
-            PackageManagerFactory = CreatePackageManagerCore;
-        }
-
-        protected internal virtual IPackageRepository OpenRepository(string source)
-        {
-            return RepositoryFactory.CreateRepository(source);
-        }
-
-        protected internal virtual IPackageManager CreatePackageManager(string source, string destination)
-        {
-            return PackageManagerFactory(source, destination);
-        }
-
-        private IPackageManager CreatePackageManagerCore(string source, string destination)
-        {
-            IPackageRepository repo = RepositoryFactory.CreateRepository(source);
-            return new PackageManager(
-                repo,
-                CreatePackagePathResolver(destination),
-                CreateFileSystem(destination)
-            );
-        }
-
-        protected internal virtual IPackagePathResolver CreatePackagePathResolver(string root)
-        {
-            return new DefaultPackagePathResolver(root, useSideBySidePaths: false);
-        }
-
-        protected internal virtual IFileSystem CreateFileSystem(string root)
-        {
-            return new PhysicalFileSystem(root);
         }
 
         private PackageSourceService InitializeService()

@@ -15,7 +15,7 @@ namespace PsGet.Commands
         protected internal IHostEnvironment HostEnvironment { get; internal set; }
         protected internal ISessionStore Session { get; internal set; }
 
-        protected PsGetCommandBase()
+        protected PsGetCommandBase() : base()
         {
             Invoker = new PowerShellInvoker(InvokeCommand);
             HostEnvironment = new PowerShellHostEnvironment(MyInvocation);

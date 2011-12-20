@@ -31,18 +31,6 @@ namespace PsGet.Facts.Commands
         }
 
         [Fact]
-        public void VerifySourceParameter()
-        {
-            CmdletAssert.IsParameter(
-                () => new GetPackageCommand().Source, 
-                new ParameterAttribute() {
-                Position = 1,
-                HelpMessage = "The NuGet feed to list packages from"
-            }, 
-            new ValidateNotNullOrEmptyAttribute());
-        }
-
-        [Fact]
         public void VerifyAllVersionsParameter()
         {
             CmdletAssert.IsParameter(
@@ -53,26 +41,12 @@ namespace PsGet.Facts.Commands
         }
 
         [Fact]
-        public void SourceIsLeftAloneIfSpecified()
-        {
-            // Assert
-            GetPackageCommand cmd = new GetPackageCommand();
-            cmd.HostEnvironment = new TestHostEnvironment();
-            cmd.Source = "http://packages.nuget.org";
-
-            // Act
-            cmd.BeginProcessingCore();
-
-            // Assert
-            Assert.Equal("http://packages.nuget.org", cmd.Source);
-        }
-
-        [Fact]
         public void WhenNoArguments_WritesLatestVersionsOfAllPackagesFromSource()
         {
             // Assert
             GetPackageCommand cmd = new GetPackageCommand().AutoConfigure();
             cmd.RepositoryFactory = TestRepository.CreateFactory();
+            cmd.Source = "http://foo.bar";
 
             // Act
             CommandOutput output = cmd.Execute();
@@ -88,6 +62,7 @@ namespace PsGet.Facts.Commands
             GetPackageCommand cmd = new GetPackageCommand().AutoConfigure();
             cmd.RepositoryFactory = TestRepository.CreateFactory();
             cmd.AllVersions = SwitchParameter.Present;
+            cmd.Source = "http://foo.bar";
 
             // Act
             CommandOutput output = cmd.Execute();
@@ -103,6 +78,7 @@ namespace PsGet.Facts.Commands
             GetPackageCommand cmd = new GetPackageCommand().AutoConfigure();
             cmd.RepositoryFactory = TestRepository.CreateFactory();
             cmd.Id = "Foo";
+            cmd.Source = "http://foo.bar";
 
             // Act
             CommandOutput output = cmd.Execute();
@@ -120,6 +96,7 @@ namespace PsGet.Facts.Commands
             cmd.RepositoryFactory = TestRepository.CreateFactory();
             cmd.Id = "Foo";
             cmd.AllVersions = SwitchParameter.Present;
+            cmd.Source = "http://foo.bar";
 
             // Act
             CommandOutput output = cmd.Execute();
@@ -136,6 +113,7 @@ namespace PsGet.Facts.Commands
             GetPackageCommand cmd = new GetPackageCommand().AutoConfigure();
             cmd.RepositoryFactory = TestRepository.CreateFactory();
             cmd.Id = "o";
+            cmd.Source = "http://foo.bar";
 
             // Act
             CommandOutput output = cmd.Execute();
@@ -153,6 +131,7 @@ namespace PsGet.Facts.Commands
             cmd.RepositoryFactory = TestRepository.CreateFactory();
             cmd.Id = "o";
             cmd.AllVersions = SwitchParameter.Present;
+            cmd.Source = "http://foo.bar";
 
             // Act
             CommandOutput output = cmd.Execute();

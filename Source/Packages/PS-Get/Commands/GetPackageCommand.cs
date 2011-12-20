@@ -16,7 +16,7 @@ namespace PsGet.Commands {
         public SwitchParameter AllVersions { get; set; }
 
         protected internal override void ProcessRecordCore() {
-            IPackageRepository repo = OpenRepository(Source);
+            IPackageRepository repo = OpenRepository();
             var query = repo.GetPackages();
             if (!String.IsNullOrEmpty(Id)) {
                 // Apply the user filter.

@@ -35,7 +35,7 @@ namespace PsGet.Facts.TestDoubles
             Packages = new List<IPackage>(packages);
         }
 
-        public static IPackageRepositoryFactory CreateFactory() { return CreateFactory( DefaultPackages); }
+        public static IPackageRepositoryFactory CreateFactory() { return CreateFactory(DefaultPackages); }
         public static IPackageRepositoryFactory CreateFactory(IPackage[] packages) { return CreateFactory((IEnumerable<IPackage>)packages); }
         public static IPackageRepositoryFactory CreateFactory(IEnumerable<IPackage> packages) {
             return CreateFactory(source => new TestRepository(source, packages));

@@ -18,12 +18,12 @@ namespace PsGet.Commands {
         public SwitchParameter IgnoreDependencies { get; set; }
 
         protected internal override void ProcessRecordCore() {
-            DoInstall(Id, Version, IgnoreDependencies.IsPresent, Source, Destination);
+            DoInstall(Id, Version, IgnoreDependencies.IsPresent);
         }
 
-        protected internal virtual void DoInstall(string id, Version version, bool ignoreDependencies, string source, string destination)
+        protected internal virtual void DoInstall(string id, Version version, bool ignoreDependencies)
         {
-            IPackageManager manager = CreatePackageManager(source, destination);
+            IPackageManager manager = CreatePackageManager();
             PerformInstall(manager, id, version, ignoreDependencies);
         }
 

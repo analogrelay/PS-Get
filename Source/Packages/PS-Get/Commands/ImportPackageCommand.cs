@@ -21,13 +21,13 @@ namespace PsGet.Commands
             {
                 // Install the module
                 WriteDebug("Module is not installed, installing");
-                DoInstall(Id, Version, IgnoreDependencies.IsPresent, Source, Destination);
+                DoInstall(Id, Version, IgnoreDependencies.IsPresent);
             }
             else if (Version != null && !module.Version.Equals(Version))
             {
                 // Update the module
                 WriteDebug("Module is not installed, installing");
-                CreatePackageManager(Source, Destination).UpdatePackage(Id, Version, !IgnoreDependencies.IsPresent);
+                CreatePackageManager().UpdatePackage(Id, Version, !IgnoreDependencies.IsPresent);
             }
 
             // Now import the module

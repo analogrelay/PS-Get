@@ -9,7 +9,7 @@ using PsGet.Commands;
 
 namespace PsGet.Commands
 {
-    public abstract class PackageSourceManagementCommand : PsGetCommand
+    public abstract class PackageSourceCommand : PsGetCommand
     {
         [Parameter]
         public PackageSourceScope? Scope { get; set; }
