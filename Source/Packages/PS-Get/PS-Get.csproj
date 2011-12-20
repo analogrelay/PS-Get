@@ -38,6 +38,7 @@
   </PropertyGroup>
   <ItemGroup>
     <None Include="app.config" />
+    <None Include="Commands\Commands.cd" />
     <None Include="packages.config" />
     <Spec Include="PS-Get.nuspec">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -80,14 +81,14 @@
     <Compile Include="Abstractions\PSModuleInfoAdapter.cs" />
     <Compile Include="Commands\GetPackageSourceCommand.cs" />
     <Compile Include="Commands\ImportPackageCommand.cs" />
-    <Compile Include="Commands\PackageManagerCmdletWithSource.cs" />
+    <Compile Include="Commands\PackageManagementCommand.cs" />
     <Compile Include="Commands\PackageSourceCmdlet.cs" />
     <Compile Include="Commands\RemovePackageCommand.cs" />
     <Compile Include="Commands\UpdatePackageCommand.cs" />
     <Compile Include="Commands\GetPackageCommand.cs" />
     <Compile Include="Commands\InstallPackageCommand.cs" />
-    <Compile Include="Commands\PackageManagerCmdlet.cs" />
-    <Compile Include="Hosting\CommandBase.cs" />
+    <Compile Include="Commands\PsGetCommand.cs" />
+    <Compile Include="Commands\PsGetCommandBase.cs" />
     <Compile Include="Hosting\ICommandInvoker.cs" />
     <Compile Include="Hosting\IHostEnvironment.cs" />
     <Compile Include="Hosting\PowerShellHostEnvironment.cs" />

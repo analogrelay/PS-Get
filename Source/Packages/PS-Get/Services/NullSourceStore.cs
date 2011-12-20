@@ -16,17 +16,17 @@ namespace PsGet.Services
 
         public void AddSource(NuGet.PackageSource source)
         {
-            throw new NotImplementedException("Null Package Source does not support AddSource. Have you changed the value of " + PackageSourceCmdlet.SourceListVariable + "?");
+            throw new NotImplementedException("Null Package Source does not support AddSource. Have you changed the value of " + PackageSourceManagementCommand.SourceListVariable + "?");
         }
 
         public void RemoveSource(string name)
         {
-            throw new NotImplementedException("Null Package Source does not support RemoveSource. Have you changed the value of " + PackageSourceCmdlet.SourceListVariable + "?");
+            throw new NotImplementedException("Null Package Source does not support RemoveSource. Have you changed the value of " + PackageSourceManagementCommand.SourceListVariable + "?");
         }
 
         public void Save()
         {
-            throw new NotImplementedException("Null Package Source does not support Save. Have you changed the value of " + PackageSourceCmdlet.SourceListVariable + "?");
+            throw new NotImplementedException("Null Package Source does not support Save. Have you changed the value of " + PackageSourceManagementCommand.SourceListVariable + "?");
         }
     }
 }

@@ -6,9 +6,9 @@ using System.Management.Automation;
 using NuGet;
 using PsGet.Commands;
 
-namespace PsGet.Cmdlets {
+namespace PsGet.Commands {
     [Cmdlet(VerbsCommon.Remove, "Package")]
-    public class RemovePackageCommand : PackageManagerCmdletWithSource {
+    public class RemovePackageCommand : PackageManagementCommand {
         [Parameter(Position = 0, Mandatory = true, ValueFromPipelineByPropertyName = true)]
         [ValidateNotNullOrEmpty]
         public string Id { get; set; }

@@ -1,0 +1,92 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="PsGet.Commands.AddPackageSourceCommand" Collapsed="true">
+    <Position X="13.5" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAgAAAAAAAAAAAAQAAAAAAAAACAAAAAAAAAA=</HashCode>
+      <FileName>Commands\AddPackageSourceCommand.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PsGet.Commands.GetPackageCommand" Collapsed="true">
+    <Position X="4.5" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAgAAAAAAAAAAAAAAAAAAAAAAAAACAAAAAAAAAA=</HashCode>
+      <FileName>Commands\GetPackageCommand.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PsGet.Commands.ImportPackageCommand" Collapsed="true">
+    <Position X="7.75" Y="9" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAAAAAAAAA=</HashCode>
+      <FileName>Commands\ImportPackageCommand.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PsGet.Commands.InstallPackageCommand" Collapsed="true">
+    <Position X="9" Y="7.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>IAACAAACAAAAAAAAAAAAAAAAAEAAAgAACAAAAAAAAAA=</HashCode>
+      <FileName>Commands\InstallPackageCommand.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PsGet.Commands.PsGetCommand" Collapsed="true">
+    <Position X="10.75" Y="4.75" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAEAEAAKAQAgAgAQCAAAAAAAAAAAAAAgAAAAAAABEAA=</HashCode>
+      <FileName>Commands\PsGetCommand.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PsGet.Commands.RemovePackageCommand" Collapsed="true">
+    <Position X="6.75" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAAAAAAAAAAAAAIAAAACAAAAAAIAAA=</HashCode>
+      <FileName>Commands\RemovePackageCommand.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PsGet.Commands.RemovePackageSourceCommand" Collapsed="true">
+    <Position X="18" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAACAAAAAAAAAA=</HashCode>
+      <FileName>Commands\RemovePackageSourceCommand.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PsGet.Commands.UpdatePackageCommand" Collapsed="true">
+    <Position X="10" Y="9" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAA=</HashCode>
+      <FileName>Commands\UpdatePackageCommand.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PsGet.Commands.GetPackageSourceCommand" Collapsed="true">
+    <Position X="15.75" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAgAAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Commands\GetPackageSourceCommand.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PsGet.Commands.PackageManagementCommand" Collapsed="true">
+    <Position X="6.25" Y="6.25" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAgAAAAAAAAAgAAAAAAAAAAAEAAAAAAAAAAA=</HashCode>
+      <FileName>Commands\PackageManagementCommand.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PsGet.Commands.PackageSourceManagementCommand" Collapsed="true">
+    <Position X="15" Y="6.25" Width="3" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Commands\PackageSourceManagementCommand.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PsGet.Commands.PsGetCommandBase" Collapsed="true">
+    <Position X="11" Y="3.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAABCAAQAEAQIAAAAgAAAAAAAIEAAAiAAIAAAAAAA=</HashCode>
+      <FileName>Commands\PsGetCommandBase.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="System.Management.Automation.PSCmdlet" Collapsed="true">
+    <Position X="11.25" Y="2.25" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Font Name="Tahoma" Size="8.25" />
+</ClassDiagram>

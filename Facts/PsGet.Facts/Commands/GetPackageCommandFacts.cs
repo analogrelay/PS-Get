@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using Xunit;
 using System.Management.Automation;
-using PsGet.Cmdlets;
+using PsGet.Commands;
 using NuGet;
 using PsGet.Facts.TestDoubles;
 

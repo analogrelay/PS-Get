@@ -4,16 +4,18 @@ using System.Linq;
 using System.Text;
 using System.Management.Automation;
 using PsGet.Abstractions;
+using PsGet.Hosting;
 
-namespace PsGet.Hosting
+namespace PsGet.Commands
 {
-    public abstract class CommandBase : PSCmdlet
+    public abstract class PsGetCommandBase : PSCmdlet
     {
+        protected internal Settings Settings { get; set; }
         protected internal ICommandInvoker Invoker { get; internal set; }
         protected internal IHostEnvironment HostEnvironment { get; internal set; }
         protected internal ISessionStore Session { get; internal set; }
 
-        protected CommandBase()
+        protected PsGetCommandBase()
         {
             Invoker = new PowerShellInvoker(InvokeCommand);
             HostEnvironment = new PowerShellHostEnvironment(MyInvocation);
@@ -26,7 +28,9 @@ namespace PsGet.Hosting
             BeginProcessingCore();
         }
 
-        protected internal virtual void BeginProcessingCore() { }
+        protected internal virtual void BeginProcessingCore() {
+            Settings = new Settings(HostEnvironment.ModuleBase);
+        }
 
         protected override sealed void ProcessRecord()
         {

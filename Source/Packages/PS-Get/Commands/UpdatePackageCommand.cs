@@ -3,7 +3,7 @@ using System.Diagnostics;
 using System.Management.Automation;
 using NuGet;
 
-namespace PsGet.Cmdlets
+namespace PsGet.Commands
 {
     [Cmdlet(VerbsData.Update, "Package")]
     public class UpdatePackageCommand : InstallPackageCommand

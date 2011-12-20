@@ -9,9 +9,10 @@ using NuGet;
 using PsGet.Hosting;
 using PsGet.Services;
 
-namespace PsGet.Cmdlets {
-    public abstract class PackageManagerCmdlet : CommandBase {
-        protected internal Settings Settings { get; set; }
+namespace PsGet.Commands
+{
+    public abstract class PsGetCommand : PsGetCommandBase
+    {
         protected internal IPackageRepositoryFactory RepositoryFactory { get; set; }
         internal Func<string, string, IPackageManager> PackageManagerFactory { get; set; }
 
@@ -27,26 +28,25 @@ namespace PsGet.Cmdlets {
             }
             internal set { _service = value; }
         }
-        
-        protected PackageManagerCmdlet()
+
+        protected PsGetCommand()
         {
             RepositoryFactory = PackageRepositoryFactory.Default;
             PackageManagerFactory = CreatePackageManagerCore;
         }
 
-        protected internal override void BeginProcessingCore() {
-            Settings = new Settings(HostEnvironment.ModuleBase);
-        }
-
-        protected internal virtual IPackageRepository OpenRepository(string source) {
+        protected internal virtual IPackageRepository OpenRepository(string source)
+        {
             return RepositoryFactory.CreateRepository(source);
         }
 
-        protected internal virtual IPackageManager CreatePackageManager(string source, string destination) {
+        protected internal virtual IPackageManager CreatePackageManager(string source, string destination)
+        {
             return PackageManagerFactory(source, destination);
         }
 
-        private IPackageManager CreatePackageManagerCore(string source, string destination) {
+        private IPackageManager CreatePackageManagerCore(string source, string destination)
+        {
             IPackageRepository repo = RepositoryFactory.CreateRepository(source);
             return new PackageManager(
                 repo,
@@ -55,7 +55,8 @@ namespace PsGet.Cmdlets {
             );
         }
 
-        protected internal virtual IPackagePathResolver CreatePackagePathResolver(string root) {
+        protected internal virtual IPackagePathResolver CreatePackagePathResolver(string root)
+        {
             return new DefaultPackagePathResolver(root, useSideBySidePaths: false);
         }
 

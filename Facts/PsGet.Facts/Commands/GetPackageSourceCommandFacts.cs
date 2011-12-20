@@ -39,11 +39,7 @@ namespace PsGet.Facts.Commands
         public void VerifyScopeParameter()
         {
             CmdletAssert.IsParameter(
-                () => new GetPackageSourceCommand().Scope,
-                new ParameterAttribute()
-                {
-                    Position = 1
-                });
+                () => new GetPackageSourceCommand().Scope);
         }
 
         [Fact]

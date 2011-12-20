@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Xunit;
-using PsGet.Cmdlets;
+using PsGet.Commands;
 using System.Management.Automation;
 using PsGet.Services;
 using Moq;

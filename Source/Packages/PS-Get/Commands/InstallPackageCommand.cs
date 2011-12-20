@@ -4,9 +4,9 @@ using System.Management.Automation;
 using NuGet;
 using PsGet.Commands;
 
-namespace PsGet.Cmdlets {
+namespace PsGet.Commands {
     [Cmdlet(VerbsLifecycle.Install, "Package")]
-    public class InstallPackageCommand : PackageManagerCmdletWithSource {
+    public class InstallPackageCommand : PackageManagementCommand {
         [Parameter(Position = 0, Mandatory = true, ValueFromPipelineByPropertyName = true)]
         public string Id { get; set; }
 

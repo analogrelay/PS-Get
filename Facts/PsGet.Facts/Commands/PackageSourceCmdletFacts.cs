@@ -14,7 +14,7 @@ namespace PsGet.Facts.Commands
         public void VerifyScopeParameter()
         {
             CmdletAssert.IsParameter(
-                () => new Mock<PackageSourceCmdlet>().Object.Scope);
+                () => new Mock<PackageSourceManagementCommand>().Object.Scope);
         }
     }
 }

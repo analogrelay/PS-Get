@@ -6,7 +6,7 @@ using System.Management.Automation;
 using System.IO;
 using PsGet.Abstractions;
 
-namespace PsGet.Cmdlets
+namespace PsGet.Commands
 {
     [Cmdlet(VerbsData.Import, "Package")]
     public class ImportPackageCommand : InstallPackageCommand

@@ -2,12 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using PsGet.Cmdlets;
+using PsGet.Commands;
 using System.Management.Automation;
 
 namespace PsGet.Commands
 {
-    public abstract class PackageManagerCmdletWithSource : PackageManagerCmdlet
+    public abstract class PackageManagementCommand : PsGetCommand
     {
         [Parameter]
         [ValidateNotNullOrEmpty]

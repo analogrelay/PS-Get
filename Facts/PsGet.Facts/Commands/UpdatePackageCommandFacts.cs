@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Management.Automation;
-using PsGet.Cmdlets;
+using PsGet.Commands;
 using Xunit;
 
 namespace PsGet.Facts.Commands

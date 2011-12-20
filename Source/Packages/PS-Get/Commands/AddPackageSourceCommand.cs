@@ -6,10 +6,10 @@ using System.Text;
 using PsGet.Commands;
 using PsGet.Services;
 
-namespace PsGet.Cmdlets
+namespace PsGet.Commands
 {
     [Cmdlet(VerbsCommon.Add, "PackageSource")]
-    public class AddPackageSourceCommand : PackageSourceCmdlet
+    public class AddPackageSourceCommand : PackageSourceManagementCommand
     {
         [Parameter(Mandatory = true, Position = 0, ValueFromPipelineByPropertyName = true)]
         [ValidateNotNullOrEmpty]

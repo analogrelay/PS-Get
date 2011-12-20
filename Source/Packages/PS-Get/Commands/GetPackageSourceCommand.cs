@@ -10,7 +10,7 @@ using NuGet;
 namespace PsGet.Commands
 {
     [Cmdlet(VerbsCommon.Get, "PackageSource")]
-    public class GetPackageSourceCommand : PackageSourceCmdlet
+    public class GetPackageSourceCommand : PackageSourceManagementCommand
     {
         [Parameter(Position = 0, ValueFromPipeline = true)]
         [ValidateNotNullOrEmpty]

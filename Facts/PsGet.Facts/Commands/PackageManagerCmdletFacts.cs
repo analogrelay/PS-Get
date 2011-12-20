@@ -5,7 +5,7 @@ using System.Text;
 using Xunit;
 using NuGet;
 using Moq;
-using PsGet.Cmdlets;
+using PsGet.Commands;
 using PsGet.Facts.TestDoubles;
 
 namespace PsGet.Facts.Commands
@@ -15,14 +15,14 @@ namespace PsGet.Facts.Commands
         [Fact]
         public void ConstructorUsesDefaultRepositoryFactory()
         {
-            Assert.Same(PackageRepositoryFactory.Default, new Mock<PackageManagerCmdlet>() { CallBase = true }.Object.RepositoryFactory);
+            Assert.Same(PackageRepositoryFactory.Default, new Mock<PsGetCommand>() { CallBase = true }.Object.RepositoryFactory);
         }
 
         [Fact]
         public void BeginProcessingInitializesSettingsAndCallsCoreProcessor()
         {
             // Arrange
-            PackageManagerCmdlet cmdlet = new Mock<PackageManagerCmdlet>() { CallBase = true }.Object;
+            PsGetCommand cmdlet = new Mock<PsGetCommand>() { CallBase = true }.Object;
             cmdlet.HostEnvironment = new TestHostEnvironment(@"C:\Foo");
             
             // Act
@@ -37,7 +37,7 @@ namespace PsGet.Facts.Commands
         {
             // Arrange
             Mock<IPackageRepositoryFactory> mockFactory = new Mock<IPackageRepositoryFactory>();
-            PackageManagerCmdlet cmdlet = new Mock<PackageManagerCmdlet>() { CallBase = true }.Object;
+            PsGetCommand cmdlet = new Mock<PsGetCommand>() { CallBase = true }.Object;
             cmdlet.RepositoryFactory = mockFactory.Object;
             IPackageRepository expected = new Mock<IPackageRepository>().Object;
             mockFactory.Setup(f => f.CreateRepository("foo")).Returns(expected);
@@ -54,7 +54,7 @@ namespace PsGet.Facts.Commands
         {
             // Arrange
             Mock<IPackageRepositoryFactory> mockFactory = new Mock<IPackageRepositoryFactory>();
-            Mock<PackageManagerCmdlet> mockCmdlet = new Mock<PackageManagerCmdlet>() { CallBase = true };
+            Mock<PsGetCommand> mockCmdlet = new Mock<PsGetCommand>() { CallBase = true };
             mockCmdlet.Object.RepositoryFactory = mockFactory.Object;
             IPackageRepository expected = new Mock<IPackageRepository>().Object;
             mockFactory.Setup(f => f.CreateRepository("foo")).Returns(expected);

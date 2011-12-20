@@ -6,15 +6,11 @@ using System.Management.Automation;
 using NuGet;
 using PsGet.Hosting;
 
-namespace PsGet.Cmdlets {
+namespace PsGet.Commands {
     [Cmdlet(VerbsCommon.Get, "Package")]
-    public class GetPackageCommand : PackageManagerCmdlet {
+    public class GetPackageCommand : PackageManagementCommand {
         [Parameter(Position = 0, ValueFromPipelineByPropertyName = true, HelpMessage="A filter to apply to the ID of the packages on the server")]
         public string Id { get; set; }
-
-        [Parameter(Position = 1, HelpMessage="The NuGet feed to list packages from")]
-        [ValidateNotNullOrEmpty]
-        public string Source { get; set; }
 
         [Parameter(HelpMessage="Show all versions of packages")]
         public SwitchParameter AllVersions { get; set; }
