@@ -20,16 +20,11 @@ namespace PsGet.Commands
         protected internal override void BeginProcessingCore()
         {
             base.BeginProcessingCore();
-            if (String.IsNullOrEmpty(Source))
-            {
-                Source = Settings.DefaultSource;
-            }
-
             if (String.IsNullOrEmpty(Destination))
             {
                 Destination = Settings.InstallationRoot;
             }
-            WriteDebug(String.Concat("Using Source: ", Source));
+            WriteDebug(String.Concat("Using Source: ", Source ?? "(Default)"));
             WriteDebug(String.Concat("Installing To: ", Destination));
         }
     }

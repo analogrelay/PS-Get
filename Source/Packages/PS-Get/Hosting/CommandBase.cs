@@ -17,6 +17,7 @@ namespace PsGet.Hosting
         {
             Invoker = new PowerShellInvoker(InvokeCommand);
             HostEnvironment = new PowerShellHostEnvironment(MyInvocation);
+            Session = new PowerShellSession(SessionState);
         }
 
         // Disable warning about obsolete overrides of non-obsolete methods because that's exactly what we want!

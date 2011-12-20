@@ -7,12 +7,26 @@ using System.Threading;
 using System.Diagnostics;
 using NuGet;
 using PsGet.Hosting;
+using PsGet.Services;
 
 namespace PsGet.Cmdlets {
     public abstract class PackageManagerCmdlet : CommandBase {
         protected internal Settings Settings { get; set; }
         protected internal IPackageRepositoryFactory RepositoryFactory { get; set; }
         internal Func<string, string, IPackageManager> PackageManagerFactory { get; set; }
+
+        private PackageSourceService _service = null;
+
+        internal static readonly string SourceListVariable = "PSGetSources";
+
+        protected internal PackageSourceService SourceService
+        {
+            get
+            {
+                return _service ?? InitializeService();
+            }
+            internal set { _service = value; }
+        }
         
         protected PackageManagerCmdlet()
         {
@@ -48,6 +62,27 @@ namespace PsGet.Cmdlets {
         protected internal virtual IFileSystem CreateFileSystem(string root)
         {
             return new PhysicalFileSystem(root);
+        }
+
+        private PackageSourceService InitializeService()
+        {
+            return SourceService = new PackageSourceService(
+                XmlSourceStore.CreateMachine(),
+                XmlSourceStore.CreateUser(),
+                GetSessionStore());
+        }
+
+        private IPackageSourceStore GetSessionStore()
+        {
+            object store = Session.Get(SourceListVariable);
+            if (store == null)
+            {
+                InMemorySourceStore newStore = new InMemorySourceStore();
+                Session.Set(SourceListVariable, newStore);
+                return newStore;
+            }
+            IPackageSourceStore convertedStore = store as IPackageSourceStore;
+            return convertedStore ?? new NullSourceStore();
         }
     }
 }

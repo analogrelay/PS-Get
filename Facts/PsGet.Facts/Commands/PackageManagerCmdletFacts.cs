@@ -30,7 +30,6 @@ namespace PsGet.Facts.Commands
 
             // Assert
             Assert.Equal(@"C:\", cmdlet.Settings.InstallationRoot);
-            Assert.Equal(Settings.TheDefaultSource, cmdlet.Settings.DefaultSource);
         }
 
         [Fact]

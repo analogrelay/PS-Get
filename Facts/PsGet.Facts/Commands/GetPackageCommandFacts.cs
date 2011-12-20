@@ -53,20 +53,6 @@ namespace PsGet.Facts.Commands
         }
 
         [Fact]
-        public void SourceIsSetToDefaultSourceIfNotSpecified()
-        {
-            // Assert
-            GetPackageCommand cmd = new GetPackageCommand();
-            cmd.HostEnvironment = new TestHostEnvironment();
-
-            // Act
-            cmd.BeginProcessingCore();
-
-            // Assert
-            Assert.Equal(Settings.TheDefaultSource, cmd.Source);
-        }
-
-        [Fact]
         public void SourceIsLeftAloneIfSpecified()
         {
             // Assert

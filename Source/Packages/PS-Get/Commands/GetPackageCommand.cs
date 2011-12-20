@@ -19,13 +19,6 @@ namespace PsGet.Cmdlets {
         [Parameter(HelpMessage="Show all versions of packages")]
         public SwitchParameter AllVersions { get; set; }
 
-        protected internal override void BeginProcessingCore() {
-            base.BeginProcessingCore();
-            if (String.IsNullOrEmpty(Source)) {
-                Source = Settings.DefaultSource;
-            }
-        }
-
         protected internal override void ProcessRecordCore() {
             IPackageRepository repo = OpenRepository(Source);
             var query = repo.GetPackages();

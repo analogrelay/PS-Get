@@ -29,16 +29,11 @@ namespace PsGet.Facts.Commands
         }
 
         [Fact]
-        public void SourceIsSetToDefaultSourceIfNotSpecified()
+        public void SourceIsAggregateFromPackageSourceServiceWhenNotSpecified()
         {
             // Arrange
             PackageManagerCmdletWithSource cmd = new Mock<PackageManagerCmdletWithSource>() { CallBase = true }.Object.AutoConfigure();
-
-            // Act
-            cmd.BeginProcessingCore();
-
-            // Assert
-            Assert.Equal(Settings.TheDefaultSource, cmd.Source);
+            
         }
 
         [Fact]

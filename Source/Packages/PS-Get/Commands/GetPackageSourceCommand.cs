@@ -16,9 +16,6 @@ namespace PsGet.Commands
         [ValidateNotNullOrEmpty]
         public string Name { get; set; }
 
-        [Parameter(Position = 1)]
-        public PackageSourceScope? Scope { get; set; }
-
         protected internal override void BeginProcessingCore()
         {
             base.BeginProcessingCore();

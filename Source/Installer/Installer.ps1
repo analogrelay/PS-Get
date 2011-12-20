@@ -20,7 +20,6 @@ function YesNoPrompt($msg) {
 	return $true
 }
 
-#$ExpectedHash = "0000000";
 $ExpectedHash = "386121DCF41F16B8CA6B0F9945F65A9D01E08B0E";
 
 $paths = @($env:PsModulePath.Split(';'))
@@ -119,5 +118,11 @@ if(YesNoPrompt "Add PS-Get to your profile script?") {
 
 	Write-Host "Done! Code added to profile"
 }
+
+# Register the Main PS-Get Source
+Import-Module PS-Get
+Add-PackageSource -Scope Machine -Name "PS-Get Gallery" -Source "http://packages.psget.org"
+Remove-Module PS-Get
+
 Write-Host
 Write-Host "PS-Get has been installed successfully!"

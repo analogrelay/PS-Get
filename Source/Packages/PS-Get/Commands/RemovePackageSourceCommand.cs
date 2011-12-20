@@ -8,29 +8,25 @@ using PsGet.Services;
 
 namespace PsGet.Cmdlets
 {
-    [Cmdlet(VerbsCommon.Add, "PackageSource")]
-    public class AddPackageSourceCommand : PackageSourceCmdlet
+    [Cmdlet(VerbsCommon.Remove, "PackageSource")]
+    public class RemovePackageSourceCommand : PackageSourceCmdlet
     {
         [Parameter(Mandatory = true, Position = 0, ValueFromPipelineByPropertyName = true)]
         [ValidateNotNullOrEmpty]
         public string Name { get; set; }
-
-        [Parameter(Mandatory = true, Position = 1, ValueFromPipelineByPropertyName = true)]
-        [ValidateNotNullOrEmpty]
-        public string Source { get; set; }
 
         protected internal override void ProcessRecordCore()
         {
             PackageSourceScope scope = (Scope != null) ? Scope.Value : PackageSourceScope.Session;
             switch(scope) {
                 case PackageSourceScope.Session:
-                    SourceService.SessionStore.AddSource(Source, Name);
+                    SourceService.SessionStore.RemoveSource(Name);
                     break;
                 case PackageSourceScope.User:
-                    SourceService.UserStore.AddSource(Source, Name);
+                    SourceService.UserStore.RemoveSource(Name);
                     break;
                 case PackageSourceScope.Machine:
-                    SourceService.MachineStore.AddSource(Source, Name);
+                    SourceService.MachineStore.RemoveSource(Name);
                     break;
             }
         }

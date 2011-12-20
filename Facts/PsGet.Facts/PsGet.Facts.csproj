@@ -61,12 +61,15 @@
     <Compile Include="CmdletAssert.cs" />
     <Compile Include="CmdletExtensions.cs" />
     <Compile Include="CommandOutput.cs" />
+    <Compile Include="Commands\AddPackageSourceCommandFacts.cs" />
+    <Compile Include="Commands\RemovePackageSourceCommandFacts.cs" />
     <Compile Include="Commands\GetPackageCommandFacts.cs" />
     <Compile Include="Commands\GetPackageSourceCommandFacts.cs" />
     <Compile Include="Commands\ImportPackageCommandFacts.cs" />
     <Compile Include="Commands\InstallPackageCommandFacts.cs" />
     <Compile Include="Commands\PackageManagerCmdletFacts.cs" />
     <Compile Include="Commands\PackageManagerCmdletWithSourceFacts.cs" />
+    <Compile Include="Commands\PackageSourceCmdletFacts.cs" />
     <Compile Include="Commands\RemovePackageCommandFacts.cs" />
     <Compile Include="Commands\UpdatePackageCommandFacts.cs" />
     <Compile Include="Hosting\CommandBaseFacts.cs" />
