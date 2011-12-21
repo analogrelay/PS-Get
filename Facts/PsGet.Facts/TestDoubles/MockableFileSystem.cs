@@ -13,5 +13,6 @@ namespace PsGet.Facts.TestDoubles
         public abstract void DeleteFile(string fileName);
         public abstract Stream OpenFile(string fileName);
         public abstract string GetFullPath(string fileName);
+        public abstract IEnumerable<string> GetAllFiles();
     }
 }

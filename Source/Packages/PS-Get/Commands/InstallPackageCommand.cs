@@ -28,7 +28,7 @@ namespace PsGet.Commands {
         }
 
         protected internal virtual void PerformInstall(IPackageManager manager, string id, Version version, bool ignoreDependencies) {
-            manager.InstallPackage(id, version, ignoreDependencies);
+            manager.InstallPackage(id, version == null ? null : new SemanticVersion(version), ignoreDependencies, allowPrereleaseVersions: false);
         }
     }
 }

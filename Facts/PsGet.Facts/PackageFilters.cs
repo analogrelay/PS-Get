@@ -29,19 +29,19 @@ namespace PsGet.Facts
     public class PackageFilterFacts
     {
         IPackage[] testData = new[] {
-            new SimplePackage("FooBarBaz", new Version(1, 0, 0, 0), latest: false),
-            new SimplePackage("GrueBarGra", new Version(1, 0, 0, 0), latest: true),
-            new SimplePackage("DapBarTyz", new Version(1, 0, 0, 0), latest: false),
-            new SimplePackage("BizBozBonk", new Version(1, 0, 0, 0), latest: true)
+            new SimplePackage("FooBarBaz", new SemanticVersion(1, 0, 0, 0), latest: false),
+            new SimplePackage("GrueBarGra", new SemanticVersion(1, 0, 0, 0), latest: true),
+            new SimplePackage("DapBarTyz", new SemanticVersion(1, 0, 0, 0), latest: false),
+            new SimplePackage("BizBozBonk", new SemanticVersion(1, 0, 0, 0), latest: true)
         };
 
         [Fact]
         public void IdContainsMatchesAnyPackageContainingId()
         {
             Assert.Equal(new IPackage[] {
-                new SimplePackage("FooBarBaz", new Version(1, 0, 0, 0), latest: false),
-                new SimplePackage("GrueBarGra", new Version(1, 0, 0, 0), latest: true),
-                new SimplePackage("DapBarTyz", new Version(1, 0, 0, 0), latest: false)
+                new SimplePackage("FooBarBaz", new SemanticVersion(1, 0, 0, 0), latest: false),
+                new SimplePackage("GrueBarGra", new SemanticVersion(1, 0, 0, 0), latest: true),
+                new SimplePackage("DapBarTyz", new SemanticVersion(1, 0, 0, 0), latest: false)
             }, testData.IdContains("Bar").ToArray());
         }
 
@@ -49,7 +49,7 @@ namespace PsGet.Facts
         public void IdIsExactlyMatchesPackageWithSpecifiedId()
         {
             Assert.Equal(new IPackage[] {
-                new SimplePackage("BizBozBonk", new Version(1, 0, 0, 0), latest: true)
+                new SimplePackage("BizBozBonk", new SemanticVersion(1, 0, 0, 0), latest: true)
             }, testData.IdIsExactly("BizBozBonk").ToArray());
         }
 
@@ -57,8 +57,8 @@ namespace PsGet.Facts
         public void LatestMatchesOnlyLatestVersionPackages()
         {
             Assert.Equal(new IPackage[] {
-                new SimplePackage("GrueBarGra", new Version(1, 0, 0, 0), latest: true),
-                new SimplePackage("BizBozBonk", new Version(1, 0, 0, 0), latest: true)
+                new SimplePackage("GrueBarGra", new SemanticVersion(1, 0, 0, 0), latest: true),
+                new SimplePackage("BizBozBonk", new SemanticVersion(1, 0, 0, 0), latest: true)
             }, testData.Latest().ToArray());
         }
     }

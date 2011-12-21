@@ -12,10 +12,10 @@ namespace PsGet.Facts.TestDoubles
     public class SimplePackage : IPackage
     {
         public string Id { get; set; }
-        public Version Version { get; set; }
+        public SemanticVersion Version { get; set; }
         public bool IsLatestVersion { get; set; }
-        
-        public SimplePackage(string id, Version version, bool latest)
+
+        public SimplePackage(string id, SemanticVersion version, bool latest)
         {
             Id = id;
             Version = version;
@@ -150,6 +150,16 @@ namespace PsGet.Facts.TestDoubles
         }
 
         public Uri ReportAbuseUrl
+        {
+            get { throw new NotImplementedException(); }
+        }
+
+        public bool IsAbsoluteLatestVersion
+        {
+            get { throw new NotImplementedException(); }
+        }
+
+        public bool Listed
         {
             get { throw new NotImplementedException(); }
         }

@@ -65,7 +65,7 @@ Add-PackageSource -Name ""PS-Get Gallery"" -Source ""http://packages.psget.org""
             return new PackageManager(
                 repo,
                 CreatePackagePathResolver(destination),
-                CreateFileSystem(destination)
+                CreateNuGetFileSystem(destination)
             );
         }
 
@@ -74,7 +74,7 @@ Add-PackageSource -Name ""PS-Get Gallery"" -Source ""http://packages.psget.org""
             return new DefaultPackagePathResolver(root, useSideBySidePaths: false);
         }
 
-        protected internal virtual IFileSystem CreateFileSystem(string root)
+        protected internal virtual IFileSystem CreateNuGetFileSystem(string root)
         {
             return new PhysicalFileSystem(root);
         }

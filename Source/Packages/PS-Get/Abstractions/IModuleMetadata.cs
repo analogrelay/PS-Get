@@ -7,9 +7,13 @@ using System.Diagnostics.CodeAnalysis;
 
 namespace PsGet.Abstractions
 {
-    internal interface IModuleMetadata
+    public interface IModuleMetadata
     {
         Version Version { get; }
+        string Name { get; }
+        string Author { get; }
+        string Description { get; }
+        string ModuleBase { get; }
     }
 
     // Can't do unit tests here because of the dependency on PowerShell

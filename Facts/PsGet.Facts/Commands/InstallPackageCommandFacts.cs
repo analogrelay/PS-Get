@@ -91,7 +91,7 @@ namespace PsGet.Facts.Commands
             cmd.Execute();
 
             // Assert
-            mockManager.Verify(m => m.InstallPackage("Foo", null, false));
+            mockManager.Verify(m => m.InstallPackage("Foo", null, false, false));
         }
 
         [Fact]
@@ -107,7 +107,7 @@ namespace PsGet.Facts.Commands
             cmd.Execute();
 
             // Assert
-            mockManager.Verify(m => m.InstallPackage("Foo", new Version(1, 0, 0, 0), false));
+            mockManager.Verify(m => m.InstallPackage("Foo", new SemanticVersion(1, 0, 0, 0), false, false));
         }
 
         [Fact]
@@ -123,7 +123,7 @@ namespace PsGet.Facts.Commands
             cmd.Execute();
 
             // Assert
-            mockManager.Verify(m => m.InstallPackage("Foo", null, true));
+            mockManager.Verify(m => m.InstallPackage("Foo", null, true, false));
         }
 
         [Fact]

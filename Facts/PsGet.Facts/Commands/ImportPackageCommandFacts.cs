@@ -14,7 +14,7 @@ namespace PsGet.Facts.Commands
     public class ImportPackageCommandFacts : InstallPackageCommandFactsBase<ImportPackageCommand>
     {
         private SimpleModuleMetadata[] testModules = new[] { 
-            new SimpleModuleMetadata(new Version(2, 0, 0, 0))
+            new SimpleModuleMetadata("Foo", new Version(2, 0, 0, 0))
         };
 
         public override string Verb
@@ -39,7 +39,7 @@ namespace PsGet.Facts.Commands
 
             // Assert
             mockManager.Verify(
-                m => m.InstallPackage(It.IsAny<string>(), It.IsAny<Version>(), It.IsAny<bool>()),
+                m => m.InstallPackage(It.IsAny<string>(), It.IsAny<SemanticVersion>(), It.IsAny<bool>(), It.IsAny<bool>()),
                 Times.Never());
             Assert.Equal(1, invoker.GetInvokeCount("Import-Module Foo"));
         }
@@ -61,7 +61,7 @@ namespace PsGet.Facts.Commands
 
             // Assert
             mockManager.Verify(
-                m => m.InstallPackage("Foo", null, false));
+                m => m.InstallPackage("Foo", null, false, false));
             Assert.Equal(1, invoker.GetInvokeCount("Import-Module Foo"));
         }
 
@@ -83,7 +83,7 @@ namespace PsGet.Facts.Commands
 
             // Assert
             mockManager.Verify(
-                m => m.UpdatePackage("Foo", new Version(3, 0, 0, 0), true));
+                m => m.UpdatePackage("Foo", new SemanticVersion(3, 0, 0, 0), true, false));
             Assert.Equal(1, invoker.GetInvokeCount("Import-Module Foo"));
         }
     }

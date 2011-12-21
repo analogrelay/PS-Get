@@ -40,5 +40,10 @@ namespace PsGet.Abstractions
         {
             return Path.Combine(_root, fileName);
         }
+
+        public IEnumerable<string> GetAllFiles()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

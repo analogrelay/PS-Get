@@ -109,7 +109,7 @@ namespace PsGet.Facts.Commands
             DefaultPackagePathResolver resolver = Assert.IsType<DefaultPackagePathResolver>(manager.PathResolver);
             Assert.Same(expected, manager.SourceRepository);
             Assert.Equal(@"D:\", fs.Root);
-            Assert.Equal(@"foo", resolver.GetPackageDirectory("foo", new Version(1, 0, 0, 0)));
+            Assert.Equal(@"foo", resolver.GetPackageDirectory("foo", new SemanticVersion(1, 0, 0, 0)));
         }
 
         [Fact]

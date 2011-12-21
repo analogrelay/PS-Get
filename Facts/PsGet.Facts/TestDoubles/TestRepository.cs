@@ -13,18 +13,18 @@ namespace PsGet.Facts.TestDoubles
     public class TestRepository : IPackageRepository
     {
         public static readonly IPackage[] DefaultPackages = new IPackage[] {
-            new SimplePackage("Foo", new Version(1, 0, 0, 0), latest: false),
-            new SimplePackage("Foo", new Version(1, 1, 0, 0), latest: false),
-            new SimplePackage("Foo", new Version(1, 1, 5, 0), latest: false),
-            new SimplePackage("Foo", new Version(2, 0, 0, 0), latest: false),
-            new SimplePackage("Foo", new Version(3, 0, 0, 0), latest: true),
-            new SimplePackage("Bar", new Version(1, 0, 0, 0), latest: false),
-            new SimplePackage("Bar", new Version(1, 1, 0, 0), latest: false),
-            new SimplePackage("Bar", new Version(1, 1, 5, 0), latest: false),
-            new SimplePackage("Bar", new Version(2, 0, 0, 0), latest: false),
-            new SimplePackage("Bar", new Version(3, 0, 0, 0), latest: true),
-            new SimplePackage("Bob", new Version(2, 0, 0, 0), latest: false),
-            new SimplePackage("Bob", new Version(3, 0, 0, 0), latest: true)
+            new SimplePackage("Foo", new SemanticVersion(1, 0, 0, 0), latest: false),
+            new SimplePackage("Foo", new SemanticVersion(1, 1, 0, 0), latest: false),
+            new SimplePackage("Foo", new SemanticVersion(1, 1, 5, 0), latest: false),
+            new SimplePackage("Foo", new SemanticVersion(2, 0, 0, 0), latest: false),
+            new SimplePackage("Foo", new SemanticVersion(3, 0, 0, 0), latest: true),
+            new SimplePackage("Bar", new SemanticVersion(1, 0, 0, 0), latest: false),
+            new SimplePackage("Bar", new SemanticVersion(1, 1, 0, 0), latest: false),
+            new SimplePackage("Bar", new SemanticVersion(1, 1, 5, 0), latest: false),
+            new SimplePackage("Bar", new SemanticVersion(2, 0, 0, 0), latest: false),
+            new SimplePackage("Bar", new SemanticVersion(3, 0, 0, 0), latest: true),
+            new SimplePackage("Bob", new SemanticVersion(2, 0, 0, 0), latest: false),
+            new SimplePackage("Bob", new SemanticVersion(3, 0, 0, 0), latest: true)
         };
 
         public IList<IPackage> Packages { get; private set; }
@@ -61,6 +61,12 @@ namespace PsGet.Facts.TestDoubles
         public void RemovePackage(IPackage package)
         {
             Packages.Remove(package);
+        }
+
+
+        public bool SupportsPrereleasePackages
+        {
+            get { return false; }
         }
     }
 }

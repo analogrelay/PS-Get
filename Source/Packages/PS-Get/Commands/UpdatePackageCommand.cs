@@ -10,7 +10,7 @@ namespace PsGet.Commands
     {
         protected internal override void PerformInstall(IPackageManager manager, string id, Version version, bool ignoreDependencies)
         {
-            manager.UpdatePackage(id, version, !ignoreDependencies);
+            manager.UpdatePackage(id, version == null ? null : new SemanticVersion(version), !ignoreDependencies, allowPrereleaseVersions: false);
         }
     }
 }

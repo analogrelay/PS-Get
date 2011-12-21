@@ -12,9 +12,14 @@ namespace PsGet.Facts.TestDoubles
     internal class SimpleModuleMetadata : IModuleMetadata
     {
         public Version Version { get; private set; }
+        public string Name { get; private set; }
+        public string Author { get; set; }
+        public string Description { get; set; }
+        public string ModuleBase { get; set; }
 
-        public SimpleModuleMetadata(Version ver)
+        public SimpleModuleMetadata(string name, Version ver)
         {
+            Name = name;
             Version = ver;
         }
     }

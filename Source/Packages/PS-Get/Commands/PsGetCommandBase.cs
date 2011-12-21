@@ -14,6 +14,7 @@ namespace PsGet.Commands
         protected internal ICommandInvoker Invoker { get; internal set; }
         protected internal IHostEnvironment HostEnvironment { get; internal set; }
         protected internal ISessionStore Session { get; internal set; }
+        protected internal IPathService PathService { get; internal set; }
 
         protected PsGetCommandBase() : base()
         {
@@ -52,5 +53,15 @@ namespace PsGet.Commands
         }
 
         protected internal virtual void StopProcessingCore() { }
+
+        protected internal virtual IFileSystem CreateFileSystem()
+        {
+            return new PhysicalFileSystem(String.Empty);
+        }
+
+        protected internal virtual IFileSystem CreateFileSystem(string root)
+        {
+            return new PhysicalFileSystem(root);
+        }
     }
 }

@@ -2,6 +2,7 @@
 using System.Management.Automation;
 using PsGet.Commands;
 using Xunit;
+using NuGet;
 
 namespace PsGet.Facts.Commands
 {
@@ -24,7 +25,7 @@ namespace PsGet.Facts.Commands
             cmd.Execute();
 
             // Assert
-            mockManager.Verify(m => m.UpdatePackage("Foo", (Version)null, true));
+            mockManager.Verify(m => m.UpdatePackage("Foo", (SemanticVersion)null, true, false));
         }
 
         [Fact]
@@ -40,7 +41,7 @@ namespace PsGet.Facts.Commands
             cmd.Execute();
 
             // Assert
-            mockManager.Verify(m => m.UpdatePackage("Foo", new Version(2, 0, 0, 0), true));
+            mockManager.Verify(m => m.UpdatePackage("Foo", new SemanticVersion(2, 0, 0, 0), true, false));
         }
 
         [Fact]
@@ -56,7 +57,7 @@ namespace PsGet.Facts.Commands
             cmd.Execute();
 
             // Assert
-            mockManager.Verify(m => m.UpdatePackage("Foo", (Version)null, false));
+            mockManager.Verify(m => m.UpdatePackage("Foo", (SemanticVersion)null, false, false));
         }
     }
 }

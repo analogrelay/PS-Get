@@ -5,6 +5,7 @@ using System.Text;
 using System.Management.Automation;
 using System.IO;
 using PsGet.Abstractions;
+using NuGet;
 
 namespace PsGet.Commands
 {
@@ -27,7 +28,7 @@ namespace PsGet.Commands
             {
                 // Update the module
                 WriteDebug("Module is not installed, installing");
-                CreatePackageManager().UpdatePackage(Id, Version, !IgnoreDependencies.IsPresent);
+                CreatePackageManager().UpdatePackage(Id, new SemanticVersion(Version), !IgnoreDependencies.IsPresent, allowPrereleaseVersions: false);
             }
 
             // Now import the module

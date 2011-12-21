@@ -6,11 +6,12 @@ using System.IO;
 
 namespace PsGet.Abstractions
 {
-    internal interface IFileSystem
+    public interface IFileSystem
     {
         bool FileExists(string fileName);
         void DeleteFile(string fileName);
         Stream OpenFile(string fileName);
         string GetFullPath(string fileName);
+        IEnumerable<string> GetAllFiles();
     }
 }

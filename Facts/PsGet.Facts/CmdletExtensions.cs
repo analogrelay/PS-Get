@@ -9,6 +9,7 @@ using PsGet.Commands;
 using Moq;
 using Xunit;
 using PsGet.Facts.TestDoubles;
+using System.IO;
 
 namespace PsGet.Facts
 {
@@ -66,6 +67,14 @@ namespace PsGet.Facts
             Mock<IPackageManager> mock = new Mock<IPackageManager>();
             self.PackageManagerFactory = (source, destination) => mock.Object;
             return mock;
+        }
+
+        public static void AttachPathService(this PsGetCommandBase self, string currentPath, string resolvePrefix)
+        {
+            Mock<IPathService> mockPathService = new Mock<IPathService>();
+            mockPathService.Setup(s => s.CurrentPath).Returns(currentPath);
+            mockPathService.Setup(s => s.ResolvePath(It.IsAny<string>())).Returns<string>(s => String.Concat(resolvePrefix, s));
+            self.PathService = mockPathService.Object;
         }
     }
 }

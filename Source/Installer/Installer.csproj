@@ -13,6 +13,8 @@
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <OutputPath>..\..\Bin\$(Configuration)\Installer</OutputPath>
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\..\..\PS-Get\</SolutionDir>
+    <RestorePackages>true</RestorePackages>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -38,4 +40,5 @@
     <RemoveDir Directories="$(MSBuildThisFileDirectory)\$(OutputPath)" />
   </Target>
   <Target Name="Rebuild" DependsOnTargets="Clean;Build" />
+  <Import Project="$(SolutionDir)\.nuget\nuget.targets" />
 </Project>
