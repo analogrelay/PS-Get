@@ -103,7 +103,7 @@
     <Compile Include="Services\PackageSourceScope.cs" />
     <Compile Include="Services\PackageSourceService.cs" />
     <Compile Include="Services\XmlSourceStore.cs" />
-    <Compile Include="Settings.cs" />
+    <Compile Include="Hosting\HostConfiguration.cs" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

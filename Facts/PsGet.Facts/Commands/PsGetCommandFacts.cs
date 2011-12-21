@@ -29,7 +29,7 @@ namespace PsGet.Facts.Commands
             cmdlet.BeginProcessingCore();
 
             // Assert
-            Assert.Equal(@"C:\", cmdlet.Settings.InstallationRoot);
+            Assert.Equal(@"C:\", cmdlet.Config.InstallationRoot);
         }
     }
 }

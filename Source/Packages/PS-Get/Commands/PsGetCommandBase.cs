@@ -10,7 +10,7 @@ namespace PsGet.Commands
 {
     public abstract class PsGetCommandBase : PSCmdlet
     {
-        protected internal Settings Settings { get; set; }
+        protected internal HostConfiguration Config { get; set; }
         protected internal ICommandInvoker Invoker { get; internal set; }
         protected internal IHostEnvironment HostEnvironment { get; internal set; }
         protected internal ISessionStore Session { get; internal set; }
@@ -29,7 +29,7 @@ namespace PsGet.Commands
         }
 
         protected internal virtual void BeginProcessingCore() {
-            Settings = new Settings(HostEnvironment.ModuleBase);
+            Config = new HostConfiguration(HostEnvironment.ModuleBase);
         }
 
         protected override sealed void ProcessRecord()

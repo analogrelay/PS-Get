@@ -30,7 +30,7 @@ namespace PsGet.Commands
             base.BeginProcessingCore();
             if (String.IsNullOrEmpty(Destination))
             {
-                Destination = Settings.InstallationRoot;
+                Destination = Config.InstallationRoot;
             }
             WriteDebug(String.Concat("Using Source: ", Source ?? "(Default)"));
             WriteDebug(String.Concat("Installing To: ", Destination));
@@ -40,6 +40,13 @@ namespace PsGet.Commands
         {
             if (String.IsNullOrEmpty(Source))
             {
+                if (!SourceService.AllSources.Any())
+                {
+                    WriteWarning(
+@"No package sources have been configured, so PS-Get doesn't have anywhere to look for packages!
+Use the Add-PackageSource cmdlet to add a source. For example:
+Add-PackageSource -Name ""PS-Get Gallery"" -Source ""http://packages.psget.org"" -Scope Machine");
+                }
                 return new AggregateRepository(RepositoryFactory, SourceService.AllSources.Select(s => s.Source), ignoreFailingRepositories: true);
             }
             else
