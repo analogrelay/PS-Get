@@ -12,16 +12,16 @@ namespace PsGet.Hosting
     [ExcludeFromCodeCoverage]
     internal class PowerShellInvoker : ICommandInvoker
     {
-        private CommandInvocationIntrinsics _invocationIntrinsics;
+        private PSCmdlet _cmdlet;
 
-        public PowerShellInvoker(CommandInvocationIntrinsics invocationIntrinsics)
+        public PowerShellInvoker(PSCmdlet cmdlet)
         {
-            _invocationIntrinsics = invocationIntrinsics;
+            _cmdlet = cmdlet;
         }
 
         public void InvokeScript(string script)
         {
-            var ret = _invocationIntrinsics.InvokeScript(script);
+            var ret = _cmdlet.InvokeCommand.InvokeScript(script);
             Debug.Assert(!ret.Any());
         }
 
@@ -32,9 +32,10 @@ namespace PsGet.Hosting
 
         public IEnumerable<T> InvokeScript<T>(string script, Func<object, T> converter)
         {
-            return _invocationIntrinsics.InvokeScript(script)
-                                        .Select(o => o.ImmediateBaseObject)
-                                        .Select(converter);
+            return _cmdlet.InvokeCommand
+                          .InvokeScript(script)
+                          .Select(o => o.ImmediateBaseObject)
+                          .Select(converter);
         }
     }
 }

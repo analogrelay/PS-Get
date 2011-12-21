@@ -18,17 +18,9 @@ namespace PsGet.Commands
         protected internal override void ProcessRecordCore()
         {
             PackageSourceScope scope = (Scope != null) ? Scope.Value : PackageSourceScope.Session;
-            switch(scope) {
-                case PackageSourceScope.Session:
-                    SourceService.SessionStore.RemoveSource(Name);
-                    break;
-                case PackageSourceScope.User:
-                    SourceService.UserStore.RemoveSource(Name);
-                    break;
-                case PackageSourceScope.Machine:
-                    SourceService.MachineStore.RemoveSource(Name);
-                    break;
-            }
+            IPackageSourceStore store = SourceService.GetSource(scope);
+            store.RemoveSource(Name);
+            store.Save();
         }
     }
 }

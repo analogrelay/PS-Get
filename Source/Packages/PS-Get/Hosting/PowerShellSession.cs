@@ -9,21 +9,21 @@ namespace PsGet.Hosting
 {
     internal class PowerShellSession : ISessionStore
     {
-        private SessionState _sessionState;
+        private PSCmdlet _cmdlet;
 
-        public PowerShellSession(SessionState sessionState)
+        public PowerShellSession(PSCmdlet cmdlet)
         {
-            _sessionState = sessionState;
+            _cmdlet = cmdlet;
         }
 
         public object Get(string variableName)
         {
-            return _sessionState.PSVariable.GetValue(variableName);
+            return _cmdlet.SessionState.PSVariable.GetValue(variableName);
         }
 
         public void Set(string variableName, object value)
         {
-            _sessionState.PSVariable.Set(variableName, value);
+            _cmdlet.SessionState.PSVariable.Set(variableName, value);
         }
     }
 }

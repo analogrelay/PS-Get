@@ -141,6 +141,19 @@ namespace PsGet.Facts.Integration.Abstractions
             }
         }
 
+        [Fact]
+        public void OpenFileCreatesParentDirectoryTreeIfNecessary()
+        {
+            // Arrange
+            PhysicalFileSystem fs = new PhysicalFileSystem(testRoot);
+            
+            // Act
+            using (Stream strm = fs.OpenFile(@"testParent\folder\testOpenWrite.txt")) { }
+
+            // Assert
+            Assert.True(Directory.Exists(ResolveTestFile(@"testParent\folder")));
+        }
+
         private string ResolveTestFile(string name)
         {
             return Path.Combine(testRoot, name);

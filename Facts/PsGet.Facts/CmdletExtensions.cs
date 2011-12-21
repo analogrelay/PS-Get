@@ -18,6 +18,7 @@ namespace PsGet.Facts
         {
             self.HostEnvironment = new TestHostEnvironment();
             self.CommandRuntime = new TestCommandRuntime();
+            self.Session = new TestSessionStore();
             return self;
         }
 

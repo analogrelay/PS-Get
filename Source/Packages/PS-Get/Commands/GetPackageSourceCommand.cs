@@ -26,19 +26,8 @@ namespace PsGet.Commands
             }
             else
             {
-                switch(Scope.Value) {
-                    case PackageSourceScope.Machine:
-                        sources = SourceService.MachineStore.Sources;
-                        break;
-                    case PackageSourceScope.User:
-                        sources = SourceService.UserStore.Sources;
-                        break;
-                    case PackageSourceScope.Session:
-                        sources = SourceService.SessionStore.Sources;
-                        break;
-                    default:
-                        throw new InvalidOperationException("Unknown Scope: " + Scope.ToString());
-                }
+                IPackageSourceStore store = SourceService.GetSource(Scope.Value);
+                sources = store.Sources;
             }
             if (!String.IsNullOrEmpty(Name))
             {

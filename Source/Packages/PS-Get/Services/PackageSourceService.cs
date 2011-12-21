@@ -30,5 +30,17 @@ namespace PsGet.Services
                                    .Union(MachineStore.Sources, new PackageSourceNameComparer());
             }
         }
+
+        public IPackageSourceStore GetSource(PackageSourceScope scope)
+        {
+            switch(scope) {
+                case PackageSourceScope.Machine:
+                    return MachineStore;
+                case PackageSourceScope.User:
+                    return UserStore;
+                default:
+                    return SessionStore;
+            }
+        }
     }
 }

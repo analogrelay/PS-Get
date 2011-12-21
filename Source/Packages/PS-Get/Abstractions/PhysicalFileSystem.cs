@@ -27,7 +27,13 @@ namespace PsGet.Abstractions
 
         public Stream OpenFile(string fileName)
         {
-            return File.Open(GetFullPath(fileName), FileMode.OpenOrCreate, FileAccess.ReadWrite, FileShare.None);
+            string fullPath = GetFullPath(fileName); 
+            string parent = Path.GetDirectoryName(fullPath);
+            if (!Directory.Exists(parent))
+            {
+                Directory.CreateDirectory(parent);
+            }
+            return File.Open(fullPath, FileMode.OpenOrCreate, FileAccess.ReadWrite, FileShare.None);
         }
 
         public string GetFullPath(string fileName)

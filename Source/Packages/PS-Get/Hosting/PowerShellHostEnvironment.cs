@@ -11,16 +11,16 @@ namespace PsGet.Hosting
     [ExcludeFromCodeCoverage]
     internal class PowerShellHostEnvironment : IHostEnvironment
     {
-        public InvocationInfo Invocation { get; private set; }
+        private PSCmdlet _cmdlet;
 
-        public PowerShellHostEnvironment(InvocationInfo invocation)
+        public PowerShellHostEnvironment(PSCmdlet cmdlet)
         {
-            Invocation = invocation;
+            _cmdlet = cmdlet;
         }
 
         public string ModuleBase
         {
-            get { return Invocation.MyCommand.Module.ModuleBase; }
+            get { return _cmdlet.MyInvocation.MyCommand.Module.ModuleBase; }
         }
     }
 }

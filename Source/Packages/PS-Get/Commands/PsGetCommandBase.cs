@@ -17,9 +17,9 @@ namespace PsGet.Commands
 
         protected PsGetCommandBase() : base()
         {
-            Invoker = new PowerShellInvoker(InvokeCommand);
-            HostEnvironment = new PowerShellHostEnvironment(MyInvocation);
-            Session = new PowerShellSession(SessionState);
+            Invoker = new PowerShellInvoker(this);
+            HostEnvironment = new PowerShellHostEnvironment(this);
+            Session = new PowerShellSession(this);
         }
 
         // Disable warning about obsolete overrides of non-obsolete methods because that's exactly what we want!
