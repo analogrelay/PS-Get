@@ -14,7 +14,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Source", "Source", "{57A2B9
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Packages", "Packages", "{74FFBAFE-F424-4889-9E97-38A2FF91A770}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PS-Get", "Source\Packages\PS-Get\PS-Get.csproj", "{2D953EDF-41DD-4A08-BA6F-B64E7E918819}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PS-Get", "Source\PS-Get\PS-Get.csproj", "{2D953EDF-41DD-4A08-BA6F-B64E7E918819}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "MSBuildCommunityExtensions", "MSBuildCommunityExtensions", "{7D477708-61FA-49AF-AF29-6794B1F8179D}"
 	ProjectSection(SolutionItems) = preProject
@@ -24,8 +24,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "MSBuildCommunityExtensions"
 		Build\MSBuildCommunityTasks\MSBuild.Community.Tasks.Targets = Build\MSBuildCommunityTasks\MSBuild.Community.Tasks.Targets
 		Build\MSBuildCommunityTasks\MSBuild.Community.Tasks.xml = Build\MSBuildCommunityTasks\MSBuild.Community.Tasks.xml
 	EndProjectSection
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PS-Json", "Source\Packages\PS-Json\PS-Json.csproj", "{82B9ADCF-8EC7-4897-9B13-23613C79E7EF}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Installer", "Source\Installer\Installer.csproj", "{0847A434-941B-4DF1-A0A4-ED135F0C7C74}"
 EndProject

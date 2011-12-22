@@ -1,9 +1,0 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
-<Types>
-    <Type>
-        <Name>Newtonsoft.Json.Linq.JToken</Name>
-        <TypeConverter>
-            <TypeName>PsJson.PSJsonTypeConverter</TypeName>
-        </TypeConverter>
-    </Type>
-</Types>

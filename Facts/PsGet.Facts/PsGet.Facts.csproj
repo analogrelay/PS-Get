@@ -95,7 +95,7 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Source\Packages\PS-Get\PS-Get.csproj">
+    <ProjectReference Include="..\..\Source\PS-Get\PS-Get.csproj">
       <Project>{2D953EDF-41DD-4A08-BA6F-B64E7E918819}</Project>
       <Name>PS-Get</Name>
     </ProjectReference>
