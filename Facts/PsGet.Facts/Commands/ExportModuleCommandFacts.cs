@@ -11,6 +11,7 @@ using Moq;
 using NuGet;
 using System.IO;
 using IFileSystem = PsGet.Abstractions.IFileSystem;
+using Xunit.Extensions;
 
 namespace PsGet.Facts.Commands
 {
@@ -34,6 +35,43 @@ namespace PsGet.Facts.Commands
                     ValueFromPipeline = true,
                     ValueFromPipelineByPropertyName = true
                 },
+                new ValidateNotNullOrEmptyAttribute());
+        }
+
+        [Fact]
+        public void VerifyPackageFileParameter()
+        {
+            CmdletAssert.IsParameter(
+                () => new ExportModuleCommand().PackageFile,
+                new ParameterAttribute()
+                {
+                    Position = 1,
+                    Mandatory = false
+                },
+                new ValidateNotNullOrEmptyAttribute());
+        }
+
+        [Fact]
+        public void VerifyDescriptionParameter()
+        {
+            CmdletAssert.IsParameter(
+                () => new ExportModuleCommand().Description,
+                new ValidateNotNullOrEmptyAttribute());
+        }
+
+        [Fact]
+        public void VerifyPackageIdParameter()
+        {
+            CmdletAssert.IsParameter(
+                () => new ExportModuleCommand().PackageId,
+                new ValidateNotNullOrEmptyAttribute());
+        }
+
+        [Fact]
+        public void VerifyVersionParameter()
+        {
+            CmdletAssert.IsParameter(
+                () => new ExportModuleCommand().Version,
                 new ValidateNotNullOrEmptyAttribute());
         }
 
@@ -127,6 +165,156 @@ namespace PsGet.Facts.Commands
 
             // Assert
             mockCmd.VerifyAll();
+        }
+
+        [Fact]
+        public void WhenSpecFileExistsWithFilesSection_BuildManifestUsesSpecAndSpecifiedFiles()
+        {
+            // Arrange
+            Mock<ExportModuleCommand> mockCmd = new Mock<ExportModuleCommand>() { CallBase = true };
+            PackageBuilder expected = new PackageBuilder();
+            IPackageFile file = new Mock<IPackageFile>().Object;
+            expected.Files.Add(file);
+
+            Mock<IFileSystem> mockFs = new Mock<IFileSystem>();
+            mockFs.Setup(fs => fs.OpenFile(It.IsAny<string>())).Returns(Stream.Null);
+            mockFs.Setup(fs => fs.FileExists("Foo.nuspec")).Returns(true);
+            mockCmd.Setup(c => c.OpenManifest(@"D:\Foo", Stream.Null)).Returns(expected);
+            IModuleMetadata module = new SimpleModuleMetadata("Foo", new Version(1, 0, 0, 0))
+            {
+                ModuleBase = @"D:\Foo"
+            };
+
+            // Act
+            PackageBuilder actual = mockCmd.Object.BuildManifest(module, mockFs.Object);
+
+            // Assert
+            Assert.Same(expected, actual);
+        }
+
+        [Theory]
+        [InlineData("Someone", new[] { "Someone" })]
+        [InlineData("Someone,Someoneelse", new[] { "Someone", "Someoneelse" })]
+        [InlineData(null, new string[] { null })]
+        public void WhenSpecFileExistsWithoutFilesSection_BuildManifestUsesSpecAndAllFilesUnderModuleBase(string author, string[] expectedAuthors)
+        {
+            // Arrange
+            Mock<ExportModuleCommand> mockCmd = new Mock<ExportModuleCommand>() { CallBase = true };
+            
+            Mock<IFileSystem> mockFs = new Mock<IFileSystem>();
+            mockFs.Setup(fs => fs.FileExists("Foo.nuspec")).Returns(false);
+            mockFs.Setup(fs => fs.GetAllFiles()).Returns(new[] {
+                "Foo",
+                "Bar",
+                "Baz"
+            });
+            mockFs.Setup(fs => fs.GetFullPath(It.IsAny<string>())).Returns<string>(s => String.Concat("Base\\", s));
+            IModuleMetadata module = new SimpleModuleMetadata("Foo", new Version(1, 0, 0, 0))
+            {
+                ModuleBase = @"D:\Foo",
+                Description = "Bar Baz",
+                Author = author
+            };
+
+            // Act
+            PackageBuilder actual = mockCmd.Object.BuildManifest(module, mockFs.Object);
+
+            // Assert
+            Assert.Equal("Foo", actual.Id);
+            Assert.Equal(new SemanticVersion(1, 0, 0, 0), actual.Version);
+            Assert.Equal("Bar Baz", actual.Description);
+            Assert.Equal(expectedAuthors.Select(h => h ?? Environment.UserName).ToArray(), actual.Authors.ToArray());
+            Assert.Equal(new IPackageFile[] {
+                new PhysicalPackageFile() { SourcePath = @"Base\Foo", TargetPath = "Foo" },
+                new PhysicalPackageFile() { SourcePath = @"Base\Bar", TargetPath = "Bar" },
+                new PhysicalPackageFile() { SourcePath = @"Base\Baz", TargetPath = "Baz" },
+            }, actual.Files.ToArray());
+        }
+
+        [Fact]
+        public void ParametersOverrideModuleSpecFile()
+        {
+            // Arrange
+            Mock<ExportModuleCommand> mockCmd = new Mock<ExportModuleCommand>() { CallBase = true };
+            mockCmd.Object.Description = "Override";
+            mockCmd.Object.PackageId = "Override";
+            mockCmd.Object.Version = new SemanticVersion(2, 0, 0, 0);
+            mockCmd.Object.Authors = new string[] { "Over", "Ride" };
+            mockCmd.Object.Copyright = "Override";
+            mockCmd.Object.IconUrl = "http://over.ride";
+            mockCmd.Object.Language = "ovr-RIDE";
+            mockCmd.Object.LicenseUrl = "http://over.ride";
+            mockCmd.Object.Owners = new string[] { "Over", "Ride" };
+            mockCmd.Object.ProjectUrl = "http://over.ride";
+            mockCmd.Object.ReleaseNotes = "Override";
+            mockCmd.Object.RequireLicenseAcceptance = SwitchParameter.Present;
+            mockCmd.Object.Summary = "Override";
+            mockCmd.Object.Tags = new string[] { "Over", "Ride" };
+            mockCmd.Object.Title = "Override";
+
+            PackageBuilder expected = new PackageBuilder()
+            {
+                Id = "Original",
+                Description = "Original",
+                Version = new SemanticVersion(1, 0, 0, 0)
+            };
+
+            Mock<IFileSystem> mockFs = new Mock<IFileSystem>();
+            mockFs.Setup(fs => fs.FileExists("Original.nuspec")).Returns(true);
+            mockFs.Setup(fs => fs.GetAllFiles()).Returns(new string[0]);
+            mockFs.Setup(fs => fs.OpenFile(It.IsAny<string>())).Returns(Stream.Null);
+            mockCmd.Setup(c => c.OpenManifest(@"D:\Foo", Stream.Null)).Returns(expected);
+            IModuleMetadata module = new SimpleModuleMetadata("Original", new Version(1, 0, 0, 0))
+            {
+                ModuleBase = @"D:\Foo"
+            };
+
+            // Act
+            PackageBuilder actual = mockCmd.Object.BuildManifest(module, mockFs.Object);
+
+            // Assert
+            Assert.Equal("Override", actual.Description);
+            Assert.Equal("Override", actual.Id);
+            Assert.Equal(new SemanticVersion(2, 0, 0, 0), actual.Version);
+            Assert.Equal(new string[] { "Over", "Ride" }, actual.Authors.ToArray());
+            Assert.Equal("Override", actual.Copyright);
+            Assert.Equal("http://over.ride/", actual.IconUrl.ToString());
+            Assert.Equal("ovr-RIDE", actual.Language);
+            Assert.Equal("http://over.ride/", actual.LicenseUrl.ToString());
+            Assert.Equal(new string[] { "Over", "Ride" }, actual.Owners.ToArray());
+            Assert.Equal("http://over.ride/", actual.ProjectUrl.ToString());
+            Assert.Equal("Override", actual.ReleaseNotes);
+            Assert.True(actual.RequireLicenseAcceptance);
+            Assert.Equal("Override", actual.Summary);
+            Assert.Equal(new string[] { "Over", "Ride" }, actual.Tags.ToArray());
+            Assert.Equal("Override", actual.Title);
+        }
+
+        [Fact]
+        public void ParametersOverrideModuleMetadata()
+        {
+            // Arrange
+            Mock<ExportModuleCommand> mockCmd = new Mock<ExportModuleCommand>() { CallBase = true };
+            mockCmd.Object.Description = "Override";
+            mockCmd.Object.PackageId = "Override";
+            mockCmd.Object.Version = new SemanticVersion(2, 0, 0, 0);
+
+            Mock<IFileSystem> mockFs = new Mock<IFileSystem>();
+            mockFs.Setup(fs => fs.FileExists("Original.nuspec")).Returns(false);
+            mockFs.Setup(fs => fs.GetAllFiles()).Returns(new string[0]);
+            mockFs.Setup(fs => fs.OpenFile(It.IsAny<string>())).Returns(Stream.Null);
+            IModuleMetadata module = new SimpleModuleMetadata("Original", new Version(1, 0, 0, 0))
+            {
+                ModuleBase = @"D:\Foo"
+            };
+
+            // Act
+            PackageBuilder actual = mockCmd.Object.BuildManifest(module, mockFs.Object);
+
+            // Assert
+            Assert.Equal("Override", actual.Description);
+            Assert.Equal("Override", actual.Id);
+            Assert.Equal(new SemanticVersion(2, 0, 0, 0), actual.Version);
         }
     }
 }

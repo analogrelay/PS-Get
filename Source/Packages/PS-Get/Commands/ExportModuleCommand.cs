@@ -1,14 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.IO;
 using System.Linq;
-using System.Text;
 using System.Management.Automation;
+using NuGet;
 using PsGet.Abstractions;
 using PsGet.Hosting;
-using NuGet;
 using IFileSystem = PsGet.Abstractions.IFileSystem;
-using PhysicalFileSystem = PsGet.Abstractions.PhysicalFileSystem;
-using System.IO;
 
 namespace PsGet.Commands
 {
@@ -22,6 +21,66 @@ namespace PsGet.Commands
         [Parameter(Position = 1)]
         [ValidateNotNullOrEmpty]
         public string PackageFile { get; set; }
+
+        [Parameter]
+        [ValidateNotNullOrEmpty]
+        public string Description { get; set; }
+
+        [Parameter]
+        [ValidateNotNullOrEmpty]
+        public string PackageId { get; set; }
+
+        [Parameter]
+        [ValidateNotNullOrEmpty]
+        public SemanticVersion Version { get; set; }
+
+        [Parameter]
+        [ValidateNotNullOrEmpty]
+        public string[] Authors { get; set; }
+
+        [Parameter]
+        [ValidateNotNullOrEmpty]
+        public string Copyright { get; set; }
+
+        [Parameter]
+        [ValidateNotNullOrEmpty]
+        public string IconUrl { get; set; }
+
+        [Parameter]
+        [ValidateNotNullOrEmpty]
+        public string Language { get; set; }
+
+        [Parameter]
+        [ValidateNotNullOrEmpty]
+        public string LicenseUrl { get; set; }
+
+        [Parameter]
+        [ValidateNotNullOrEmpty]
+        public string[] Owners { get; set; }
+
+        [Parameter]
+        [ValidateNotNullOrEmpty]
+        public string ProjectUrl { get; set; }
+
+        [Parameter]
+        [ValidateNotNullOrEmpty]
+        public string ReleaseNotes { get; set; }
+
+        [Parameter]
+        [ValidateNotNullOrEmpty]
+        public SwitchParameter RequireLicenseAcceptance { get; set; }
+
+        [Parameter]
+        [ValidateNotNullOrEmpty]
+        public string Summary { get; set; }
+
+        [Parameter]
+        [ValidateNotNullOrEmpty]
+        public string[] Tags { get; set; }
+
+        [Parameter]
+        [ValidateNotNullOrEmpty]
+        public string Title { get; set; }
 
         protected internal override void ProcessRecordCore()
         {
@@ -67,7 +126,14 @@ namespace PsGet.Commands
                 builder = new PackageBuilder();
                 builder.Id = module.Name;
                 builder.Version = new SemanticVersion(module.Version);
-                builder.Authors.AddRange(module.Author.Split(',').Select(s => s.Trim()));
+                if (!String.IsNullOrEmpty(module.Author))
+                {
+                    builder.Authors.AddRange(module.Author.Split(',').Select(s => s.Trim()));
+                }
+                else
+                {
+                    builder.Authors.Add(Environment.UserName);
+                }
                 builder.Description = module.Description;
             }
 
@@ -83,6 +149,36 @@ namespace PsGet.Commands
                     });
                 }
             }
+
+            // Set overrides
+            builder.Description = Description ?? builder.Description;
+            builder.Id = PackageId ?? builder.Id;
+            builder.Version = Version ?? builder.Version;
+            if (Authors != null)
+            {
+                builder.Authors.Clear();
+                builder.Authors.AddRange(Authors);
+            }
+            builder.Copyright = Copyright;
+            builder.IconUrl = String.IsNullOrEmpty(IconUrl) ? null : new Uri(IconUrl);
+            builder.Language = Language;
+            builder.LicenseUrl = String.IsNullOrEmpty(LicenseUrl) ? null : new Uri(LicenseUrl);
+            if (Owners != null)
+            {
+                builder.Owners.Clear();
+                builder.Owners.AddRange(Owners);
+            }
+            builder.ProjectUrl = String.IsNullOrEmpty(ProjectUrl) ? null : new Uri(ProjectUrl);
+            builder.ReleaseNotes = ReleaseNotes;
+            builder.RequireLicenseAcceptance = RequireLicenseAcceptance.IsPresent;
+            builder.Summary = Summary;
+            if (Tags != null)
+            {
+                builder.Tags.Clear();
+                builder.Tags.AddRange(Tags);
+            }
+            builder.Title = Title;
+
             return builder;
         }
 
@@ -102,10 +198,21 @@ namespace PsGet.Commands
 
         protected internal virtual void SavePackage(PackageBuilder builder, string path)
         {
-            IFileSystem root = CreateFileSystem();
-            using (Stream strm = root.OpenFile(path))
+            try
             {
-                builder.Save(strm);
+                IFileSystem root = CreateFileSystem();
+                using (Stream strm = root.OpenFile(path))
+                {
+                    builder.Save(strm);
+                }
+            }
+            catch (ValidationException vex)
+            {
+                throw new InvalidDataException(
+                    String.Format(
+                        "Manifest is missing some data required by NuGet. " +
+                        "Add the data to a Module Manifest or use the parameters of " +
+                        "Export-Module to specify it: {0}", vex.Message), vex);
             }
         }
     }

@@ -21,6 +21,7 @@ namespace PsGet.Commands
             Invoker = new PowerShellInvoker(this);
             HostEnvironment = new PowerShellHostEnvironment(this);
             Session = new PowerShellSession(this);
+            PathService = new PowerShellPathService(this);
         }
 
         // Disable warning about obsolete overrides of non-obsolete methods because that's exactly what we want!

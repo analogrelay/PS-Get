@@ -43,7 +43,17 @@ namespace PsGet.Abstractions
 
         public IEnumerable<string> GetAllFiles()
         {
-            throw new NotImplementedException();
+            return GetAllFiles(_root).SelectMany(s => s);
+        }
+
+        private IEnumerable<IEnumerable<string>> GetAllFiles(string dir)
+        {
+            foreach (var subdir in Directory.EnumerateDirectories(dir))
+            {
+                yield return GetAllFiles(subdir).SelectMany(s => s);
+            }
+            yield return Directory.EnumerateFiles(dir).Select(f => 
+                (f.StartsWith(_root) ? f.Substring(_root.Length) : f).TrimStart('\\'));
         }
     }
 }

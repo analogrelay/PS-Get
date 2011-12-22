@@ -57,7 +57,12 @@ namespace PsGet.Abstractions
                                                              .GetValue(null);
 
             // Run the restricted language mode checker from PowerShell
-            checker.GetMethod("Check", BindingFlags.Public | BindingFlags.Static)
+            checker.GetMethod(
+                        "Check", 
+                        BindingFlags.Public | BindingFlags.Static, 
+                        Type.DefaultBinder, 
+                        new [] { parserType, typeof(ScriptBlock), typeof(IEnumerable<string>), typeof(bool) },
+                        new ParameterModifier[0])
                    .Invoke(null, new[] { parser, block, allowedCommands, /* moduleManifest */ true });
 
             // Now that we've checked the code, we can run it
