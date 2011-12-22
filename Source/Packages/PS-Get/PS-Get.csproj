@@ -44,6 +44,7 @@
     <None Include="packages.config" />
     <Spec Include="PS-Get.nuspec">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
     </Spec>
     <Content Include="NuGetTypes.format.ps1xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>

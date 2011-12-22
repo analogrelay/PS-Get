@@ -2,7 +2,7 @@
 	[string]$InstallPath = $null, 
 	[switch]$NoPrompt, 
 	[string]$NuGetExeUrl = "http://cloud.github.com/downloads/anurse/PS-Get/NuGet.exe", 
-	[string]$PsGetFeed = "http://www.myget.org/F/psget/"
+	[string]$PsGetFeed = "http://packages.psget.org"
 )
 
 if([Environment]::Version.Major -lt 4) {
@@ -121,7 +121,7 @@ if(YesNoPrompt "Add PS-Get to your profile script?") {
 
 # Register the Main PS-Get Source
 Import-Module PS-Get
-Add-PackageSource -Scope Machine -Name "PS-Get Gallery" -Source "http://packages.psget.org"
+Add-PackageSource -Scope Machine -Name "PS-Get Gallery" -Source $PsGetFeed
 Remove-Module PS-Get
 
 Write-Host

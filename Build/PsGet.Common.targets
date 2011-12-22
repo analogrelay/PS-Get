@@ -17,7 +17,7 @@
             <RegexReplace Include="$(MSBuildThisFileDirectory)\CommonAssemblyInfo.cs">
                 <Expression>\[assembly: AssemblyVersion\("\d+\.\d+\.\d+\.\d+"\)\]
 \[assembly: AssemblyFileVersion\("\d+\.\d+\.\d+\.\d+"\)\]</Expression>
-                <Replacement>[assembly: AssemblyVersion("$(Version).0.0")]
+                <Replacement>[assembly: AssemblyVersion("$(FullVersion)")]
 [assembly: AssemblyFileVersion("$(FullVersion)")]</Replacement>
             </RegexReplace>
         </ItemGroup>
